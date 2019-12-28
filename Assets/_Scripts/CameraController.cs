@@ -9,7 +9,7 @@ namespace Assets.Scripts
         public GameObject waves;
         public Tilemap tilemap;
         public const float UNITS_SIZE = 1.2f;
-        public const float WAVES_SIZE = 16f;
+        public const float WAVES_SIZE = 14f;
         public void SetCamera(Vector2 min,Vector2 max)
         {
             Camera camera = GetComponent<Camera>();
@@ -32,9 +32,7 @@ namespace Assets.Scripts
            
             waves.transform.localScale = new Vector3(camera.orthographicSize*2/WAVES_SIZE, waves.transform.localScale.y, camera.orthographicSize * 2 / WAVES_SIZE);
             waves.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y,
-                waves.transform.position.z);
-
-           
+                waves.transform.position.z);         
         }
      
         public void Awake()

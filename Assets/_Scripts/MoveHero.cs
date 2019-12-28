@@ -11,15 +11,17 @@ namespace Assets.Scripts
     public class MoveHero:MoveHeroBase
     {
         public bool isBlockInput=false;
-        public const float TIME_WALK = 1f;
+        public const float TIME_WALK = 0.5f;
+        public const float EAT_TIME = 1f;
         private Animator animator;
 
-        public IEnumerator SetHeroPositionWithEatAnimation(Position position)
+        public IEnumerator SetHeroPositionWithEatAnimation(Position position, int layer)
         {
-            HeroPosition = position;
+            HeroPosition = position;           
             var vector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
             var lastHeroPosition = gameObject.transform.position;
             animator.CrossFade("walk", 0.05f);
+            //animator.Play("walk");
             isBlockInput = true;
             for (float i = 0; i < TIME_WALK * 60; i++)
             {
@@ -30,7 +32,8 @@ namespace Assets.Scripts
             }
             isBlockInput = false;
             animator.CrossFade("eat", 0.25f);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(EAT_TIME);
+            levelManager.TryRemoveFruit(position, layer);
             animator.CrossFade("walk", 0.05f);
             for (float i = TIME_WALK * 60; i < TIME_WALK * 100; i++)
             {
@@ -87,9 +90,9 @@ namespace Assets.Scripts
         }
 
 
-        public void SetHeroPositionWithEat(Position position)
+        public void SetHeroPositionWithEat(Position position,int layer)
         {
-            StartCoroutine(SetHeroPositionWithEatAnimation(position));
+            StartCoroutine(SetHeroPositionWithEatAnimation(position,layer));
         }
 
         private LevelManager levelManager;
@@ -205,14 +208,14 @@ namespace Assets.Scripts
             bool fruitIsFound=levelManager.TryFindFruit(hex.Position, layer, out var fruit);
             if (fruitIsFound)
             {
-                SetHeroPositionWithEat(new Position(hex.Position.x, hex.Position.y));
+                SetHeroPositionWithEat(new Position(hex.Position.x, hex.Position.y),layer);
+                yield return new WaitForSeconds(TIME_WALK);
             }
             else
             {
                 SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
-            }
-            
-            yield return new WaitForSeconds(TIME_WALK);
+                yield return new WaitForSeconds(TIME_WALK);
+            }                     
             leavedHex.OnLeaveHex();
 
             levelManager.TryGetHex(HeroPosition, 0, out var enteredHex);
