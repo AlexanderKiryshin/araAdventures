@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155a789eea87c7f49af652a3133563a3, type: 3}
+  m_Name: GameObjectData
+  m_EditorClassIdentifier: 
+  fruit: {fileID: 7417861743463903822, guid: 7b58518523cadad44ae0ef6d2fb186c9, type: 3}
+  hex3x: {fileID: 6126854861290062279, guid: a3d998a2a8558aa4990b96bfe44a64bb, type: 3}
+  dirt: {fileID: 4360893881768225390, guid: a6e4344ff91a0ba47aecc963c0010246, type: 3}
+  exploder: {fileID: 5643880244032418008, guid: c65e2b364c30f6f41b088a840e7198dd,
+    type: 3}
+  grass: {fileID: 8926682486404781895, guid: 3865be6b79d1a174d8c192cd64c47eb4, type: 3}
+  ice: {fileID: 4694722868605917079, guid: d13547461b95b0b44b6867ff6588e17e, type: 3}
+  stone: {fileID: 3463114144495159336, guid: 2f1db96803a81bb459387ad56871c1b4, type: 3}
+  turnerLeft: {fileID: 8236543969261440971, guid: 757c8659e27f9cb408ae062b984cbfb3,
+    type: 3}
+  turnerRight: {fileID: 5548981493444318718, guid: 9a056750dcc7ed94a88e16a488957cc7,
+    type: 3}

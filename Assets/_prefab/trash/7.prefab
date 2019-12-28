@@ -1,0 +1,313 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1202805423985050}
+  m_IsPrefabAsset: 1
+--- !u!1 &1202805423985050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4709127887039658}
+  - component: {fileID: 114454323155832804}
+  - component: {fileID: 23403877028191450}
+  - component: {fileID: 33172833174044594}
+  m_Layer: 0
+  m_Name: 7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4709127887039658
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1202805423985050}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.119, y: -0.835, z: -0.010000229}
+  m_LocalScale: {x: 0.0019177845, y: 0.0071512014, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23403877028191450
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1202805423985050}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: b9e0b81f88d9d994dbec43692d08d3c7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33172833174044594
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1202805423985050}
+  m_Mesh: {fileID: 0}
+--- !u!114 &114454323155832804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1202805423985050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03351eef812632d4ba150c732aaedbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: 0
+  outlineColor1: {r: 0, g: 1, b: 0.9176471, a: 1}
+  outlineColor2: {r: 0, g: 0, b: 0, a: 1}
+  OutlineWidth: 2
+  outlineTexturingScale: 10
+  outlineGradient: 1
+  outlineNormalOffset: 0
+  corners: 1
+  fill: 1
+  landscapeBottomDepth: 10
+  fillColor1: {r: 0, g: 1, b: 0.9172416, a: 1}
+  fillColor2: {r: 0, g: 0, b: 0, a: 1}
+  UVMapping1: 0
+  UVMapping2: 0
+  gradientOffset: {x: 0, y: 0}
+  gradientAngle: 269.75012
+  gradientScale: 0.027219377
+  textureOffset: {x: -5, y: -5}
+  textureAngle: 0
+  textureScale: 0.1
+  textureOffset2: {x: 5, y: 5}
+  textureAngle2: 0
+  textureScale2: 0.1
+  emboss: 0
+  embossColor1: {r: 1, g: 1, b: 1, a: 1}
+  embossColor2: {r: 0, g: 0, b: 0, a: 1}
+  embossAngle: 251.62569
+  embossOffset: 0.5
+  embossSize: 8.770635
+  embossCurveSmoothness: 3
+  physics: 0
+  createPhysicsInEditor: 0
+  createConvexMeshCollider: 0
+  physicsMaterial: {fileID: 0}
+  physicsMaterial2D: {fileID: 0}
+  _vertexDensity: 1
+  vertexCount: 20
+  optimizedVertexCount: 64
+  physicsColliderCount: 32
+  LockPhysicsToAppearence: 0
+  colliderZDepth: 100
+  colliderNormalOffset: 0
+  boxColliderDepth: 1
+  _boxColliders: []
+  lastPhysicsVertsCount: 0
+  antiAliasingWidth: 1
+  landscapeOutlineAlign: 1
+  maxBeakLength: 3
+  optimize: 0
+  optimizeAngle: 5
+  showCoordinates: 1
+  gridSize: 0.2
+  gridColor: {r: 1, g: 1, b: 1, a: 0.2}
+  showGrid: 1
+  gridExpansion: 3
+  snapToGrid: 1
+  snapHandlesToGrid: 1
+  showNumberInputs: 1
+  style: {fileID: 0}
+  defaultStyleName: 1
+  styleLocalGradientPositioning: 0
+  styleLocalTexturePositioning: 0
+  styleLocalEmbossPositioning: 0
+  styleLocalAntialiasing: 0
+  styleLocalVertexCount: 0
+  styleLocalPhysicsColliderCount: 0
+  hideHandles: 0
+  FlattenZ: 1
+  FixOverlaps: 1
+  isDirty: 0
+  PinUvs: 0
+  AutoRefresh: 0
+  AutoRefreshDelay: 0.15
+  AutoRefreshDelayRandomize: 1
+  PerspectiveMode: 0
+  CurrentPerspective: 0
+  _mFilter: {fileID: 33172833174044594}
+  spline:
+    precalcNormals:
+    - {x: -0.27598125, y: 0.961163, z: 0}
+    - {x: 0.02294006, y: 0.99973685, z: 0}
+    - {x: -0.9818187, y: -0.18982135, z: -0}
+    - {x: 0.70367587, y: -0.7105211, z: 0}
+    - {x: 0.35629722, y: -0.93437266, z: 0}
+    - {x: 0.62599486, y: -0.7798271, z: 0}
+    - {x: 0.36248943, y: -0.9319879, z: 0}
+    - {x: 0.25811094, y: -0.9661153, z: 0}
+    - {x: 0.9998216, y: -0.018889891, z: 0}
+    - {x: 0.63354737, y: -0.7737039, z: 0}
+    - {x: 0.14180674, y: -0.9898944, z: 0}
+    - {x: -0.9371931, y: 0.34881094, z: 0}
+    - {x: -0.5334418, y: 0.8458368, z: 0}
+    - {x: -0.45542073, y: -0.8902764, z: -0}
+    - {x: -0.5040475, y: 0.8636759, z: 0}
+    - {x: -0.5664924, y: 0.824067, z: 0}
+    - {x: -0.94978654, y: 0.31289858, z: 0}
+    - {x: 0.5277499, y: -0.8493998, z: 0}
+    - {x: -0.991791, y: -0.12786965, z: -0}
+    - {x: -0.5611562, y: -0.8277099, z: -0}
+    - {x: -0.27598122, y: 0.961163, z: 0}
+    precalcPositions: []
+    points:
+    - point: {x: -45.384304, y: 14.799998, z: 0}
+      inCtrl: {x: -5.315403, y: -1.66504, z: 0}
+      outCtrl: {x: 13.341263, y: 4.179126, z: 0}
+      widthMultiplier: 0.046968047
+      natural: 0
+    - point: {x: 2.0000494, y: 24.000034, z: 0}
+      inCtrl: {x: -12.762175, y: 0.44897842, z: 0}
+      outCtrl: {x: 12.00007, y: 0.00004196167, z: 0}
+      widthMultiplier: 0.04440583
+      natural: 0
+    - point: {x: 27, y: 16.000002, z: 0}
+      inCtrl: {x: -2.0000095, y: -0.99999905, z: 0}
+      outCtrl: {x: -8.000025, y: -0.99999905, z: 0}
+      widthMultiplier: 0.26204866
+      natural: 0
+    - point: {x: 53.000027, y: 19.000004, z: 0}
+      inCtrl: {x: 12.999973, y: 1.0666599, z: 0}
+      outCtrl: {x: 0.81798935, y: -2.2642136, z: 0}
+      widthMultiplier: 0.08837868
+      natural: 0
+    - point: {x: 16.000002, y: 4.999998, z: 0}
+      inCtrl: {x: 12.373165, y: 3.9358463, z: 0}
+      outCtrl: {x: -5.6191816, y: -1.7874389, z: 0}
+      widthMultiplier: 1.1657224
+      natural: 0
+    - point: {x: 35.000004, y: 7.0000024, z: 0}
+      inCtrl: {x: 25.000172, y: 0.42904806, z: 0}
+      outCtrl: {x: -0.58177567, y: -1.9892435, z: 0}
+      widthMultiplier: 1.4241089
+      natural: 0
+    - point: {x: 33, y: 2.0000043, z: 0}
+      inCtrl: {x: 4.0182076, y: 1.6365187, z: 0}
+      outCtrl: {x: -3.653843, y: -1.4615438, z: 0}
+      widthMultiplier: 1.2771804
+      natural: 0
+    - point: {x: 13.000002, y: 0, z: 0}
+      inCtrl: {x: 4.7927647, y: 1.3412044, z: 0}
+      outCtrl: {x: -8.36574, y: -2.3411107, z: 0}
+      widthMultiplier: 1.0867536
+      natural: 0
+    - point: {x: 1.9999988, y: -7.0000024, z: 0}
+      inCtrl: {x: -1.5060723, y: 2.2597198, z: 0}
+      outCtrl: {x: -10.96167, y: -15.417957, z: 0}
+      widthMultiplier: 0.56249976
+      natural: 0
+    - point: {x: 31.000017, y: -15.000003, z: 0}
+      inCtrl: {x: 2.6453304, y: 3.739025, z: 0}
+      outCtrl: {x: -4.3453617, y: -0.000017166138, z: 0}
+      widthMultiplier: 0.5220063
+      natural: 0
+    - point: {x: -5.000018, y: -25.923775, z: 0}
+      inCtrl: {x: 8.071627, y: 1.6153564, z: 0}
+      outCtrl: {x: -5.0566463, y: -1.011692, z: 0}
+      widthMultiplier: 0.24878176
+      natural: 0
+    - point: {x: -41.00001, y: -15.000003, z: 0}
+      inCtrl: {x: -10.213516, y: 1.7610836, z: 0}
+      outCtrl: {x: -7.2133675, y: 3.7610464, z: 0}
+      widthMultiplier: 0.32901385
+      natural: 0
+    - point: {x: -21, y: -4.0000005, z: 0}
+      inCtrl: {x: -0.67403984, y: -2.6017852, z: 0}
+      outCtrl: {x: 60, y: 7.000003, z: 0}
+      widthMultiplier: 1
+      natural: 0
+    - point: {x: -38.000004, y: -5.999996, z: 0}
+      inCtrl: {x: -0.6959877, y: -1.1096106, z: 0}
+      outCtrl: {x: -1.4084511, y: 0.84506845, z: 0}
+      widthMultiplier: 0.9269495
+      natural: 0
+    - point: {x: -33, y: 0, z: 0}
+      inCtrl: {x: -2.588665, y: -1.7112745, z: 0}
+      outCtrl: {x: 1.8633194, y: 1.2318087, z: 0}
+      widthMultiplier: 0.797597
+      natural: 0
+    - point: {x: -15, y: 2.0000043, z: 0}
+      inCtrl: {x: -1.9949532, y: -1.114953, z: 0}
+      outCtrl: {x: 0.99999714, y: 1.9999962, z: 0}
+      widthMultiplier: 0.6941509
+      natural: 0
+    - point: {x: 12, y: 13.999997, z: 0}
+      inCtrl: {x: 3.845293, y: -3.1114073, z: 0}
+      outCtrl: {x: 8.000011, y: 2.0000124, z: 0}
+      widthMultiplier: 0.11365625
+      natural: 0
+    - point: {x: 1.9999988, y: 18.000006, z: 0}
+      inCtrl: {x: 5.993951, y: 1.0218182, z: 0}
+      outCtrl: {x: 0.40000272, y: -2.0000038, z: 0}
+      widthMultiplier: 0.093494244
+      natural: 0
+    - point: {x: -57, y: -4.0000005, z: 0}
+      inCtrl: {x: 1.8389664, y: -1.3761525, z: 0}
+      outCtrl: {x: 7.757725, y: 2.216579, z: 0}
+      widthMultiplier: 0.015208748
+      natural: 0
+    - point: {x: -57, y: 14.799998, z: 0}
+      inCtrl: {x: 1.7781754, y: 1.7789965, z: 0}
+      outCtrl: {x: -0.00023651123, y: 3.0000029, z: 0}
+      widthMultiplier: 0.04751242
+      natural: 0
+    PercentPrecalcNormals: 0
+    Triangulate: 0
+  lowQualityRender: 0
+  inverseTriangleDrawOrder: 0
+  overLappingVertsShift: 0.01
+  CachedFillMaterial: {fileID: 0}
+  Cached3DFillMaterial: {fileID: 0}
+  Cached3DAAMaterial: {fileID: 0}
+  _rageCamera: {fileID: 0}
+  DestroyFarseerNow: 0
+  ShowTriangleCount: 0
+  FarseerPhysicsPointsOnly: 0
+  PhysicsIsTrigger: 0
+  WorldAaWidth: 0
