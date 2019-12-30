@@ -23,25 +23,31 @@ namespace Assets.Scripts
             animator.CrossFade("walk", 0.05f);
             //animator.Play("walk");
             isBlockInput = true;
-            for (float i = 0; i < TIME_WALK * 60; i++)
-            {
+            var newVector = Vector3.Lerp(lastHeroPosition,
+                    new Vector3(vector.x, vector.y, vector.z + 0.23f), 0.6f);
+            gameObject.transform.DOMove(newVector, 0.9f);
+            /*for (float i = 0; i < TIME_WALK * 60; i++)
+            {            
                 var newVector = Vector3.Lerp(lastHeroPosition,
                     new Vector3(vector.x, vector.y, vector.z + 0.23f), i / (TIME_WALK * 100));
                 gameObject.transform.position = newVector;
                 yield return new WaitForSeconds(0.01f);
-            }
+            }*/
             isBlockInput = false;
-            animator.CrossFade("eat", 0.25f);
+            animator.CrossFade("eat", 0.05f);
             yield return new WaitForSeconds(EAT_TIME);
             levelManager.TryRemoveFruit(position, layer);
-            animator.CrossFade("walk", 0.05f);
-            for (float i = TIME_WALK * 60; i < TIME_WALK * 100; i++)
+            animator.CrossFade("walk", 0.1f);
+           /* var newVector2 = Vector3.Lerp(lastHeroPosition,
+                   new Vector3(vector.x, vector.y, vector.z + 0.23f), 1/TIME_WALK);*/
+            gameObject.transform.DOMove(vector, 0.6f);
+            /*for (float i = TIME_WALK * 60; i < TIME_WALK * 100; i++)
             {
                 var newVector = Vector3.Lerp(lastHeroPosition,
                     new Vector3(vector.x, vector.y, vector.z + 0.23f), i / (TIME_WALK * 100));
                 gameObject.transform.position = newVector;
                 yield return new WaitForSeconds(0.01f);
-            }
+            }*/
             animator.CrossFade("idle", 0.5f);
 
         }
@@ -67,13 +73,16 @@ namespace Assets.Scripts
                 animator.CrossFade("walk",0.5f);
                // animator.Play("walk");
                 isBlockInput = true;
-                for (float i = 0; i < TIME_WALK*100; i++)
+                var newVector = Vector3.Lerp(lastHeroPosition,
+                   new Vector3(vector.x, vector.y, vector.z + 0.23f), 1 / TIME_WALK);
+                gameObject.transform.DOMove(newVector, 1.5f);
+               /* for (float i = 0; i < TIME_WALK*100; i++)
                 {
                     var newVector= Vector3.Lerp(lastHeroPosition,
                         new Vector3(vector.x, vector.y, vector.z + 0.23f), i / (TIME_WALK * 100));
                     gameObject.transform.position = newVector;
                     yield return new WaitForSeconds(0.01f);
-                }
+                }*/
                 isBlockInput = false;
                 animator.CrossFade("idle", 0.5f);
                // animator.Play("idle");
