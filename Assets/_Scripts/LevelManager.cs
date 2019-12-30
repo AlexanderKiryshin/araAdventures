@@ -74,7 +74,17 @@ public class LevelManager : MonoBehaviour
 
     public bool TryRemoveFruit(Position position, int layer)
     {
-        foreach (var fruit in fruits)
+        for (int i=0;i<fruits.Count;i++)
+        {
+            if (fruits[i].position.x == position.x && fruits[i].position.y == position.y && fruits[i].layer == layer)
+            {
+                Destroy(fruits[i].instance);
+                fruits.RemoveAt(i);
+                StartCoroutine(CheckWinCondition());
+                return true;
+            }
+        }
+        /*foreach (var fruit in fruits)
         {
             if (fruit.position.x == position.x && fruit.position.y == position.y && fruit.layer == layer)
             {
@@ -83,7 +93,7 @@ public class LevelManager : MonoBehaviour
                 StartCoroutine(CheckWinCondition());
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
