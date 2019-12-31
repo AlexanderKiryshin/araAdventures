@@ -3669,6 +3669,11 @@ PrefabInstance:
       propertyPath: m_ChunkCullingBounds.y
       value: 0.13999999
       objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: maxCurrent
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: Scenes.Array.size

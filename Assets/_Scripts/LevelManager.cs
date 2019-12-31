@@ -280,7 +280,10 @@ public class LevelManager : MonoBehaviour
                min.y = hex.Instance.transform.position.y;
            }           
         }
-        cameraController.SetCamera(min, max);
+        if (hexes.Count != 0)
+        {
+            cameraController.SetCamera(min, max,hexes[0].Instance.transform.position.z);
+        }
     }
    
     public bool TryGetHex(Position position, int layout, out IHexType outHex)

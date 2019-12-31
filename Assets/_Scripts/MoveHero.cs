@@ -11,7 +11,7 @@ namespace Assets.Scripts
     public class MoveHero:MoveHeroBase
     {
         public bool isBlockInput=false;
-        public const float TIME_WALK = 0.5f;
+        public const float TIME_WALK = 1.5f;
         public const float EAT_TIME = 1f;
         private Animator animator;
 
@@ -75,10 +75,11 @@ namespace Assets.Scripts
                 animator.CrossFade("walk",0.5f);
                // animator.Play("walk");
                 isBlockInput = true;
-                var newVector = Vector3.Lerp(lastHeroPosition,
-                   new Vector3(vector.x, vector.y, vector.z + 0.23f), 1 / TIME_WALK);
-                gameObject.transform.DOMove(newVector, 1.5f);
-                yield return new WaitForSeconds(1.5f);
+               /* var newVector = Vector3.Lerp(lastHeroPosition,
+                   new Vector3(vector.x, vector.y, vector.z + 0.23f), 1 / TIME_WALK);*/
+                gameObject.transform.DOMove(vector, TIME_WALK);
+                yield return new WaitForSeconds(TIME_WALK);
+                isBlockInput = false;
                 /* for (float i = 0; i < TIME_WALK*100; i++)
                  {
                      var newVector= Vector3.Lerp(lastHeroPosition,
@@ -86,14 +87,13 @@ namespace Assets.Scripts
                      gameObject.transform.position = newVector;
                      yield return new WaitForSeconds(0.01f);
                  }*/
-                isBlockInput = false;
                 animator.CrossFade("idle", 0.5f);
                // animator.Play("idle");
                 // gameObject.transform.DOMove(, TIME_WALK);
 
             }
-            yield return new WaitForSeconds(TIME_WALK);
-            levelManager.FindFruitAndRemove(HeroPosition, layer, out var fruit);
+           // yield return new WaitForSeconds(TIME_WALK);
+           // levelManager.FindFruitAndRemove(HeroPosition, layer, out var fruit);
         }
 
         public void SetHeroPosition(Position position, bool isInstanceMove)

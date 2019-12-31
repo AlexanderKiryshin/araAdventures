@@ -10,15 +10,18 @@ namespace Assets.Scripts
         public Tilemap tilemap;
         public const float UNITS_SIZE = 1.2f;
         public const float WAVES_SIZE = 14f;
-        public void SetCamera(Vector2 min,Vector2 max)
+        public const float CAMERA_Z_COORDINATE = -5f;
+        public void SetCamera(Vector2 min,Vector2 max,float z)
         {
             Camera camera = GetComponent<Camera>();
             Vector3 vector = Vector3.Lerp(min,max, 0.5f);
-            camera.transform.position = new Vector3(vector.x, vector.y /*- _x / 2 + 1*/, -5);
-            float _y = max.y + UNITS_SIZE / 2 - (min.y - UNITS_SIZE / 2);
-            float _x = max.x + UNITS_SIZE/2 - (min.x -UNITS_SIZE/2);
+            
            
-            if (_x >= _y)
+            float _y = max.y + UNITS_SIZE / 2 - (min.y - UNITS_SIZE / 2);
+            float _x = max.x + UNITS_SIZE/2 - (min.x -UNITS_SIZE/2);          
+            float ycoef=_y* (float)Screen.width / (float)Screen.height;
+           
+            if (_x >= ycoef)
             {
                 float coef = (float)Screen.height / (float)Screen.width;
                 camera.orthographicSize = (_x+UNITS_SIZE) * coef / 2;
@@ -30,8 +33,12 @@ namespace Assets.Scripts
                 camera.orthographicSize = (_y + UNITS_SIZE)/ 2;
             }
            
+            Debug.LogError(Mathf.Tan(camera.transform.localRotation.eulerAngles.x*Mathf.PI/180));
+            float offsetY = (z - CAMERA_Z_COORDINATE) * Mathf.Tan(camera.transform.localRotation.eulerAngles.x * Mathf.PI / 180);
+            camera.transform.position = new Vector3(vector.x, vector.y+offsetY, CAMERA_Z_COORDINATE);
             waves.transform.localScale = new Vector3(camera.orthographicSize*2/WAVES_SIZE, waves.transform.localScale.y, camera.orthographicSize * 2 / WAVES_SIZE);
-            waves.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y,
+            float offsetWavesY = (waves.transform.position.z - CAMERA_Z_COORDINATE) * Mathf.Tan(camera.transform.localRotation.eulerAngles.x * Mathf.PI / 180);
+            waves.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y- offsetWavesY,
                 waves.transform.position.z);         
         }
      
