@@ -43,8 +43,6 @@ namespace Assets.Scripts.Cells
 
         public override void OnEnterHex(Position previousCoordinate)
         {
-            string ddd;
-            ddd = "sss";
         }
     }
 }

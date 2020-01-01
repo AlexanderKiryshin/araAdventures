@@ -435,9 +435,10 @@ public class LevelManager : MonoBehaviour
     {
         if (fruits.Count == 0)
         {
+            moveHero = FindObjectOfType<MoveHero>();
+            moveHero.isBlockInput = true;
             StartCoroutine(moveHero.WinMove());
-            yield return new WaitForSeconds(0.5f);
-          
+            yield return new WaitForSeconds(0.5f);         
         }
     }
 }

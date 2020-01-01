@@ -188,16 +188,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: Scenes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: Scenes.Array.data[0]
-      value: level_2
-      objectReference: {fileID: 0}
     - target: {fileID: 6923463551867688267, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: m_Tiles.Array.size
@@ -3282,6 +3272,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 32407dbf39c6f9346a8c980710c5a5d9,
         type: 2}
+    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: Scenes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: Scenes.Array.data[0]
+      value: level_4
+      objectReference: {fileID: 0}
     - target: {fileID: 6923463553346618377, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: field of view
