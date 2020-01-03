@@ -14,7 +14,9 @@ namespace Assets.Scripts
         public const float TIME_WALK = 1.5f;
         public const float EAT_TIME = 1f;
         private Animator animator;
-
+        public Position nextPosition;
+        public Action EndMove;
+        public Action EndEat;
         public IEnumerator SetHeroPositionWithEatAnimation(Position position, int layer)
         {
             HeroPosition = position;           
@@ -64,36 +66,18 @@ namespace Assets.Scripts
 
                 gameObject.transform.position = new Vector3(vector.x, vector.y, vector.z + 0.23f);
             }
-            else
+            /*else
             {
-            /*   var anim=animator.GetCurrentAnimatorStateInfo(0);
-
-               var anim1 = animator.GetCurrentAnimatorClipInfo(0);*/
 
         var lastHeroPosition = gameObject.transform.position;
-        //animation.CrossFade("walk");
                 animator.CrossFade("walk",0.5f);
-               // animator.Play("walk");
                 isBlockInput = true;
-               /* var newVector = Vector3.Lerp(lastHeroPosition,
-                   new Vector3(vector.x, vector.y, vector.z + 0.23f), 1 / TIME_WALK);*/
                 gameObject.transform.DOMove(vector, TIME_WALK);
                 yield return new WaitForSeconds(TIME_WALK);
                 isBlockInput = false;
-                /* for (float i = 0; i < TIME_WALK*100; i++)
-                 {
-                     var newVector= Vector3.Lerp(lastHeroPosition,
-                         new Vector3(vector.x, vector.y, vector.z + 0.23f), i / (TIME_WALK * 100));
-                     gameObject.transform.position = newVector;
-                     yield return new WaitForSeconds(0.01f);
-                 }*/
                 animator.CrossFade("idle", 0.5f);
-               // animator.Play("idle");
-                // gameObject.transform.DOMove(, TIME_WALK);
-
-            }
-           // yield return new WaitForSeconds(TIME_WALK);
-           // levelManager.FindFruitAndRemove(HeroPosition, layer, out var fruit);
+            }*/
+            yield return null;
         }
 
         public void SetHeroPosition(Position position, bool isInstanceMove)
@@ -109,7 +93,7 @@ namespace Assets.Scripts
 
         private LevelManager levelManager;
         [SerializeField]
-        private Tilemap startTilemap;
+        public Tilemap startTilemap;
 
       //  public IEnumerator MovingHero()
         public void Awake()
@@ -122,7 +106,7 @@ namespace Assets.Scripts
 
         public void CheckHex(Position position, int layer,Func<IEnumerator> method)
         {
-            if (HeroPosition.x == position.x&& HeroPosition.y == position.y && layer == this.layer)
+            if (nextPosition.x == position.x&& nextPosition.y == position.y && layer == this.layer)
             {
                 WinLoseManager.instance.OnLose();
             }
@@ -182,7 +166,7 @@ namespace Assets.Scripts
 					return;
 				}
                            
-                StartCoroutine(EnterHexCoroutine(hex));
+                StartCoroutine(LeaveHexCoroutine(hex));
                 //  transform.position = startTilemap.CellToLocal(new Vector3Int(hex.Position.x, hex.Position.y, 0));
                 //
                 /*  bool isFoundHex = levelManager.TryGetHex(new Vector2Int(cursorPosition.x, cursorPosition.y), 0, out var hex);
@@ -202,22 +186,77 @@ namespace Assets.Scripts
 
             }
         }
-
-        public IEnumerator EnterHexCoroutine(IHexType hex)
+        public void SetNextPosition()
+        {            
+            HeroPosition = nextPosition;
+        }
+        public void Move(Position position, float percentMoveToPosition, bool isWalkAnimation = true)
+        {
+            StartCoroutine(MoveCoroutine(position, percentMoveToPosition, isWalkAnimation));
+        }
+        public void EatWithMove(Position position,float percentMoveBefore,float percentMoveAfter)
+        {
+            StartCoroutine(EatWithMoveCoroutine(position));
+        }
+        private IEnumerator EatWithMoveCoroutine(Position position)
+        {
+            animator.CrossFade("eat", 0.05f);
+            yield return new WaitForSeconds(EAT_TIME);
+            levelManager.TryRemoveFruit(position, layer);
+            EndEat?.Invoke();
+        }
+        private IEnumerator MoveCoroutine(Position position,float percentMoveToPosition,bool isWalkAnimation=true)
+        {
+           // HeroPosition = position;
+            var vector = startTilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
+            var startVector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
+            vector = Vector3.Lerp(startVector, vector, percentMoveToPosition);
+            var lastHeroPosition = gameObject.transform.position;
+            if (isWalkAnimation)
+            {
+                animator.CrossFade("walk", 0.5f);
+            }
+            isBlockInput = true;
+            // gameObject.transform.DOMove(vector, TIME_WALK*percentMoveToPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 22, 0));
+           // gameObject.transform.DOPath(new Vector3[] { vector }, TIME_WALK * percentMoveToPosition,PathType.Linear, PathMode.Full3D);
+             yield return new WaitForSeconds(TIME_WALK * percentMoveToPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -22, 0));
+            isBlockInput = false;
+            EndMove?.Invoke();
+           // animator.CrossFade("idle", 0.5f);
+        }
+        private IEnumerator MoveM(Position position, float percentMoveToPosition, bool isWalkAnimation = true)
+        {
+            var vector = startTilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
+            var startVector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
+            vector = Vector3.Lerp(startVector, vector, percentMoveToPosition);
+            var lastHeroPosition = gameObject.transform.position;
+            if (isWalkAnimation)
+            {
+                animator.CrossFade("walk", 0.5f);
+            }
+            isBlockInput = true;
+            // gameObject.transform.DOMove(vector, TIME_WALK*percentMoveToPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 22, 0));
+            // gameObject.transform.DOPath(new Vector3[] { vector }, TIME_WALK * percentMoveToPosition,PathType.Linear, PathMode.Full3D);
+            yield return new WaitForSeconds(TIME_WALK * percentMoveToPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -22, 0));
+            isBlockInput = false;
+        }
+        public IEnumerator LeaveHexCoroutine(IHexType hex)
         {
             var vector =
                 levelManager.levelTilemap.CellToWorld(new Vector3Int(hex.Position.x, hex.Position.y, hex.Layer));
-            // vector.z = vector.z;
-            //  gameObject.transform.DOLookAt(vector ,0.5f);
+
             float angle=PositionCalculator.GetAngleAroundNearHexes(HeroPosition, hex.Position);
             gameObject.transform.DOLocalRotate(
                 new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y ,
                     gameObject.transform.rotation.z+angle), 0.5f);
             yield return new WaitForSeconds(0.2f);
-           // levelManager.FindFruitAndRemove(HeroPosition, layer, out var fruit);
-            levelManager.TryGetHex(HeroPosition, 0, out var leavedHex);
+            
             var lastPosition = HeroPosition;
-            bool fruitIsFound=levelManager.TryFindFruit(hex.Position, layer, out var fruit);
+           /* bool fruitIsFound=levelManager.TryFindFruit(hex.Position, layer, out var fruit);
             if (fruitIsFound)
             {
                 SetHeroPositionWithEat(new Position(hex.Position.x, hex.Position.y),layer);
@@ -227,13 +266,24 @@ namespace Assets.Scripts
             {
                 SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
                 yield return new WaitForSeconds(TIME_WALK);
-            }                     
-            leavedHex.OnLeaveHex();
-
-            levelManager.TryGetHex(HeroPosition, 0, out var enteredHex);
-            enteredHex.OnEnterHex(lastPosition);
+            }*/
+            levelManager.TryGetHex(HeroPosition, 0, out var leavedHex);
+            levelManager.TryGetHex(hex.Position, 0, out var enteredHex);
+            leavedHex.OnLeaveHex(enteredHex.Position);
+            leavedHex.LeaveHexEvent += OnLeaveHexEvent;
+            
+            //enteredHex.OnEnterHex(lastPosition);
+            yield return null;
         }
-
+        public void OnLeaveHexEvent(Position nextHex,Position currentHex)
+        {
+            levelManager.TryGetHex(nextHex, 0, out var enteredHex);
+            enteredHex.OnEnterHex(currentHex);
+        }
+        public void SetIdleAnimation()
+        {
+            animator.CrossFade("idle", 0.5f);
+        }
         public IEnumerator WinMove()
         {
             while (isBlockInput)

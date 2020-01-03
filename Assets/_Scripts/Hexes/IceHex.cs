@@ -21,6 +21,7 @@ public class IceHex : BaseHexType
 
 	public override void OnEnterHex(Position previousCoordinate)
 	{
+		((MoveHero)MoveHero.instance).Move(Position, 1f,false);
 		var lastPosition = previousCoordinate;
 		var currentPosition = Position;
 		var newPosition = PositionCalculator.GetOppositeSidePosition(lastPosition, currentPosition);
@@ -35,12 +36,12 @@ public class IceHex : BaseHexType
 		moveHero.SetHeroPosition(newPosition,false);
 		hex.OnEnterHex(currentPosition);
 	}
-
-	public override void OnLeaveHex()
+	public override void OnLeaveHex(Position nextHex)
 	{
+		((MoveHero)MoveHero.instance).Move(nextHex, 0.5f,false);
 	}
 
-    public override void OnLaserHit(Position previousPosition,int rangeInAir,int range)
+	public override void OnLaserHit(Position previousPosition,int rangeInAir,int range)
     {
         Position[] laserPositions = PositionCalculator.GetLaserPositions(previousPosition, Position);
         foreach (var position in laserPositions)

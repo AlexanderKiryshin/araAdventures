@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     public CameraController cameraController;
     private MoveHero moveHero;
 
-    private List<IHexType> hexes = new List<IHexType>();
+    private List<BaseHexType> hexes = new List<BaseHexType>();
     private List<TileBase> hexesTypes = new List<TileBase>();
 
     //public delegate void WinDelegate();
@@ -206,7 +206,7 @@ public class LevelManager : MonoBehaviour
                     continue;
                 }
 
-                IHexType hextype = null;
+                BaseHexType hextype = null;
                 switch (tileBase.name)
                 {
                     case "DoubleHex":
@@ -286,7 +286,7 @@ public class LevelManager : MonoBehaviour
         }
     }
    
-    public bool TryGetHex(Position position, int layout, out IHexType outHex)
+    public bool TryGetHex(Position position, int layout, out BaseHexType outHex)
     {
         /* if (Math.Abs(moveHero.HeroPosition.x - position.x) <= 1 && Math.Abs(moveHero.HeroPosition.y - position.y) <= 1)
          {*/
@@ -335,7 +335,7 @@ public class LevelManager : MonoBehaviour
          return false;
      }
      */
-    public void CreateHex(IHexType hexType)
+    public void CreateHex(BaseHexType hexType)
     {
         foreach (var hex in hexes)
         {
@@ -357,7 +357,7 @@ public class LevelManager : MonoBehaviour
     {
         Position[] positions = PositionCalculator.GetAroundSidePositions(hex.Position);
         var levelManager = GameObject.FindObjectOfType<LevelManager>();
-        var hexes = new List<IHexType>();
+        var hexes = new List<BaseHexType>();
         var newPositions = new List<Position>();
         var hexesForRotate = new List<IHexType>();
         foreach (var position in positions)
@@ -385,7 +385,7 @@ public class LevelManager : MonoBehaviour
         hex.Instance.transform.DOScale(new Vector3(60, 69.2f, 60), 1f);
         yield return new WaitForSeconds(0);
     }
-    public void ChangeHex(IHexType hexType,Func<IEnumerator> method)
+    public void ChangeHex(BaseHexType hexType,Func<IEnumerator> method)
     {
        // method();
         StartCoroutine(method());
@@ -420,12 +420,11 @@ public class LevelManager : MonoBehaviour
                 hexes.Remove(hex);
                 levelTilemap.SetTile(new Vector3Int(hex.Position.x, hex.Position.y, 0), null);
                 
-                hex.OnLeaveHex();
+                //hex.OnLeaveHex(
                 if (hex.isDestoyeble())
                 {
                     countDestroyable--;
                 }
-                // CheckWinCondition();
                 return;
             }
         }

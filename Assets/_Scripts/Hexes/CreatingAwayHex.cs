@@ -13,10 +13,10 @@ namespace Assets.Scripts.Cells
         public CreatingAwayHex(Position position, int layer) : base(position, layer)
         {
         }
-        public override void OnLeaveHex()
+        /*public override void OnLeaveHex()
         {
             // OnDestroyHex(Position, Layer);
-        }
+        }*/
 
         public override TileBase GetTile()
         {

@@ -10,9 +10,9 @@ namespace Assets.Scripts.Cells
         {
         }
 
-        public override void OnLeaveHex()
+      /*  public override void OnLeaveHex()
         {
-        }
+        }*/
 
         public override TileBase GetTile()
         {
@@ -24,8 +24,8 @@ namespace Assets.Scripts.Cells
             return false;
         }
 
-        public override void OnEnterHex(Position previousCoordinate)
+        /*public override void OnEnterHex(Position previousCoordinate)
         {
-        }
+        }*/
     }
 }

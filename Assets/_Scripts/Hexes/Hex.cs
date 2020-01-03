@@ -20,7 +20,12 @@ namespace Assets.Scripts
 
         public void DestroyHex()
         {
-            HexType.OnLeaveHex();
+            throw new System.NotImplementedException();
         }
+
+        /* public void DestroyHex(Position nextHex)
+         {
+             HexType.
+         }*/
     }
 }

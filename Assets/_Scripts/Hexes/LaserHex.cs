@@ -10,9 +10,9 @@ public class LaserHex : BaseHexType
 	{
 	}
 
-	public override void OnLeaveHex()
+	/*public override void OnLeaveHex()
 	{
-	}
+	}*/
 
 	public override TileBase GetTile()
 	{

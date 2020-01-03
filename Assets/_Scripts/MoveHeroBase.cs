@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
-    public class MoveHeroBase:MonoBehaviour
+    public class MoveHeroBase:Singleton<MoveHeroBase>
     {
         protected int layer = 0;
         private Position heroPosition;

@@ -14,10 +14,10 @@ namespace Assets.Scripts.Cells
         {
             this.isClockwiseRotating = isClockwiseRotating;
         }
-        public override void OnLeaveHex()
+       /* public override void OnLeaveHex()
         {
             // OnDestroyHex(Position, Layer);
-        }
+        }*/
 
         public override TileBase GetTile()
         {
@@ -39,9 +39,10 @@ namespace Assets.Scripts.Cells
 
         public override void OnEnterHex(Position previousCoordinate)
         {
+            base.OnEnterHex(previousCoordinate);
             Position[] positions = PositionCalculator.GetAroundSidePositions(Position);
             var levelManager = GameObject.FindObjectOfType<LevelManager>();
-            var hexes = new List<IHexType>();
+            var hexes = new List<BaseHexType>();
             var newPositions = new List<Position>();
             var hexesForRotate=new List<IHexType>();
             foreach (var position in positions)
@@ -67,7 +68,7 @@ namespace Assets.Scripts.Cells
         {
             Position[] positions = PositionCalculator.GetAroundSidePositions(Position);
             var levelManager = GameObject.FindObjectOfType<LevelManager>();
-            var promhexes = new List<IHexType>();
+            var promhexes = new List<BaseHexType>();
             var newPositions = new List<Position>();
             var hexesForRotate = new List<IHexType>();
             foreach (var position in positions)

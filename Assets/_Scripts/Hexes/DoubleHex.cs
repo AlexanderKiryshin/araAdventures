@@ -11,10 +11,11 @@ namespace Assets.Scripts.Cells
         {
         }
 
-        public override void OnLeaveHex()
+        public override void OnLeaveHex(Position nextHex)
         {
           //  StartCoroutine(HideGrass());
             OnChangeHex(new NormalHex(Position,Layer),HideGrass);
+            base.OnLeaveHex(nextHex);
         }
 
         public IEnumerator HideGrass()
@@ -40,8 +41,8 @@ namespace Assets.Scripts.Cells
             return true;
         }
 
-        public override void OnEnterHex(Position previousCoordinate)
+       /* public override void OnEnterHex(Position previousCoordinate)
         {
-        }
+        }*/
     }
 }

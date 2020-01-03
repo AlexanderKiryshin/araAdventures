@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.Cells;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,7 +12,7 @@ namespace Assets.Scripts
         int Layer { get; set; }
         GameObject Model { get; set; }
         GameObject Instance { get; set; }
-        void OnLeaveHex();
+        void OnLeaveHex(Position nextHex);
         void OnEnterHex(Position previousCoordinate);
         bool isDestoyeble();
         TileBase GetTile();

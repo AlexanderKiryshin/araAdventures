@@ -14,16 +14,21 @@ namespace Assets.Scripts.Cells
         public NormalHex(Position position, int layer) : base(position, layer)
         {
         }
-        public override void OnLeaveHex()
+        public override void OnLeaveHex(Position nextHex)
         {
           
            //animator.Play("Falling");
-          // GameObject.Destroy(Instance);
-           OnDestroyHex(Position,Layer,DestroyHex);
+          // GameObject.Destroy(Instance);          
+            base.OnLeaveHex(nextHex);
+            OnDestroyHex(Position, Layer, DestroyHex);
         }
-
+        public override void OnLeaveHexEvent()
+        {
+            base.OnLeaveHexEvent();
+        }
         public IEnumerator DestroyHex()
         {
+            yield return new WaitForSeconds(MoveHero.TIME_WALK*0.7f);
             var firstObject = Instance.transform.GetChild(0);
             firstObject.gameObject.SetActive(false);
             var secondObject = Instance.transform.GetChild(1);
@@ -41,8 +46,8 @@ namespace Assets.Scripts.Cells
             return true;
         }
 
-        public override void OnEnterHex(Position previousCoordinate)
+       /* public override void OnEnterHex(Position previousCoordinate)
         {
-        }
+        }*/
     }
 }
