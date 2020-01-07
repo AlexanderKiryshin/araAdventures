@@ -62,17 +62,14 @@ namespace Assets.Scripts.Cells
             if (fruitIsFound)
             {
                 ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
-                ((MoveHero)MoveHero.instance).EatWithMove(Position);
-                SetHeroPositionWithEat(new Position(hex.Position.x, hex.Position.y),layer);
-                yield return new WaitForSeconds(TIME_WALK);
+                ((MoveHero)MoveHero.instance).EatWithMove(Position,0.6f,1f);
             }
             else
             {
-                SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
-                yield return new WaitForSeconds(TIME_WALK);
-            }*/
-            ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
-            ((MoveHero)MoveHero.instance).Move(Position, 1f);
+                ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
+                ((MoveHero)MoveHero.instance).Move(Position, 1f);
+            }
+            //SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
         }
         public void OnEnterHexEvent()
         {
