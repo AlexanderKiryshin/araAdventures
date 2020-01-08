@@ -21,7 +21,7 @@ public class IceHex : BaseHexType
 
 	public override void OnEnterHex(Position previousCoordinate)
 	{
-		((MoveHero)MoveHero.instance).Move(Position, 1f,false);
+		((MoveHero)MoveHero.instance).Move(previousCoordinate,Position, 1f,false);
 		var lastPosition = previousCoordinate;
 		var currentPosition = Position;
 		var newPosition = PositionCalculator.GetOppositeSidePosition(lastPosition, currentPosition);
@@ -38,7 +38,7 @@ public class IceHex : BaseHexType
 	}
 	public override void OnLeaveHex(Position nextHex)
 	{
-		((MoveHero)MoveHero.instance).Move(nextHex, 0.5f,false);
+		//((MoveHero)MoveHero.instance).Move(Position,nextHex, 0.5f,false);
 	}
 
 	public override void OnLaserHit(Position previousPosition,int rangeInAir,int range)

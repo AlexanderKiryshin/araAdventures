@@ -10,21 +10,23 @@ namespace Assets.Scripts
 {
     public class MoveHero:MoveHeroBase
     {
-        public bool isBlockInput=false;
-        public const float TIME_WALK = 1.5f;
-        public const float EAT_TIME = 1f;
+        private bool isBlockInput=false;
+        public const float TIME_WALK = 0.4f;
+        public const float EAT_TIME = 0.4f;
+        public const float MOVE_SPEED = 33;
         private Animator animator;
         public Position nextPosition;
         public Action EndMove;
         public Action EndEat;
         public IEnumerator SetHeroPositionWithEatAnimation(Position position, int layer)
         {
+            isBlockInput = true;       
             HeroPosition = position;           
             var vector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
             var lastHeroPosition = gameObject.transform.position;
             animator.CrossFade("walk", 0.05f);
             //animator.Play("walk");
-            isBlockInput = true;
+           
             var newVector = Vector3.Lerp(lastHeroPosition,
                     new Vector3(vector.x, vector.y, vector.z + 0.23f), 0.6f);
             gameObject.transform.DOMove(newVector, 0.9f);
@@ -66,17 +68,6 @@ namespace Assets.Scripts
 
                 gameObject.transform.position = new Vector3(vector.x, vector.y, vector.z + 0.23f);
             }
-            /*else
-            {
-
-        var lastHeroPosition = gameObject.transform.position;
-                animator.CrossFade("walk",0.5f);
-                isBlockInput = true;
-                gameObject.transform.DOMove(vector, TIME_WALK);
-                yield return new WaitForSeconds(TIME_WALK);
-                isBlockInput = false;
-                animator.CrossFade("idle", 0.5f);
-            }*/
             yield return null;
         }
 
@@ -117,9 +108,10 @@ namespace Assets.Scripts
             {
                 return;
             }
+            
             if (Input.GetMouseButtonDown(0))
             {
-
+                Debug.LogError("CLICK");
            // animator.Play((AnimationClip.);)
                 Ray ray = FindObjectOfType<Camera>().ScreenPointToRay(Input.mousePosition);
                 var hits=Physics.RaycastAll(ray);
@@ -165,70 +157,56 @@ namespace Assets.Scripts
 				{
 					return;
 				}
-                           
-                StartCoroutine(LeaveHexCoroutine(hex));
-                //  transform.position = startTilemap.CellToLocal(new Vector3Int(hex.Position.x, hex.Position.y, 0));
-                //
-                /*  bool isFoundHex = levelManager.TryGetHex(new Vector2Int(cursorPosition.x, cursorPosition.y), 0, out var hex);
-                  if (isFoundHex)
-                  {
-                      levelManager.TryGetHex(HeroPosition, 0, out var leavedHex);
-                      var lastPosition = HeroPosition;
-                      HeroPosition = new Vector2Int(cursorPosition.x, cursorPosition.y);
-                      leavedHex.OnLeaveHex();
-                      //OnLeaveHexEvent(leavedHex);
-                    
-                      levelManager.TryGetHex(HeroPosition, 0, out var enteredHex);
-                      enteredHex.OnEnterHex(lastPosition);
-                    //  transform.position = startTilemap.CellToLocal(new Vector3Int(hex.Position.x, hex.Position.y, 0));
-                      LevelManager.CheckWinCondition();
-                  }*/
 
+                isBlockInput = true;           
+                StartCoroutine(LeaveHexCoroutine(hex));
             }
         }
         public void SetNextPosition()
         {            
             HeroPosition = nextPosition;
         }
-        public void Move(Position position, float percentMoveToPosition, bool isWalkAnimation = true)
+        public void Move(Position backPosition, Position nextPosition, float percentMoveToPosition, bool isWalkAnimation = true)
         {
-            StartCoroutine(MoveCoroutine(position, percentMoveToPosition, isWalkAnimation));
+            StartCoroutine(MoveCoroutine(backPosition,nextPosition, percentMoveToPosition, isWalkAnimation));
         }
-        public void EatWithMove(Position position,float percentMoveBefore,float percentMoveAfter)
+
+        public void Idle()
         {
-            StartCoroutine(EatWithMoveCoroutine(position));
+            animator.CrossFade("idle", 0.5f);
         }
-        private IEnumerator EatWithMoveCoroutine(Position position)
+        public void EatWithMove(Position backPosition, Position nextPosition, float percentMoveBefore,float percentMoveAfter)
         {
+            StartCoroutine(EatWithMoveCoroutine(backPosition,this.nextPosition, percentMoveBefore, percentMoveAfter));
+        }
+        private IEnumerator EatWithMoveCoroutine(Position beforePosition, Position nextPosition, float percentMoveBefore, float percentMoveAfter)
+        {
+            Debug.LogError(isBlockInput +"BLOCK");
+            StartCoroutine(MoveM(beforePosition,nextPosition, percentMoveBefore));
+            yield return new WaitForSeconds(TIME_WALK*percentMoveBefore);
             animator.CrossFade("eat", 0.05f);
             yield return new WaitForSeconds(EAT_TIME);
-            levelManager.TryRemoveFruit(position, layer);
-            EndEat?.Invoke();
-        }
-        private IEnumerator MoveCoroutine(Position position,float percentMoveToPosition,bool isWalkAnimation=true)
-        {
-           // HeroPosition = position;
-            var vector = startTilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
-            var startVector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
-            vector = Vector3.Lerp(startVector, vector, percentMoveToPosition);
-            var lastHeroPosition = gameObject.transform.position;
-            if (isWalkAnimation)
-            {
-                animator.CrossFade("walk", 0.5f);
-            }
-            isBlockInput = true;
-            // gameObject.transform.DOMove(vector, TIME_WALK*percentMoveToPosition);
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 22, 0));
-           // gameObject.transform.DOPath(new Vector3[] { vector }, TIME_WALK * percentMoveToPosition,PathType.Linear, PathMode.Full3D);
-             yield return new WaitForSeconds(TIME_WALK * percentMoveToPosition);
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -22, 0));
-            isBlockInput = false;
+            levelManager.TryRemoveFruit(nextPosition, layer);
+            StartCoroutine(MoveM(beforePosition,nextPosition, percentMoveAfter));
+            yield return new WaitForSeconds(TIME_WALK * percentMoveAfter);
             EndMove?.Invoke();
-           // animator.CrossFade("idle", 0.5f);
+            Debug.LogError(isBlockInput + "BLOCK FALSE");
         }
-        private IEnumerator MoveM(Position position, float percentMoveToPosition, bool isWalkAnimation = true)
+
+        public void LockInput()
         {
-            var vector = startTilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
+            isBlockInput = true;
+        }
+
+        public void UnlockInput()
+        {
+            isBlockInput = false;
+        }
+        private IEnumerator MoveCoroutine(Position backPosition, Position nextPosition, float percentMoveToPosition,bool isWalkAnimation=true)
+        {
+            Debug.LogError(isBlockInput + "BLOCK");
+            // HeroPosition = position;
+            var vector = startTilemap.GetCellCenterWorld(new Vector3Int(nextPosition.x, nextPosition.y, 0));
             var startVector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
             vector = Vector3.Lerp(startVector, vector, percentMoveToPosition);
             var lastHeroPosition = gameObject.transform.position;
@@ -236,13 +214,37 @@ namespace Assets.Scripts
             {
                 animator.CrossFade("walk", 0.5f);
             }
-            isBlockInput = true;
-            // gameObject.transform.DOMove(vector, TIME_WALK*percentMoveToPosition);
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 22, 0));
-            // gameObject.transform.DOPath(new Vector3[] { vector }, TIME_WALK * percentMoveToPosition,PathType.Linear, PathMode.Full3D);
+            
+
+            float angle = PositionCalculator.GetAngleAroundNearHexes(backPosition, nextPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-Mathf.Sin(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK,
+                Mathf.Cos(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK, 0));
+
             yield return new WaitForSeconds(TIME_WALK * percentMoveToPosition);
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -22, 0));
-            isBlockInput = false;
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Mathf.Sin(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK,
+                -Mathf.Cos(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK, 0));
+            EndMove?.Invoke();
+            Debug.LogError(isBlockInput + "BLOCK FALSE");
+            // animator.CrossFade("idle", 0.5f);
+        }
+        private IEnumerator MoveM(Position beforePosition, Position nextPosition, float percentMoveToPosition, bool isWalkAnimation = true)
+        {
+            var vector = startTilemap.GetCellCenterWorld(new Vector3Int(nextPosition.x, nextPosition.y, 0));
+            var startVector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
+            vector = Vector3.Lerp(startVector, vector, percentMoveToPosition);
+            var lastHeroPosition = gameObject.transform.position;
+            if (isWalkAnimation)
+            {
+                animator.CrossFade("walk", 0.5f);
+            }
+            
+            float angle = PositionCalculator.GetAngleAroundNearHexes(beforePosition, nextPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-Mathf.Sin(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK,
+                Mathf.Cos(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK, 0));
+
+            yield return new WaitForSeconds(TIME_WALK * percentMoveToPosition);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Mathf.Sin(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK,
+                -Mathf.Cos(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK, 0));
         }
         public IEnumerator LeaveHexCoroutine(IHexType hex)
         {
@@ -256,23 +258,11 @@ namespace Assets.Scripts
             yield return new WaitForSeconds(0.2f);
             
             var lastPosition = HeroPosition;
-           /* bool fruitIsFound=levelManager.TryFindFruit(hex.Position, layer, out var fruit);
-            if (fruitIsFound)
-            {
-                SetHeroPositionWithEat(new Position(hex.Position.x, hex.Position.y),layer);
-                yield return new WaitForSeconds(TIME_WALK);
-            }
-            else
-            {
-                SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
-                yield return new WaitForSeconds(TIME_WALK);
-            }*/
+
             levelManager.TryGetHex(HeroPosition, 0, out var leavedHex);
             levelManager.TryGetHex(hex.Position, 0, out var enteredHex);
             leavedHex.OnLeaveHex(enteredHex.Position);
-            leavedHex.LeaveHexEvent += OnLeaveHexEvent;
-            
-            //enteredHex.OnEnterHex(lastPosition);
+            leavedHex.LeaveHexEvent += OnLeaveHexEvent;            
             yield return null;
         }
         public void OnLeaveHexEvent(Position nextHex,Position currentHex)

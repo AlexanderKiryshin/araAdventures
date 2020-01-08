@@ -29,8 +29,9 @@ namespace Assets.Scripts.Cells
         
         public virtual void OnLeaveHex(Position nextHex)
         {
+            ((MoveHero)MoveHero.instance).LockInput();
             ((MoveHero)MoveHero.instance).EndMove += OnLeaveHexEvent;
-           ((MoveHero)MoveHero.instance).Move(nextHex, 0.5f);
+           ((MoveHero)MoveHero.instance).Move(Position,nextHex, 0.5f);
             ((MoveHero)MoveHero.instance).nextPosition = nextHex;
         }
         public virtual void OnLeaveHexEvent()
@@ -62,12 +63,12 @@ namespace Assets.Scripts.Cells
             if (fruitIsFound)
             {
                 ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
-                ((MoveHero)MoveHero.instance).EatWithMove(Position,0.6f,1f);
+                ((MoveHero)MoveHero.instance).EatWithMove(previousCoordinate,Position,0.6f,0.4f);
             }
             else
             {
                 ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
-                ((MoveHero)MoveHero.instance).Move(Position, 1f);
+                ((MoveHero)MoveHero.instance).Move(previousCoordinate, Position, 1f);
             }
             //SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
         }
@@ -76,6 +77,7 @@ namespace Assets.Scripts.Cells
             ((MoveHero)MoveHero.instance).SetIdleAnimation();
             ((MoveHero)MoveHero.instance).SetNextPosition();
            ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
+           ((MoveHero)MoveHero.instance).UnlockInput();
         }
         public virtual void OnLaserHit(Position previousPosition,int rangeInAir,int range)
         {
