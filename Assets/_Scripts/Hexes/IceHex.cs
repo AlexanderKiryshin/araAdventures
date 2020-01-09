@@ -19,22 +19,31 @@ public class IceHex : BaseHexType
 		return false;
 	}
 
-	public override void OnEnterHex(Position previousCoordinate)
+	Position lastPosition;
+	public override void OnEnterHexEvent()
 	{
-		((MoveHero)MoveHero.instance).Move(previousCoordinate,Position, 1f,false);
-		var lastPosition = previousCoordinate;
+		((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;		
 		var currentPosition = Position;
 		var newPosition = PositionCalculator.GetOppositeSidePosition(lastPosition, currentPosition);
 		var levelManager = GameObject.FindObjectOfType<LevelManager>();
-		levelManager.TryGetHex(newPosition,0,out var hex);
+		levelManager.TryGetHex(newPosition, 0, out var hex);
 		var moveHero = GameObject.FindObjectOfType<MoveHero>();
-		if(hex==null)
+		if (hex == null)
 		{
 			WinLoseManager.instance.OnLose();
 			return;
 		}
-		moveHero.SetHeroPosition(newPosition,false);
+		moveHero.SetHeroPosition(newPosition, false);
 		hex.OnEnterHex(currentPosition);
+		((MoveHero)MoveHero.instance).UnlockInput();
+	}
+
+	public override void OnEnterHex(Position previousCoordinate)
+	{
+		((MoveHero)MoveHero.instance).LockInput();
+		((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
+		((MoveHero)MoveHero.instance).Move(previousCoordinate,Position, 1f,false);
+		lastPosition = previousCoordinate;
 	}
 	public override void OnLeaveHex(Position nextHex)
 	{

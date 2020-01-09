@@ -72,7 +72,7 @@ namespace Assets.Scripts.Cells
             }
             //SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
         }
-        public void OnEnterHexEvent()
+        public virtual void OnEnterHexEvent()
         {
             ((MoveHero)MoveHero.instance).SetIdleAnimation();
             ((MoveHero)MoveHero.instance).SetNextPosition();
