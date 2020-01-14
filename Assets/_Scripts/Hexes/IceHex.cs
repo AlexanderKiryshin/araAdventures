@@ -11,7 +11,7 @@ public class IceHex : BaseHexType
 	}
 	public override TileBase GetTile()
 	{
-		return GameObject.FindObjectOfType<LevelManager>().GetHexType(Constants.ICE_HEX);
+		return LevelManager.instance.GetHexType(Constants.ICE_HEX);
 	}
 
 	public override bool isDestoyeble()
@@ -23,8 +23,9 @@ public class IceHex : BaseHexType
 	public override void OnEnterHexEvent()
 	{
 		((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
-        
-		var currentPosition = Position;
+        Debug.LogError("onEnter otp");
+
+        var currentPosition = Position;
 		var newPosition = PositionCalculator.GetOppositeSidePosition(lastPosition, currentPosition);
         OnLeaveHex(newPosition);
 
@@ -45,30 +46,45 @@ public class IceHex : BaseHexType
 	{
 		((MoveHero)MoveHero.instance).LockInput();
         ((MoveHero)MoveHero.instance).SetNextPosition();
+        Debug.LogError("onEnter podp");
         ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
         ((MoveHero)MoveHero.instance).Move(previousCoordinate,Position, 1f,false);
 		lastPosition = previousCoordinate;
 	}
 	public override void OnLeaveHex(Position nextHex)
-	{
-        ((MoveHero)MoveHero.instance).EndMove += OnLeaveHexEvent;
-        ((MoveHero)MoveHero.instance).Move(Position,nextHex, 0.5f,false);
-        ((MoveHero)MoveHero.instance).nextPosition = nextHex;
+    {
+        LevelManager.instance.TryGetHex(nextHex, 0, out var hex);
+        if (hex != null)
+        {
+            if (hex.IsPassable())
+            {
+                ((MoveHero)MoveHero.instance).EndMove += OnLeaveHexEvent;
+                Debug.LogError("onLeave podp");
+                ((MoveHero)MoveHero.instance).Move(Position, nextHex, 0.5f, false);
+                ((MoveHero)MoveHero.instance).nextPosition = nextHex;
+            }
+            else
+            {
+                ((MoveHero)MoveHero.instance).Idle();
+                ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
+                ((MoveHero)MoveHero.instance).EndMove -= OnLeaveHexEvent;
+            }
+        }       
     }
 
     public override void OnLeaveHexEvent()
     {
-        LeaveHexEvent?.Invoke(((MoveHero)MoveHero.instance).nextPosition, Position);
+       // LeaveHexEvent?.Invoke(((MoveHero)MoveHero.instance).nextPosition, Position);
         ((MoveHero)MoveHero.instance).EndMove -= OnLeaveHexEvent;
+        Debug.LogError("onLeave otp");
         var levelManager = GameObject.FindObjectOfType<LevelManager>();
         levelManager.TryGetHex(((MoveHero)MoveHero.instance).nextPosition, 0, out var hex);
-        var moveHero = GameObject.FindObjectOfType<MoveHero>();
         if (hex == null)
         {
             WinLoseManager.instance.OnLose();
             return;
         }
-        moveHero.SetHeroPosition(((MoveHero)MoveHero.instance).nextPosition, false);
+        ((MoveHero)MoveHero.instance).SetHeroPosition(((MoveHero)MoveHero.instance).nextPosition, false);
         hex.OnEnterHex(Position);
     }
 

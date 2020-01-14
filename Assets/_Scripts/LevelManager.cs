@@ -10,9 +10,10 @@ using System.IO;
 using Assets._Scripts;
 using UnityEngine.SceneManagement;
 using Assets;
+using Assets._Scripts.Hexes;
 using DG.Tweening;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager :Singleton<LevelManager>
 {
 
     public CameraController cameraController;
@@ -243,6 +244,10 @@ public class LevelManager : MonoBehaviour
                         break;
                     case "LaserHex":
                         hextype = new LaserHex(new Position(x, y), 0);
+                        break;
+                    case "ImpassableHex":
+                        hextype=new ImpassableHex(new Position(x, y), 0);
+                        hextype.Model = gameObjectData.doubleStone;
                         break;
                 }
 

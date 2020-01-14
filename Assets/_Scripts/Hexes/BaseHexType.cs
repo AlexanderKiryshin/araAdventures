@@ -37,6 +37,7 @@ namespace Assets.Scripts.Cells
         public virtual void OnLeaveHexEvent()
         {
             LeaveHexEvent?.Invoke(((MoveHero)MoveHero.instance).nextPosition, Position);
+            LeaveHexEvent = null;
             ((MoveHero)MoveHero.instance).EndMove -= OnLeaveHexEvent;
         }
         protected void OnDestroyHex(Position position,int layer,Func<IEnumerator> method)
@@ -53,6 +54,11 @@ namespace Assets.Scripts.Cells
             OnChangeHexEvent(hex, method);
         }
         public abstract bool isDestoyeble();
+
+        public virtual bool IsPassable()
+        {
+            return true;
+        }
 
         public abstract TileBase GetTile();
 

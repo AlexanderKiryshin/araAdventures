@@ -10,10 +10,6 @@ namespace Assets.Scripts.Cells
         {
         }
 
-      /*  public override void OnLeaveHex()
-        {
-        }*/
-
         public override TileBase GetTile()
         {
             return GameObject.FindObjectOfType<LevelManager>().GetHexType(Constants.UNDESTRACTABLE_HEX);
@@ -24,8 +20,5 @@ namespace Assets.Scripts.Cells
             return false;
         }
 
-        /*public override void OnEnterHex(Position previousCoordinate)
-        {
-        }*/
     }
 }

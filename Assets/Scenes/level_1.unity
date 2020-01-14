@@ -3297,6 +3297,59 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6643937749144264767, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 6643937749144264767, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: currentMultiplier
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: waveForceSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: waveScale
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: _randomizeCurrent
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: maxCurrent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: waveForceHeight
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269394035903763246, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: wave
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009737929315977137, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 6009737929315977137, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+    - target: {fileID: 9040996804685782975, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 9040996804685782975, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafdceb0834d36c4590cb552143f02ed, type: 3}
 --- !u!108 &400444079 stripped

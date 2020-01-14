@@ -21,5 +21,6 @@ namespace Assets
         public GameObject stone;
         public GameObject turnerLeft;
         public GameObject turnerRight;
+        public GameObject doubleStone;
     }
 }

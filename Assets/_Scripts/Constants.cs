@@ -12,7 +12,8 @@
         public const string CLOCKWISE_ROTATING_HEX = "ClockwiseRotatingHex";
         public const string COUNTER_CLOCKWISE_ROTATING_HEX = "CounterClockwiseRotateHex";
 		public const string ICE_HEX = "IceHex";
-		public const string LASER_HEX = "LaserHex";
+        public const string IMPASSABLE_HEX = "ImpassableHex";
+        public const string LASER_HEX = "LaserHex";
         public const string STRAWBERRY = "Strawberry";
         public const string START = "StartHex";
     }

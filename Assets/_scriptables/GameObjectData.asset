@@ -24,3 +24,5 @@ MonoBehaviour:
     type: 3}
   turnerRight: {fileID: 5548981493444318718, guid: 9a056750dcc7ed94a88e16a488957cc7,
     type: 3}
+  doubleStone: {fileID: 180109383808462942, guid: f47579e3796a9e545a4bd3ba541ea3b6,
+    type: 3}

@@ -136,6 +136,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6902947889692625971, guid: c7524d4a4aac800408e7ba7a04b961ad,
         type: 3}
+    - target: {fileID: 6123043977674047266, guid: c7524d4a4aac800408e7ba7a04b961ad,
+        type: 3}
+      propertyPath: wave
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123043977674047266, guid: c7524d4a4aac800408e7ba7a04b961ad,
+        type: 3}
+      propertyPath: maxCurrent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123043977674047266, guid: c7524d4a4aac800408e7ba7a04b961ad,
+        type: 3}
+      propertyPath: _randomizeCurrent
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7200452944357990911, guid: c7524d4a4aac800408e7ba7a04b961ad,
         type: 3}
       propertyPath: Scenes.Array.size

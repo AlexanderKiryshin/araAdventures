@@ -204,7 +204,7 @@ namespace Assets.Scripts
         }
         private IEnumerator MoveCoroutine(Position backPosition, Position nextPosition, float percentMoveToPosition,bool isWalkAnimation=true)
         {
-            Debug.LogError(isBlockInput + "BLOCK");
+          //  Debug.LogError(isBlockInput + "BLOCK");
             // HeroPosition = position;
             var vector = startTilemap.GetCellCenterWorld(new Vector3Int(nextPosition.x, nextPosition.y, 0));
             var startVector = startTilemap.GetCellCenterWorld(new Vector3Int(HeroPosition.x, HeroPosition.y, 0));
@@ -224,7 +224,7 @@ namespace Assets.Scripts
             gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Mathf.Sin(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK,
                 -Mathf.Cos(angle * Mathf.PI / 180) * MOVE_SPEED / TIME_WALK, 0));
             EndMove?.Invoke();
-            Debug.LogError(isBlockInput + "BLOCK FALSE");
+           // Debug.LogError(isBlockInput + "BLOCK FALSE");
             // animator.CrossFade("idle", 0.5f);
         }
         private IEnumerator MoveM(Position beforePosition, Position nextPosition, float percentMoveToPosition, bool isWalkAnimation = true)
