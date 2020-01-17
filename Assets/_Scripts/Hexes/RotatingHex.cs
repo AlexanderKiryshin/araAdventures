@@ -39,28 +39,27 @@ namespace Assets.Scripts.Cells
 
         public override void OnEnterHex(Position previousCoordinate)
         {
-            base.OnEnterHex(previousCoordinate);
+           // base.OnEnterHex(previousCoordinate);
             Position[] positions = PositionCalculator.GetAroundSidePositions(Position);
-            var levelManager = GameObject.FindObjectOfType<LevelManager>();
             var hexes = new List<BaseHexType>();
             var newPositions = new List<Position>();
             var hexesForRotate=new List<IHexType>();
             foreach (var position in positions)
             {
-                levelManager.TryGetHex(position, Layer, out var hex);
+                LevelManager.instance.TryGetHex(position, Layer, out var hex);
                 if (hex != null)
                 {
                     hexesForRotate.Add(hex);
                     hexes.Add(hex);
                     newPositions.Add(PositionCalculator.GetAdjustmentPosition(position, !isClockwiseRotating, Position));
-                    levelManager.DestroyHex(position, Layer,Destroy);
+					LevelManager.instance.DestroyHex(position, Layer,Destroy);
                 }
             }
-            for (int i = 0; i < hexes.Count; i++)
+           /* for (int i = 0; i < hexes.Count; i++)
             {
                 hexes[i].Position = newPositions[i];
-                levelManager.CreateHex(hexes[i]);
-            }
+                LevelManager.instance.CreateHex(hexes[i]);
+            }*/
 
         }
 
