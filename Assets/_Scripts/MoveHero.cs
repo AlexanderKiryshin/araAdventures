@@ -40,7 +40,7 @@ namespace Assets.Scripts
             
             animator.CrossFade("eat", 0.05f);
             yield return new WaitForSeconds(EAT_TIME);
-            levelManager.TryRemoveFruit(position, layer);
+            levelManager.TryEatFruit(position, layer);
             animator.CrossFade("walk", 0.1f);
            /* var newVector2 = Vector3.Lerp(lastHeroPosition,
                    new Vector3(vector.x, vector.y, vector.z + 0.23f), 1/TIME_WALK);*/
@@ -186,7 +186,7 @@ namespace Assets.Scripts
             yield return new WaitForSeconds(TIME_WALK*percentMoveBefore);
             animator.CrossFade("eat", 0.05f);
             yield return new WaitForSeconds(EAT_TIME);
-            levelManager.TryRemoveFruit(nextPosition, layer);
+            levelManager.TryEatFruit(nextPosition, layer);
             StartCoroutine(MoveM(beforePosition,nextPosition, percentMoveAfter));
             yield return new WaitForSeconds(TIME_WALK * percentMoveAfter);
             EndMove?.Invoke();

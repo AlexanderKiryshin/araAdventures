@@ -12,19 +12,18 @@ namespace Assets._Scripts
     {
         public Vector2Int position;
         public int layer;
-        public GameObject instance;
-        [HideInInspector]
-        public int countPasses=1;
+        protected GameObject instance;
+        public int CountPasses { get;protected set; }
         public BaseFruit(Vector2Int position,int layer)
         {
             this.position = position;
             this.layer = layer;
-            countPasses = 1;
+            CountPasses = 1;
         }
 
         public void Initialize()
         {
-            countPasses = 1;
+            CountPasses = 1;
         }
 #if (UNITY_EDITOR)
         public abstract TileBase GetTile();
@@ -34,5 +33,13 @@ namespace Assets._Scripts
         {
             return (IAdditional)this.MemberwiseClone();
         }
+
+        public virtual void OnEat()
+        {
+            CountPasses--;
+            Destroy(instance);
+        }
+
+        public abstract void CreateFruit();
     }
 }

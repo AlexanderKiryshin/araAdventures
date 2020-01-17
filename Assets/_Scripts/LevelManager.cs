@@ -10,6 +10,7 @@ using System.IO;
 using Assets._Scripts;
 using UnityEngine.SceneManagement;
 using Assets;
+using Assets._Scripts.Additional;
 using Assets._Scripts.Hexes;
 using DG.Tweening;
 
@@ -42,7 +43,7 @@ public class LevelManager :Singleton<LevelManager>
 
     private List<BaseFruit> fruits;
 
-    public bool FindFruitAndRemove(Position position, int layer, out BaseFruit fruitResult)
+   /* public bool FindFruitAndRemove(Position position, int layer, out BaseFruit fruitResult)
     {
         foreach (var fruit in fruits)
         {
@@ -57,7 +58,7 @@ public class LevelManager :Singleton<LevelManager>
         }
         fruitResult = null;
         return false;
-    }
+    }*/
 
     public bool TryFindFruit(Position position, int layer, out BaseFruit fruitResult)
     {
@@ -73,15 +74,21 @@ public class LevelManager :Singleton<LevelManager>
         return false;
     }
 
-    public bool TryRemoveFruit(Position position, int layer)
+    public bool TryEatFruit(Position position, int layer)
     {
         for (int i=0;i<fruits.Count;i++)
         {
             if (fruits[i].position.x == position.x && fruits[i].position.y == position.y && fruits[i].layer == layer)
             {
-                Destroy(fruits[i].instance);
-                fruits.RemoveAt(i);
-                StartCoroutine(CheckWinCondition());
+                fruits[i].OnEat();
+
+                //Destroy(fruits[i].instance);
+                if (fruits[i].CountPasses == 0)
+                {
+                    fruits.RemoveAt(i);
+                    StartCoroutine(CheckWinCondition());
+                }
+
                 return true;
             }
         }
@@ -125,7 +132,8 @@ public class LevelManager :Singleton<LevelManager>
     {
         foreach (var fruit in fruits)
         {
-            fruit.instance=Instantiate(gameObjectData.fruit,itemTilemap.GetCellCenterWorld(new Vector3Int(fruit.position.x, fruit.position.y, 0)),Quaternion.identity);
+            fruit.CreateFruit();
+           // fruit.instance=Instantiate(gameObjectData.strawberry,itemTilemap.GetCellCenterWorld(new Vector3Int(fruit.position.x, fruit.position.y, 0)),Quaternion.identity);
             Debug.LogError("straw " +itemTilemap.GetCellCenterLocal(new Vector3Int(fruit.position.x, fruit.position.y, 0)));
         }
     }
@@ -187,7 +195,10 @@ public class LevelManager :Singleton<LevelManager>
                         break;
                     case "Strawberry":
                        fruits.Add(new Strawberry(new Vector2Int(x,y),0));
-                        break;                   
+                        break;
+                    case "banana":
+                        fruits.Add(new Banana(new Vector2Int(x,y),0 ));
+                        break;
                 }            
             }
         }

@@ -13,6 +13,12 @@ namespace Assets._Scripts
         {
             
         }
+
+        public override void CreateFruit()
+        {
+            instance = Instantiate(LevelManager.instance.gameObjectData.strawberry,
+                LevelManager.instance.itemTilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0)), Quaternion.identity);
+        }   
 #if (UNITY_EDITOR)
         public override TileBase GetTile()
         {

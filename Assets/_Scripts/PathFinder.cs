@@ -156,8 +156,8 @@ namespace Assets._Scripts
                 {
                     if (copyFruitMaps[hex.x, hex.y].GetType() != typeof(EmptyAdditional) && copyFruitMaps[hex.x, hex.y].GetType() != typeof(StartPosition))
                     {
-                        ((BaseFruit)copyFruitMaps[hex.x, hex.y]).countPasses--;
-                        if (((BaseFruit)copyFruitMaps[hex.x, hex.y]).countPasses == 0)
+                        ((BaseFruit)copyFruitMaps[hex.x, hex.y]).OnEat();
+                        if (((BaseFruit)copyFruitMaps[hex.x, hex.y]).CountPasses == 0)
                         {
                             copyFruitMaps[hex.x, hex.y] = null;
                             copyFruitCount--;

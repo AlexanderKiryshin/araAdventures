@@ -12,7 +12,9 @@ namespace Assets
     [CreateAssetMenu(fileName = "GameObjectData", menuName = "GameObjectData", order = 51)]
     public class GameObjectData:ScriptableObject
     {
-        public GameObject fruit;
+        public GameObject strawberry;
+        public GameObject banana;
+        public GameObject halfBanana;
         public GameObject hex3x;
         public GameObject dirt;
         public GameObject exploder;

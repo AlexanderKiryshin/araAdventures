@@ -3176,6 +3176,16 @@ PrefabInstance:
       propertyPath: m_ChunkCullingBounds.y
       value: 0.13999999
       objectReference: {fileID: 0}
+    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: Scenes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: Scenes.Array.data[0]
+      value: level_4
+      objectReference: {fileID: 0}
     - target: {fileID: 6923463553346618379, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3261,42 +3271,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6923463551717377866, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: m_CellSize.x
-      value: 1.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 6923463553101565424, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: gameObjectData
-      value: 
-      objectReference: {fileID: 11400000, guid: 32407dbf39c6f9346a8c980710c5a5d9,
-        type: 2}
-    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: Scenes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: Scenes.Array.data[0]
-      value: level_4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6923463553346618377, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: field of view
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 286032069475995974, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: waves
-      value: 
-      objectReference: {fileID: 1741686025}
-    - target: {fileID: 4487534841692952402, guid: dafdceb0834d36c4590cb552143f02ed,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6643937749144264767, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -3338,6 +3312,17 @@ PrefabInstance:
       propertyPath: wave
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6923463551717377866, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: m_CellSize.x
+      value: 1.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923463553101565424, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: gameObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: 32407dbf39c6f9346a8c980710c5a5d9,
+        type: 2}
     - target: {fileID: 6009737929315977137, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -3350,6 +3335,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9040996804685782975, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
+    - target: {fileID: 6923463553346618377, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: field of view
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 286032069475995974, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: waves
+      value: 
+      objectReference: {fileID: 1741686025}
+    - target: {fileID: 4487534841692952402, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafdceb0834d36c4590cb552143f02ed, type: 3}
 --- !u!108 &400444079 stripped

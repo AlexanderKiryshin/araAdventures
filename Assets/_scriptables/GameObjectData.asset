@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155a789eea87c7f49af652a3133563a3, type: 3}
   m_Name: GameObjectData
   m_EditorClassIdentifier: 
-  fruit: {fileID: 7417861743463903822, guid: 7b58518523cadad44ae0ef6d2fb186c9, type: 3}
+  strawberry: {fileID: 7417861743463903822, guid: 7b58518523cadad44ae0ef6d2fb186c9,
+    type: 3}
+  banana: {fileID: 5452132699637645860, guid: 4f2cd1cc20dc174458565d1f67a8f637, type: 3}
+  halfBanana: {fileID: 7435874069527670703, guid: 0dea0c29eb4f06e4cb8b795b74caf5c5,
+    type: 3}
   hex3x: {fileID: 6126854861290062279, guid: a3d998a2a8558aa4990b96bfe44a64bb, type: 3}
   dirt: {fileID: 4360893881768225390, guid: a6e4344ff91a0ba47aecc963c0010246, type: 3}
   exploder: {fileID: 5643880244032418008, guid: c65e2b364c30f6f41b088a840e7198dd,
