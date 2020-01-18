@@ -12,7 +12,7 @@ namespace Assets._Scripts
     {
         public Vector2Int position;
         public int layer;
-        protected GameObject instance;
+        public GameObject instance;
         public int CountPasses { get;protected set; }
         public BaseFruit(Vector2Int position,int layer)
         {
@@ -41,5 +41,6 @@ namespace Assets._Scripts
         }
 
         public abstract void CreateFruit();
+
     }
 }

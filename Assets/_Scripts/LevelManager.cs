@@ -369,7 +369,7 @@ public class LevelManager :Singleton<LevelManager>
         StartCoroutine(CreateHexCoroutine(hexType));
     }
 
-    public void RotateHexes(RotatingHex hex)
+   /* public void RotateHexes(RotatingHex hex)
     {
         Position[] positions = PositionCalculator.GetAroundSidePositions(hex.Position);
         var levelManager = GameObject.FindObjectOfType<LevelManager>();
@@ -392,6 +392,85 @@ public class LevelManager :Singleton<LevelManager>
             hexes[i].Position = newPositions[i];
             levelManager.CreateHex(hexes[i]);
         }
+    }*/
+
+    public void RotateHexes(RotatingHex rotatingHex)
+    {
+        StartCoroutine(RotateHexesCoroutine(rotatingHex));
+    }
+    
+    public IEnumerator RotateHexesCoroutine(RotatingHex rotatingHex)
+    {
+        Position[] positions = PositionCalculator.GetAroundSidePositions(rotatingHex.Position);
+        var levelManager = GameObject.FindObjectOfType<LevelManager>();
+        var promhexes = new List<BaseHexType>();
+        var newPositions = new List<Position>();
+        var newFruitsPositions = new List<Position>();
+        var newPositionsVector = new List<Vector3>();
+        var newFruitsPositionsVector = new List<Vector3>();
+        var hexesForRotate = new List<IHexType>();
+        var fruits = new List<BaseFruit>();
+        var hexesScales = new List<Vector3>();
+        var fruitsScales = new List<Vector3>();
+        foreach (var position in positions)
+        {
+            levelManager.TryGetHex(position, rotatingHex.Layer, out var hex);
+            if (levelManager.TryFindFruit(position, rotatingHex.Layer, out var fruit))
+            {
+                fruits.Add(fruit);
+                var pos = PositionCalculator.GetAdjustmentPosition(position, !rotatingHex.isClockwiseRotating,
+                    rotatingHex.Position);
+                newFruitsPositions.Add(pos);
+                newFruitsPositionsVector.Add(itemTilemap.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0)));
+            }
+            if (hex != null)
+            {
+                hexesForRotate.Add(hex);
+                promhexes.Add(hex);
+                var pos = PositionCalculator.GetAdjustmentPosition(position, !rotatingHex.isClockwiseRotating,
+                    rotatingHex.Position);
+                newPositions.Add(pos);
+                newPositionsVector.Add(levelTilemap.GetCellCenterWorld(new Vector3Int(pos.x,pos.y,0)));
+                //levelManager.DestroyHex(position, layer, Destroy);
+            }
+        }
+        for (int i = 0; i < promhexes.Count; i++)
+        {
+           // promhexes[i].Instance.transform.DOMoveZ(promhexes[i].Instance.transform.position.z - 1, 1f);
+            hexesScales.Add(promhexes[i].Instance.transform.localScale);         
+            promhexes[i].Instance.transform.DOScale(promhexes[i].Instance.transform.localScale * 0.6f, 0.5f);
+            promhexes[i].Position =new Position(newPositions[i].x,newPositions[i].y); 
+            levelManager.CreateHex(promhexes[i]);
+        }
+        for (int i = 0; i < fruits.Count; i++)
+        {
+            // promhexes[i].Instance.transform.DOMoveZ(promhexes[i].Instance.transform.position.z - 1, 1f);
+            fruitsScales.Add(fruits[i].instance.transform.localScale);
+            fruits[i].instance.transform.DOScale(fruits[i].instance.transform.localScale * 0.6f, 0.5f);
+            fruits[i].position = new Vector2Int(newFruitsPositions[i].x, newFruitsPositions[i].y);
+            levelManager.CreateHex(promhexes[i]);
+        }
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < promhexes.Count; i++)
+        {
+            promhexes[i].Instance.transform.DOMove(newPositionsVector[i], 1f);
+        }
+        for (int i = 0; i < fruits.Count; i++)
+        {
+            fruits[i].instance.transform.DOMove(newFruitsPositionsVector[i], 1f);
+        }
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < promhexes.Count; i++)
+        {
+            promhexes[i].Instance.transform.DOScale(hexesScales[i], 0.5f);
+           
+        }
+        for (int i = 0; i < fruits.Count; i++)
+        {
+            fruits[i].instance.transform.DOScale(fruitsScales[i], 0.5f);
+        }
+        
+        rotatingHex.EndRotateAction.Invoke();
     }
 
     public IEnumerator CreateHexCoroutine(IHexType hex)
