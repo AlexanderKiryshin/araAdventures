@@ -24,5 +24,6 @@ namespace Assets
         public GameObject turnerLeft;
         public GameObject turnerRight;
         public GameObject doubleStone;
+        public GameObject cameraExtension;
     }
 }

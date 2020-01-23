@@ -30,3 +30,5 @@ MonoBehaviour:
     type: 3}
   doubleStone: {fileID: 180109383808462942, guid: f47579e3796a9e545a4bd3ba541ea3b6,
     type: 3}
+  cameraExtension: {fileID: 7391428972306976429, guid: 72af8921355c05d4096b9e7e9afa3b6a,
+    type: 3}

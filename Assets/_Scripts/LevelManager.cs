@@ -7,16 +7,19 @@ using System;
 using System.CodeDom;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using Assets._Scripts;
 using UnityEngine.SceneManagement;
 using Assets;
 using Assets._Scripts.Additional;
 using Assets._Scripts.Hexes;
 using DG.Tweening;
+using UnityEditorInternal;
 
 public class LevelManager :Singleton<LevelManager>
 {
-
+    public Material borderMaterial;
+    LineRenderer border;
     public CameraController cameraController;
     private MoveHero moveHero;
 
@@ -260,6 +263,10 @@ public class LevelManager :Singleton<LevelManager>
                         hextype=new ImpassableHex(new Position(x, y), 0);
                         hextype.Model = gameObjectData.doubleStone;
                         break;
+                    case "borderHex":
+                        hextype = new CameraExtensionHex(new Position(x, y), 0);
+                        hextype.Model = gameObjectData.cameraExtension;
+                        break;
                 }
 
                 if (hextype != null)
@@ -412,6 +419,16 @@ public class LevelManager :Singleton<LevelManager>
         var fruits = new List<BaseFruit>();
         var hexesScales = new List<Vector3>();
         var fruitsScales = new List<Vector3>();
+       /* foreach (var position in positions)
+        {
+            if (levelManager.TryGetHex(position, rotatingHex.Layer, out var hex))
+            {
+                if (hex.GetType() == typeof(CameraExtensionHex))
+                {
+                    yield break;
+                }
+            }
+        }*/
         foreach (var position in positions)
         {
             levelManager.TryGetHex(position, rotatingHex.Layer, out var hex);
@@ -425,13 +442,127 @@ public class LevelManager :Singleton<LevelManager>
             }
             if (hex != null)
             {
-                hexesForRotate.Add(hex);
-                promhexes.Add(hex);
-                var pos = PositionCalculator.GetAdjustmentPosition(position, !rotatingHex.isClockwiseRotating,
-                    rotatingHex.Position);
-                newPositions.Add(pos);
-                newPositionsVector.Add(levelTilemap.GetCellCenterWorld(new Vector3Int(pos.x,pos.y,0)));
-                //levelManager.DestroyHex(position, layer, Destroy);
+                if (hex.GetType() != typeof(CameraExtensionHex))
+                {
+                    var pos = PositionCalculator.GetAdjustmentPosition(position, !rotatingHex.isClockwiseRotating,
+                        rotatingHex.Position);
+                    var cameraExtensionList = new List<CameraExtensionHex>();
+                    if (levelManager.TryGetHex(pos, rotatingHex.Layer, out var promhex))
+                    {
+                       
+                        if (promhex.GetType() == typeof(CameraExtensionHex))
+                        {
+                            //var cameraExtensionList = new List<CameraExtensionHex>();
+                            foreach (var findHex in hexes)
+                            {
+                                if (findHex.GetType() == typeof(CameraExtensionHex))
+                                {
+                                    cameraExtensionList.Add((CameraExtensionHex)findHex);
+                                }
+                            }
+                           /* List<CameraExtensionHex> borderList=new List<CameraExtensionHex>();
+                            borderList.Add(cameraExtensionList[0]);
+                            cameraExtensionList.RemoveAt(0);
+                            for (int i = 0; i < cameraExtensionList.Count; i++)
+                            {
+                                Position[] borderPositions = PositionCalculator.GetAroundSidePositions(borderList[borderList.Count-1].Position);
+                                if (cameraExtensionList.Count == 1)
+                                {
+                                    borderList.Add(cameraExtensionList[0]);
+                                    {
+                                        break;
+                                    }
+                                }
+                                for (int j = 0; j < cameraExtensionList.Count; j++)
+                                {
+                                    if (borderPositions.Contains(cameraExtensionList[j].Position))
+                                    {
+                                        borderList.Add(cameraExtensionList[j]);
+                                        cameraExtensionList.RemoveAt(j);
+                                        i--;
+                                        break;
+                                    }
+                                }
+                            }
+                            List<Vector3> vertices=new List<Vector3>();
+
+                            for (int i = 0; i < borderList.Count; i++)
+                            {
+                               vertices.Add(levelTilemap.GetCellCenterWorld(new Vector3Int(borderList[i].Position.x, borderList[i].Position.y,0)));
+                            }
+                            */
+                            Vector3 leftUp=new Vector3(100,-100);
+                            Vector3 rightUp = new Vector3(-100,-100);
+                            Vector3 leftDown = new Vector3(100,100);
+                            Vector3 rightDown = new Vector3(-100,100);
+                            foreach (var vertice in cameraExtensionList)
+                            {
+                                Vector3 posit =
+                                    levelTilemap.GetCellCenterWorld(new Vector3Int(vertice.Position.x,
+                                        vertice.Position.y, 0));
+                                if (posit.x <= leftUp.x && posit.y >= leftUp.y)
+                                {
+                                    leftUp = new Vector3(posit.x,posit.y,-0.5f);
+                                }
+                                if (posit.x >= rightUp.x && posit.y >= rightUp.y)
+                                {
+                                    rightUp = new Vector3(posit.x, posit.y, -0.5f);
+                                }
+                                if (posit.x <= leftDown.x && posit.y <= leftDown.y)
+                                {
+                                    leftDown = new Vector3(posit.x, posit.y, -0.5f);
+                                }
+                                if (posit.x >= rightDown.x && posit.y <= rightDown.y)
+                                {
+                                    rightDown = new Vector3(posit.x, posit.y, -0.5f);
+                                }
+                            }
+                           
+                            border = GetComponent<LineRenderer>();
+                            if (border == null)
+                            {
+                                gameObject.AddComponent<LineRenderer>();
+                                border = GetComponent<LineRenderer>();                               
+                            }
+                            else
+                            {
+                                border.enabled = true;
+                            }
+                            border.positionCount = 5;
+                            border.SetPositions(new Vector3[]{ leftUp ,rightUp,rightDown,leftDown,leftUp});
+                            border.alignment = LineAlignment.TransformZ;
+                            border.widthMultiplier = 0.2f;
+                            border.material = borderMaterial;
+                            rotatingHex.EndRotateAction.Invoke();
+                            for (int j = 0; j < 2; j++)
+                            {
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    border.startColor = new Color(1f, 0.4f - ((float) i) / 100,
+                                        0.5f - ((float) i) / 100);
+                                    border.endColor = new Color(1f, 0.4f - ((float) i) / 100, 0.4f - ((float) i) / 100);
+                                    yield return new WaitForSeconds(0.02f);
+                                }
+
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    border.startColor = new Color(1f,0.1f+ ((float) i) / 100, 0.1f + ((float) i) / 100);
+                                    border.endColor = new Color(1f, 0.1f + ((float) i) / 100, 0.1f + ((float) i) / 100);
+                                    yield return new WaitForSeconds(0.02f);
+                                }
+                            }
+
+                            border.enabled = false;                            
+                            yield break;
+                        }
+                    }
+
+                    hexesForRotate.Add(hex);
+                    promhexes.Add(hex);
+                    newPositions.Add(pos);
+                    newPositionsVector.Add(levelTilemap.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0)));
+                    //levelManager.DestroyHex(position, layer, Destroy);
+                }
             }
         }
         for (int i = 0; i < promhexes.Count; i++)

@@ -9,8 +9,8 @@ namespace Assets.Scripts
         public GameObject waves;
         public Tilemap tilemap;
         public const float UNITS_SIZE = 1.2f;
-        public const float WAVES_SIZE = 14f;
-        public const float CAMERA_Z_COORDINATE = -5f;
+        public const float WAVES_SIZE = 10f;
+        public const float CAMERA_Z_COORDINATE = -6.5f;
         public void SetCamera(Vector2 min,Vector2 max,float z)
         {
             Camera camera = GetComponent<Camera>();

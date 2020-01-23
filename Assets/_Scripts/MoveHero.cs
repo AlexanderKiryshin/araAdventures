@@ -102,6 +102,21 @@ namespace Assets.Scripts
                 WinLoseManager.instance.OnLose();
             }
         }
+
+        public Action fallEndedAction;
+
+        public void FallHero()
+        {
+            StartCoroutine(FallHeroCoroutine());
+        }
+        private IEnumerator FallHeroCoroutine()
+        {
+            gameObject.transform.DOMoveZ(gameObject.transform.position.z+2, 1f);
+            yield return new WaitForSeconds(1f);
+            fallEndedAction.Invoke();
+        }
+
+
         public void Update()
         {
             if (isBlockInput)

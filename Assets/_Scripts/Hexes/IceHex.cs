@@ -69,7 +69,26 @@ public class IceHex : BaseHexType
                 ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
                 ((MoveHero)MoveHero.instance).EndMove -= OnLeaveHexEvent;
             }
-        }       
+        }
+        else
+        {
+            ((MoveHero)MoveHero.instance).EndMove += OnLoseEvent;
+            ((MoveHero)MoveHero.instance).Move(Position, nextHex, 2f, false);
+        }
+    }
+
+    public void OnLoseEvent()
+    {
+
+        ((MoveHero)MoveHero.instance).EndMove -= OnLoseEvent;
+        ((MoveHero) MoveHero.instance).fallEndedAction += OnEndFall;
+       ((MoveHero)MoveHero.instance).FallHero();     
+    }
+
+    public void OnEndFall()
+    {
+        ((MoveHero)MoveHero.instance).fallEndedAction -= OnEndFall;
+        WinLoseManager.instance.OnLose();
     }
 
     public override void OnLeaveHexEvent()

@@ -16,5 +16,6 @@
         public const string LASER_HEX = "LaserHex";
         public const string STRAWBERRY = "Strawberry";
         public const string START = "StartHex";
+        public const string CAMERA_EXTENSION_HEX = "CameraExtensionHex";
     }
 }
