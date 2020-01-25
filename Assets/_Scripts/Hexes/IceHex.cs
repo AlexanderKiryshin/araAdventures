@@ -28,19 +28,16 @@ public class IceHex : BaseHexType
         var currentPosition = Position;
 		var newPosition = PositionCalculator.GetOppositeSidePosition(lastPosition, currentPosition);
         OnLeaveHex(newPosition);
-
-		/*var levelManager = GameObject.FindObjectOfType<LevelManager>();
-		levelManager.TryGetHex(newPosition, 0, out var hex);
-		var moveHero = GameObject.FindObjectOfType<MoveHero>();
-		if (hex == null)
-		{
-			WinLoseManager.instance.OnLose();
-			return;
-		}
-		moveHero.SetHeroPosition(newPosition, false);
-		hex.OnEnterHex(currentPosition);*/
-		((MoveHero)MoveHero.instance).UnlockInput();
-	}
+        LevelManager.instance.TryGetHex(newPosition, 0, out var hex);
+        if (hex != null)
+        {
+            if (hex.GetType() != typeof(IceHex))
+            {
+                ((MoveHero)MoveHero.instance).UnlockInput();
+            }
+        }
+        //((MoveHero)MoveHero.instance).UnlockInput();
+        }
 
 	public override void OnEnterHex(Position previousCoordinate)
 	{

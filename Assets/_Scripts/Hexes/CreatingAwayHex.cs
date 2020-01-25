@@ -30,6 +30,7 @@ namespace Assets.Scripts.Cells
 
         public override void OnEnterHex(Position previousCoordinate)
         {
+            base.OnEnterHex(previousCoordinate);
             var lastPosition = previousCoordinate;
             var currentPosition = Position;
             for (int i = 0; i < 3; i++)
