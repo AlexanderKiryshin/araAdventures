@@ -28,6 +28,7 @@ namespace Assets.Scripts.Cells
 
         public override void OnEnterHex(Position previousCoordinate)
         {
+            base.OnEnterHex(previousCoordinate);
             var positions =PositionCalculator.GetAroundSidePositions(Position);
             foreach (var position in positions)
             {
