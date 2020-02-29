@@ -14,7 +14,6 @@ using Assets;
 using Assets._Scripts.Additional;
 using Assets._Scripts.Hexes;
 using DG.Tweening;
-using UnityEditorInternal;
 
 public class LevelManager :Singleton<LevelManager>
 {
@@ -35,9 +34,7 @@ public class LevelManager :Singleton<LevelManager>
     public Tilemap itemTilemap;
     public Tilemap levelTilemap;
     public GameObjectData gameObjectData;
-
-    /*   [SerializeField]
-       private Tilemap levelTilemap;*/
+    private List<GameObject> selectedCells;
 
     /// <summary>
     /// палитра хексов
@@ -46,22 +43,6 @@ public class LevelManager :Singleton<LevelManager>
 
     private List<BaseFruit> fruits;
 
-   /* public bool FindFruitAndRemove(Position position, int layer, out BaseFruit fruitResult)
-    {
-        foreach (var fruit in fruits)
-        {
-            if (fruit.position.x == position.x&& fruit.position.y == position.y && fruit.layer == layer)
-            {
-                fruitResult = fruit;
-                Destroy(fruit.instance);
-                fruits.Remove(fruit);
-                StartCoroutine(CheckWinCondition());             
-                return true;
-            }
-        }
-        fruitResult = null;
-        return false;
-    }*/
 
     public bool TryFindFruit(Position position, int layer, out BaseFruit fruitResult)
     {
@@ -111,6 +92,7 @@ public class LevelManager :Singleton<LevelManager>
     // Start is called before the first frame update
     void Start()
     {
+        selectedCells=new List<GameObject>();
         fruits=new List<BaseFruit>();
         if (SceneManager.sceneCount == 1)
         {
@@ -195,6 +177,7 @@ public class LevelManager :Singleton<LevelManager>
                 {
                     case "StartHex":
                         moveHero.SetHeroPosition(new Position(x,y),true);
+                        SelectCells(new Position(x, y));
                         break;
                     case "Strawberry":
                        fruits.Add(new Strawberry(new Vector2Int(x,y),0));
@@ -654,6 +637,32 @@ public class LevelManager :Singleton<LevelManager>
                 return;
             }
         }
+    }
+
+    public void SelectCells(Position position)
+    {
+        Position[] positions = PositionCalculator.GetAroundSidePositions(position);
+        foreach (var pos in positions)
+        {
+            LevelManager.instance.TryGetHex(pos, 0, out var hex);
+            if (hex != null&&hex.IsPassable())
+            {
+                Vector3 posit = hex.Instance.transform.position;
+                posit.x -= 0.28f;
+                posit.y -= 0.5f;
+                posit.z -= 0.4f;
+                selectedCells.Add(Instantiate(gameObjectData.selectedCell, posit, Quaternion.identity));
+            }
+        }        
+    }
+
+    public void DeselectCells()
+    {
+        foreach (var cell in selectedCells)
+        {
+            Destroy(cell);
+        }
+        selectedCells.Clear();
     }
 
     public IEnumerator CheckWinCondition()

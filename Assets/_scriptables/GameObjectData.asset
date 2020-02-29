@@ -32,3 +32,5 @@ MonoBehaviour:
     type: 3}
   cameraExtension: {fileID: 7391428972306976429, guid: 72af8921355c05d4096b9e7e9afa3b6a,
     type: 3}
+  selectedCell: {fileID: 2937710262023526728, guid: 9ac7a8bec76a7524ab6a000585af6b73,
+    type: 3}

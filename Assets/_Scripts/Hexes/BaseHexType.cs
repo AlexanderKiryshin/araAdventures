@@ -74,7 +74,7 @@ namespace Assets.Scripts.Cells
             else
             {
                 ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
-                ((MoveHero)MoveHero.instance).Move(previousCoordinate, Position, 1f);
+                ((MoveHero)MoveHero.instance).Move(previousCoordinate, Position, 1.03f);
             }
             //SetHeroPosition(new Position(hex.Position.x, hex.Position.y), false);
         }
@@ -83,6 +83,7 @@ namespace Assets.Scripts.Cells
             ((MoveHero)MoveHero.instance).SetIdleAnimation();
             ((MoveHero)MoveHero.instance).SetNextPosition();
            ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
+          LevelManager.instance.SelectCells(Position);
            ((MoveHero)MoveHero.instance).UnlockInput();
         }
         public virtual void OnLaserHit(Position previousPosition,int rangeInAir,int range)

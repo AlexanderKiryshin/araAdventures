@@ -414,7 +414,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 581061103}
+      - m_Target: {fileID: 0}
         m_MethodName: AddLevel
         m_Mode: 5
         m_Arguments:
@@ -425,7 +425,7 @@ MonoBehaviour:
           m_StringArgument: UI
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 581061103}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -658,38 +658,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581061104}
-  - component: {fileID: 581061103}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &581061103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581061102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cda84e570af965b4a837064030703adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scenes:
-  - LevelSelection
-  - level_1
-  - level_2
-  - level_3
-  - level_4
-  - level_5
-  - level_6
-  - level_8
-  - 
-  - 
-  nameOfScene: 
+  m_IsActive: 0
 --- !u!4 &581061104
 Transform:
   m_ObjectHideFlags: 0

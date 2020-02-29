@@ -20,5 +20,9 @@ namespace Assets._Scripts.Hexes
         {
             return false;
         }
+        public override bool IsPassable()
+        {
+            return false;
+        }
     }
 }

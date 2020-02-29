@@ -23,7 +23,7 @@ public class IceHex : BaseHexType
 	public override void OnEnterHexEvent()
 	{
 		((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
-        Debug.LogError("onEnter otp");
+
 
         var currentPosition = Position;
 		var newPosition = PositionCalculator.GetOppositeSidePosition(lastPosition, currentPosition);
@@ -43,7 +43,7 @@ public class IceHex : BaseHexType
 	{
 		((MoveHero)MoveHero.instance).LockInput();
         ((MoveHero)MoveHero.instance).SetNextPosition();
-        Debug.LogError("onEnter podp");
+    
         ((MoveHero)MoveHero.instance).EndMove += OnEnterHexEvent;
         ((MoveHero)MoveHero.instance).Move(previousCoordinate,Position, 1f,false);
 		lastPosition = previousCoordinate;
@@ -56,7 +56,7 @@ public class IceHex : BaseHexType
             if (hex.IsPassable())
             {
                 ((MoveHero)MoveHero.instance).EndMove += OnLeaveHexEvent;
-                Debug.LogError("onLeave podp");
+              
                 ((MoveHero)MoveHero.instance).Move(Position, nextHex, 0.5f, false);
                 ((MoveHero)MoveHero.instance).nextPosition = nextHex;
             }
@@ -65,6 +65,7 @@ public class IceHex : BaseHexType
                 ((MoveHero)MoveHero.instance).Idle();
                 ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
                 ((MoveHero)MoveHero.instance).EndMove -= OnLeaveHexEvent;
+                LevelManager.instance.SelectCells(Position);
             }
         }
         else

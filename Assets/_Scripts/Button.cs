@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
+#if (UNITY_EDITOR)
     [CustomEditor(typeof(LevelManager))]
     public class Button : Editor
     {
@@ -22,4 +23,5 @@ namespace Assets._Scripts
         }
 
     }
+#endif
 }

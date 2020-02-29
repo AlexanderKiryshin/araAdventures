@@ -111,8 +111,11 @@ namespace Assets.Scripts
         }
         private IEnumerator FallHeroCoroutine()
         {
-            gameObject.transform.DOMoveZ(gameObject.transform.position.z+2, 1f);
-            yield return new WaitForSeconds(1f);
+            gameObject.transform.DOMoveZ(gameObject.transform.position.z+5, 1f);
+            yield return new WaitForSeconds(0.1f);
+            SoundManager.instance.PlaySound("splash");
+            yield return new WaitForSeconds(1.2f);
+          
             fallEndedAction.Invoke();
         }
 
@@ -156,6 +159,8 @@ namespace Assets.Scripts
                 bool coordinateIsFound = false;
                 foreach (var coordinate in aroundCoordinates)
                 {
+                    levelManager.TryGetHex(coordinate, 0, out var hex2);
+                    
                     if (hex.Position.x == coordinate.x&& hex.Position.y == coordinate.y)
                     {
                         coordinateIsFound = true;
@@ -173,7 +178,8 @@ namespace Assets.Scripts
 					return;
 				}
 
-                isBlockInput = true;           
+                isBlockInput = true;   
+                levelManager.DeselectCells();
                 StartCoroutine(LeaveHexCoroutine(hex));
             }
         }
@@ -284,6 +290,19 @@ namespace Assets.Scripts
         {
             levelManager.TryGetHex(nextHex, 0, out var enteredHex);
             enteredHex.OnEnterHex(currentHex);
+            
+           /* Position[] positions= PositionCalculator.GetAroundSidePositions(nextHex);
+            foreach (var pos in positions)
+            {
+                levelManager.TryGetHex(pos, 0, out var hex);
+                if (hex != null)
+                {
+                    Vector3 position = hex.Instance.transform.position;
+                    position.z -= 0.5f;
+                    Instantiate(levelManager.gameObjectData.selectedCell, position, Quaternion.identity);
+                }
+            }*/
+            
         }
         public void SetIdleAnimation()
         {

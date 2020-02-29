@@ -26,8 +26,9 @@ namespace Assets.Scripts
 
         public void LoadNextLevel()
         {
-            SceneManager.LoadScene(Scenes[sceneCounter]);
-            sceneCounter++;          
+            SceneManager.LoadScene(Scenes[0]);
+            Debug.LogError("Scene "+Scenes[0]);
+            //sceneCounter++;          
         }
 
         /*public IEnumerator LoadLevelCoroutine()
