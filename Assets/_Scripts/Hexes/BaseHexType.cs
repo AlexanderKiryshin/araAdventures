@@ -84,7 +84,10 @@ namespace Assets.Scripts.Cells
             ((MoveHero)MoveHero.instance).SetNextPosition();
            ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
           LevelManager.instance.SelectCells(Position);
-           ((MoveHero)MoveHero.instance).UnlockInput();
+          if (LevelManager.instance.FruitCount() != 0)
+          {
+              ((MoveHero) MoveHero.instance).UnlockInput();
+          }
         }
         public virtual void OnLaserHit(Position previousPosition,int rangeInAir,int range)
         {

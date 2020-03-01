@@ -1,0 +1,12 @@
+Font: Fira Sans  Style: Bold
+Point Size: 28   SP/PD Ratio: 17,9%
+
+Characters included: 287/287
+Missing characters: 0
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+
+Characters excluded from packing:
+----------------------------------------

@@ -216,11 +216,13 @@ namespace Assets.Scripts
 
         public void LockInput()
         {
+            Debug.Log("LOCK");
             isBlockInput = true;
         }
 
         public void UnlockInput()
         {
+            Debug.Log("UNLOCK");
             isBlockInput = false;
         }
         private IEnumerator MoveCoroutine(Position backPosition, Position nextPosition, float percentMoveToPosition,bool isWalkAnimation=true)
@@ -310,10 +312,10 @@ namespace Assets.Scripts
         }
         public IEnumerator WinMove()
         {
-            while (isBlockInput)
+            /*while (isBlockInput)
             {
                 yield return new WaitForSeconds(0.05f);
-            }
+            }*/
             gameObject.transform.DOLocalRotate(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, -180), 1f);
             yield return new WaitForSeconds(1f);
             animator.Play("win");

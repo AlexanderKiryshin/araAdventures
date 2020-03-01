@@ -594,6 +594,16 @@ public class LevelManager :Singleton<LevelManager>
         hex.Instance.transform.DOScale(new Vector3(60, 69.2f, 60), 1f);
         yield return new WaitForSeconds(0);
     }
+
+    public int FruitCount()
+    {
+        if (fruits != null)
+        {
+            return fruits.Count;
+        }
+
+        return 0;
+    }
     public void ChangeHex(BaseHexType hexType,Func<IEnumerator> method)
     {
        // method();
@@ -669,9 +679,11 @@ public class LevelManager :Singleton<LevelManager>
     {
         if (fruits.Count == 0)
         {
+            Debug.Log("LOCK INPUT");
             ((MoveHero)MoveHero.instance).LockInput();
+            yield return new WaitForSeconds(0.5f);
             StartCoroutine(moveHero.WinMove());
-            yield return new WaitForSeconds(0.5f);         
+               
         }
     }
 }
