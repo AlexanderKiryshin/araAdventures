@@ -119,7 +119,7 @@ public class LevelManager :Singleton<LevelManager>
         {
             fruit.CreateFruit();
            // fruit.instance=Instantiate(gameObjectData.strawberry,itemTilemap.GetCellCenterWorld(new Vector3Int(fruit.position.x, fruit.position.y, 0)),Quaternion.identity);
-            Debug.LogError("straw " +itemTilemap.GetCellCenterLocal(new Vector3Int(fruit.position.x, fruit.position.y, 0)));
+         //   Debug.LogError("straw " +itemTilemap.GetCellCenterLocal(new Vector3Int(fruit.position.x, fruit.position.y, 0)));
         }
     }
 
@@ -679,7 +679,7 @@ public class LevelManager :Singleton<LevelManager>
     {
         if (fruits.Count == 0)
         {
-            Debug.Log("LOCK INPUT");
+           // Debug.Log("LOCK INPUT");
             ((MoveHero)MoveHero.instance).LockInput();
             yield return new WaitForSeconds(0.5f);
             StartCoroutine(moveHero.WinMove());

@@ -121,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.2.4
+  bundleVersion: 1.2.5
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,7 +165,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.AnotherWorldGames.talesAra
   buildNumber: {}
-  AndroidBundleVersionCode: 8
+  AndroidBundleVersionCode: 9
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 29
   AndroidPreferredInstallLocation: 1
@@ -693,7 +693,7 @@ PlayerSettings:
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
     Build: 0
-    Collab: 1
+    Collab: 0
     ErrorHub: 0
     Hub: 0
     UNet: 1
@@ -716,10 +716,11 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 5997ffad-b0e4-4f97-aff4-d7a228a2f95f
+  cloudProjectId: 61a4fec9-9501-40a8-b87a-a0464ca8ef97
   framebufferDepthMemorylessMode: 0
-  projectName: puzzle
-  organizationId: redfenix1993
+  projectName: "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F
+    \u043F\u043E\u043F\u0443\u0433\u0430\u044F \u0410\u0440\u0430"
+  organizationId: kirushin
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

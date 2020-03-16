@@ -93,7 +93,7 @@ public class IceHex : BaseHexType
     {
        // LeaveHexEvent?.Invoke(((MoveHero)MoveHero.instance).nextPosition, Position);
         ((MoveHero)MoveHero.instance).EndMove -= OnLeaveHexEvent;
-        Debug.LogError("onLeave otp");
+       // Debug.LogError("onLeave otp");
         var levelManager = GameObject.FindObjectOfType<LevelManager>();
         levelManager.TryGetHex(((MoveHero)MoveHero.instance).nextPosition, 0, out var hex);
         if (hex == null)

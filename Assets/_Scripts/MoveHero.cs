@@ -202,7 +202,7 @@ namespace Assets.Scripts
         }
         private IEnumerator EatWithMoveCoroutine(Position beforePosition, Position nextPosition, float percentMoveBefore, float percentMoveAfter)
         {
-            Debug.LogError(isBlockInput +"BLOCK");
+           // Debug.LogError(isBlockInput +"BLOCK");
             StartCoroutine(MoveM(beforePosition,nextPosition, percentMoveBefore));
             yield return new WaitForSeconds(TIME_WALK*percentMoveBefore);
             animator.CrossFade("eat", 0.05f);
@@ -211,18 +211,18 @@ namespace Assets.Scripts
             StartCoroutine(MoveM(beforePosition,nextPosition, percentMoveAfter));
             yield return new WaitForSeconds(TIME_WALK * percentMoveAfter);
             EndMove?.Invoke();
-            Debug.LogError(isBlockInput + "BLOCK FALSE");
+           // Debug.LogError(isBlockInput + "BLOCK FALSE");
         }
 
         public void LockInput()
         {
-            Debug.Log("LOCK");
+           // Debug.Log("LOCK");
             isBlockInput = true;
         }
 
         public void UnlockInput()
         {
-            Debug.Log("UNLOCK");
+           // Debug.Log("UNLOCK");
             isBlockInput = false;
         }
         private IEnumerator MoveCoroutine(Position backPosition, Position nextPosition, float percentMoveToPosition,bool isWalkAnimation=true)

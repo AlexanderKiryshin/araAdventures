@@ -211,6 +211,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6923463553101565424, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
+    - target: {fileID: 6923463553101565427, guid: dafdceb0834d36c4590cb552143f02ed,
+        type: 3}
+      propertyPath: Scenes.Array.data[0]
+      value: LevelSelection
+      objectReference: {fileID: 0}
     - target: {fileID: 6923463551867688267, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: m_Tiles.Array.size

@@ -29,11 +29,9 @@ namespace Assets.Scripts
             }
             else
             {
-                Debug.LogError("_y" + _y + "_" + (_y * UNITS_SIZE + UNITS_SIZE) / 2);
                 camera.orthographicSize = (_y + UNITS_SIZE)/ 2;
-            }
-           
-            Debug.LogError(Mathf.Tan(camera.transform.localRotation.eulerAngles.x*Mathf.PI/180));
+            }           
+           // Debug.LogError(Mathf.Tan(camera.transform.localRotation.eulerAngles.x*Mathf.PI/180));
             float offsetY = (z - CAMERA_Z_COORDINATE) * Mathf.Tan(camera.transform.localRotation.eulerAngles.x * Mathf.PI / 180);
             camera.transform.position = new Vector3(vector.x, vector.y+offsetY, CAMERA_Z_COORDINATE);
             waves.transform.localScale = new Vector3(camera.orthographicSize*2/WAVES_SIZE, waves.transform.localScale.y, camera.orthographicSize * 2 / WAVES_SIZE);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets._Scripts.Analytics;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
@@ -34,6 +35,7 @@ namespace Assets.Scripts
 
         public void LevelComplete()
         {
+            FindObjectOfType<LevelEventManager>().Completelevel();
             gameCanvas.SetActive(false);
             levelCompleteCanvas.SetActive(true);      
         }
@@ -44,6 +46,7 @@ namespace Assets.Scripts
         }
         public void RestartLevel()
         {
+            FindObjectOfType<LevelEventManager>().RestartLevel();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
