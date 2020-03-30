@@ -3,6 +3,7 @@ using UnityEditor;
 using Assets.Scripts.Cells;
 using UnityEngine.Tilemaps;
 using Assets.Scripts;
+using Assets._Scripts.FakeHexes;
 
 public class IceHex : BaseHexType
 {
@@ -112,5 +113,9 @@ public class IceHex : BaseHexType
         {
             LaserGenerator.instance.DrawLaser(Position, position,rangeInAir,range);
         }
+    }
+    public override BaseFakeHexType GetFakeHex()
+    {
+        return new FakeIceHex(Position, Layer);
     }
 }

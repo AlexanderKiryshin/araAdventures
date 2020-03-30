@@ -16,12 +16,12 @@ namespace Assets._Scripts.FakeHexes
             return LevelGenerator.instance.GetHexType(Constants.CREATING_AROUND_HEX);
         }
 
-        public override void OnEnterHex(ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        public override void OnEnterHex(Position previousCoordinate, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnLeaveHex(ref BaseFakeHexType[,] map)
+        public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
             throw new System.NotImplementedException();
         }

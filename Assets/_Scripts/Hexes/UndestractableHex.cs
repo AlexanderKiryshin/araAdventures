@@ -1,4 +1,5 @@
 ﻿
+using Assets._Scripts.FakeHexes;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -19,6 +20,9 @@ namespace Assets.Scripts.Cells
         {
             return false;
         }
-
+        public override BaseFakeHexType GetFakeHex()
+        {
+            return new FakeUndestractableHex(Position, Layer);
+        }
     }
 }

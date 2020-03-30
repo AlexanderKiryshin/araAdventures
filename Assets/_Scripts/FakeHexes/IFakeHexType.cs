@@ -11,8 +11,8 @@ namespace Assets._Scripts.FakeHexes
         int Layer { get; set; }
         GameObject Model { get; set; }
         GameObject Instance { get; set; }
-        void OnLeaveHex(ref BaseFakeHexType[,] map);
-        void OnEnterHex(ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
+        void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
+        void OnEnterHex(Position previousCoordinate,ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
         bool isDestoyeble();
         TileBase GetTile();
         void OnLaserHit(Position previousPosition, int rangeInAir, int range);

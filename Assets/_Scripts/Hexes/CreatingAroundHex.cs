@@ -1,4 +1,5 @@
 ﻿
+using Assets._Scripts.FakeHexes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -35,7 +36,6 @@ namespace Assets.Scripts.Cells
                 OnCreateHex(new NormalHex(position, Layer));
             }          
         }
-        
-  
+
     }
 }

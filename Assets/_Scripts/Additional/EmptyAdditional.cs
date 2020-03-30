@@ -12,7 +12,7 @@ namespace Assets._Scripts.Additional
     {
         public IAdditional ShallowCopy()
         {
-            throw new NotImplementedException();
+            return (IAdditional)this.MemberwiseClone();
         }
         public TileBase GetTile()
         {

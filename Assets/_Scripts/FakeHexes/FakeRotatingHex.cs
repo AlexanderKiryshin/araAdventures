@@ -18,14 +18,14 @@ namespace Assets._Scripts.FakeHexes
             this.isClockwiseRotating = isClockwiseRotating;
         }
 
-        public override void OnEnterHex(ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        public override void OnEnterHex(Position previousCoordinate, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
-        public override void OnLeaveHex(ref BaseFakeHexType[,] map)
+        public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public override TileBase GetTile()

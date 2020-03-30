@@ -15,7 +15,6 @@ namespace Assets._Scripts.Model
         {
             this.fruitMaps = fruitMaps;
             this.hexMap = hexMap;
-
         }
     }
 }

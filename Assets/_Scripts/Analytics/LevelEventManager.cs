@@ -22,7 +22,10 @@ namespace Assets._Scripts.Analytics
         void Awake()
         {
             thisScene = SceneManager.GetActiveScene();
-            AnalyticsEvent.LevelStart(thisScene.name);
+            Dictionary<string, object> customParams = new Dictionary<string, object>();
+            customParams.Add("gender", PlayerPrefs.GetInt("Gender"));
+            customParams.Add("age", PlayerPrefs.GetInt("Age"));
+            AnalyticsEvent.Custom("start_"+thisScene.name, customParams);
         }
 
         public void RestartLevel()
@@ -32,6 +35,8 @@ namespace Assets._Scripts.Analytics
             {             
                 customParams.Add("seconds_played", secondsElapsed);
                 customParams.Add("first_pass", true);
+                customParams.Add("gender", PlayerPrefs.GetInt("Gender"));
+                customParams.Add("age", PlayerPrefs.GetInt("Age"));
                 if (PlayerPrefs.HasKey("level_fails_" + thisScene.name))
                 {
                     int fails = PlayerPrefs.GetInt("level_fails_" + thisScene.name);
@@ -48,11 +53,13 @@ namespace Assets._Scripts.Analytics
             else
             {
                 customParams.Add("seconds_played", secondsElapsed);
-                customParams.Add("first_pass", false);                
+                customParams.Add("first_pass", false);
+                customParams.Add("gender", PlayerPrefs.GetInt("Gender"));
+                customParams.Add("age", PlayerPrefs.GetInt("Age"));
             }
             Debug.LogError("LevelFail");
             state = LevelPlayState.Lost;
-            AnalyticsEvent.LevelFail(thisScene.name,thisScene.buildIndex,customParams);
+            AnalyticsEvent.Custom("fail_"+thisScene.name,customParams);
         }
 
         public void Completelevel()
@@ -77,7 +84,9 @@ namespace Assets._Scripts.Analytics
             Debug.LogError("LevelComplete");
             float seconds = PlayerPrefs.GetFloat("level_" + thisScene.name);
             customParams.Add("totalTime",seconds=secondsElapsed);
-            AnalyticsEvent.LevelComplete(thisScene.name,thisScene.buildIndex,customParams);
+            customParams.Add("gender", PlayerPrefs.GetInt("Gender"));
+            customParams.Add("age", PlayerPrefs.GetInt("Age"));
+            AnalyticsEvent.Custom("complete_"+thisScene.name,customParams);
         }
 
 
@@ -102,8 +111,10 @@ namespace Assets._Scripts.Analytics
                     {
                         customParams.Add("deaths", 0);
                     }
+                    customParams.Add("gender", PlayerPrefs.GetInt("Gender"));
+                    customParams.Add("age", PlayerPrefs.GetInt("Age"));
                     Debug.LogError("LevelQUIT");
-                    AnalyticsEvent.LevelQuit(thisScene.name,thisScene.buildIndex,customParams);
+                    AnalyticsEvent.Custom("quit_"+thisScene.name,customParams);
                     break;
             }
         }

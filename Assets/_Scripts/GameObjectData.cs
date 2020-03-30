@@ -26,5 +26,6 @@ namespace Assets
         public GameObject doubleStone;
         public GameObject cameraExtension;
         public GameObject selectedCell;
+        public GameObject helpCell;
     }
 }

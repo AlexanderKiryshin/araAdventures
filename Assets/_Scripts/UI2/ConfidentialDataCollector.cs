@@ -83,7 +83,9 @@ public class ConfidentialDataCollector : MonoBehaviour
 
     public void OKButton()
     {
-        PlayerAnalytic.SendPlayerData(man.isOn,Convert.ToInt32(age.text));
+         PlayerAnalytic.SendPlayerData(man.isOn,Convert.ToInt32(age.text));
+        PlayerPrefs.SetInt("Gender", man.isOn?1:0);
+        PlayerPrefs.SetInt("Age", Convert.ToInt32(age.text));
         ConfidentialInfoUI.onAgeConfirm?.Invoke();
     }
 }

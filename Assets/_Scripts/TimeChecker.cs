@@ -9,16 +9,34 @@ namespace Assets._Scripts
     public class TimeChecker
     {
         private static Dictionary<string, Time> namesAndTime;
+        private static Dictionary<string, int> namesCount;
 
         static TimeChecker()
         {
             namesAndTime=new Dictionary<string, Time>();
+            namesCount=new Dictionary<string, int>();
         }
 
         public static void Clear()
         {
             namesAndTime=new Dictionary<string, Time>();
+            namesCount = new Dictionary<string, int>();
         }
+
+        public static void BeginCount(string name)
+        {
+            if (namesCount.TryGetValue(name, out var result))
+            {
+                int newValue = result+1;
+                namesCount.Remove(name);
+                namesCount.Add(name, newValue);
+            }
+            else
+            {
+                namesCount.Add(name,1);
+            }
+        }
+
         public static void BeginMeasurement(string name)
         {
             if (namesAndTime.TryGetValue(name, out var result))
@@ -40,16 +58,6 @@ namespace Assets._Scripts
 
                 TimeSpan span = System.DateTime.Now - result.lastSession;
                 result.totalTime=result.totalTime.Add(span);
-
-                /*DateTime newDate = new DateTime(result.totalTime.Year+ System.DateTime.Now.Year - result.lastSession.Year, 
-                    result.totalTime.Month + System.DateTime.Now.Month - result.lastSession.Month, 
-                    result.totalTime.Day + System.DateTime.Now.Day - result.lastSession.Day,
-                    result.totalTime.Hour + System.DateTime.Now.Hour - result.lastSession.Hour, result.totalTime.Minute
-                    + System.DateTime.Now.Minute - result.lastSession.Minute,
-                    result.totalTime.Millisecond + System.DateTime.Now.Millisecond - result.lastSession.Millisecond);*/
-                Time time = new Time(result.totalTime, System.DateTime.Now);
-                // Debug.LogError(name +" "+(System.DateTime.Now - result));
-              //  namesAndTime.Remove(name);
             }
             else
             {
@@ -62,6 +70,10 @@ namespace Assets._Scripts
             for (int i = 0; i < namesAndTime.Count; i++)
             {
                 Debug.LogError(namesAndTime.Keys.ToList()[i]+" "+namesAndTime.Values.ToList()[i].totalTime);
+            }
+            for (int i = 0; i < namesCount.Count; i++)
+            {
+                Debug.LogError(namesCount.Keys.ToList()[i] + " " + namesCount.Values.ToList()[i]);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.FakeHexes;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -41,6 +42,10 @@ namespace Assets.Scripts.Cells
             return true;
         }
 
+        public override BaseFakeHexType GetFakeHex()
+        {
+            return new FakeDoubleHex(Position, Layer);
+        }
        /* public override void OnEnterHex(Position previousCoordinate)
         {
         }*/

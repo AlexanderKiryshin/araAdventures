@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Assets._Scripts.FakeHexes;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -101,6 +102,11 @@ namespace Assets.Scripts.Cells
         public BaseHexType ShallowCopy()
         {
             return (BaseHexType)this.MemberwiseClone();
+        }
+
+        public virtual BaseFakeHexType GetFakeHex()
+        {
+            return new FakeEmptyHex(Position, Layer);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Assets._Scripts.FakeHexes
             throw new NotImplementedException();
         }
 
-        public abstract void OnEnterHex(ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
+        public abstract void OnEnterHex(Position previousCoordinate,ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
 
         public void OnLaserHit(Position previousPosition, int rangeInAir, int range)
         {
@@ -45,6 +45,11 @@ namespace Assets._Scripts.FakeHexes
             return (BaseFakeHexType)this.MemberwiseClone();
         }
 
-        public abstract void OnLeaveHex(ref BaseFakeHexType[,] map);
+        public abstract void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
+
+        public virtual bool IsPassable()
+        {
+            return true;
+        }
     }
 }

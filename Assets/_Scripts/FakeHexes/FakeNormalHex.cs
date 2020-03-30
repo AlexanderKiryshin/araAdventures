@@ -16,11 +16,11 @@ namespace Assets._Scripts.FakeHexes
         {
         }
 
-        public override void OnEnterHex(ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        public override void OnEnterHex(Position previousCoordinate, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
         }
 
-        public override void OnLeaveHex(ref BaseFakeHexType[,] map)
+        public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
             BaseOperationWithMap.DestroyHex(this.Position,this.Layer,map);
         }

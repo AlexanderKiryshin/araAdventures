@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.FakeHexes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,9 +46,12 @@ namespace Assets.Scripts.Cells
         {
             return true;
         }
-
-       /* public override void OnEnterHex(Position previousCoordinate)
+        public override BaseFakeHexType GetFakeHex()
         {
-        }*/
+            return new FakeNormalHex(Position, Layer);
+        }
+        /* public override void OnEnterHex(Position previousCoordinate)
+         {
+         }*/
     }
 }

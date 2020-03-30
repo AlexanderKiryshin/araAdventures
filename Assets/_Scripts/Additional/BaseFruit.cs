@@ -40,6 +40,11 @@ namespace Assets._Scripts
             Destroy(instance);
         }
 
+        public virtual void OnFakeEat()
+        {
+            CountPasses--;
+        }
+
         public abstract void CreateFruit();
 
     }

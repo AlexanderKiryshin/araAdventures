@@ -34,3 +34,5 @@ MonoBehaviour:
     type: 3}
   selectedCell: {fileID: 2937710262023526728, guid: 9ac7a8bec76a7524ab6a000585af6b73,
     type: 3}
+  helpCell: {fileID: 2937710262023526728, guid: 6cfe18d1676fab44c8193686a829d86d,
+    type: 3}

@@ -8,6 +8,8 @@ public class ConfidentialInfoUI : MonoBehaviour
 {
     public GameObject confidentialInfo;
     public Button confirmConfInfo;
+    public Button confInfoButton1;
+    public Button confInfoButton2;
     public static Action onAgeConfirm;
     public GameObject ageScreen;
     // Start is called before the first frame update
@@ -17,7 +19,8 @@ public class ConfidentialInfoUI : MonoBehaviour
         {
             confidentialInfo.SetActive(true);
         }
-
+        confInfoButton1.onClick.AddListener(ShowConfidentialInfo);
+        confInfoButton2.onClick.AddListener(ShowConfidentialInfo);
         onAgeConfirm += AgeConfirm;
         confirmConfInfo.onClick.AddListener(ConfirmConfidential);
     }
@@ -32,5 +35,10 @@ public class ConfidentialInfoUI : MonoBehaviour
     {
         ageScreen.SetActive(false);
         PlayerPrefs.SetInt("Confidential",1);
+    }
+
+    public void ShowConfidentialInfo()
+    {
+        Application.OpenURL("https://docs.google.com/document/d/1-NChTrwqa5_XFBGc8TQsuEG8dRtp52_-7akpwz-BM6o/edit?usp=sharing");
     }
 }

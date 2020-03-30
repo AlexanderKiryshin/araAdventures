@@ -4,19 +4,19 @@ using Assets.Scripts.Cells;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
-using System.CodeDom;
 using System.Collections;
 using System.IO;
-using System.Linq;
 using Assets._Scripts;
 using UnityEngine.SceneManagement;
 using Assets;
 using Assets._Scripts.Additional;
+using Assets._Scripts.FakeHexes;
 using Assets._Scripts.Hexes;
 using DG.Tweening;
 
 public class LevelManager :Singleton<LevelManager>
 {
+    public Action pathNotFoundAction;
     public Material borderMaterial;
     LineRenderer border;
     public CameraController cameraController;
@@ -43,7 +43,19 @@ public class LevelManager :Singleton<LevelManager>
 
     private List<BaseFruit> fruits;
 
-
+    public List<BaseFruit> GetFruitList()
+    {
+        return fruits;
+    }
+    public List<BaseFakeHexType> MakeListFakeHexes()
+    {
+        List<BaseFakeHexType> results=new List<BaseFakeHexType>();
+        foreach (var hex in hexes)
+        {
+            results.Add(hex.GetFakeHex());
+        }
+        return results;
+    }
     public bool TryFindFruit(Position position, int layer, out BaseFruit fruitResult)
     {
         foreach (var fruit in fruits)
@@ -651,19 +663,58 @@ public class LevelManager :Singleton<LevelManager>
 
     public void SelectCells(Position position)
     {
-        Position[] positions = PositionCalculator.GetAroundSidePositions(position);
-        foreach (var pos in positions)
+        if (FruitCount() == 0)
         {
-            LevelManager.instance.TryGetHex(pos, 0, out var hex);
-            if (hex != null&&hex.IsPassable())
+            return;
+        }
+        Position[] positions = PositionCalculator.GetAroundSidePositions(position);
+        if (HelpManager.instance.GetNumberAvailibleTips > 0)
+        {
+            bool isPathExist = HelpManager.instance.TryGetHelpStep(position, out var nextposition);
+            if (isPathExist)
             {
-                Vector3 posit = hex.Instance.transform.position;
-                posit.x -= 0.28f;
-                posit.y -= 0.5f;
-                posit.z -= 0.4f;
-                selectedCells.Add(Instantiate(gameObjectData.selectedCell, posit, Quaternion.identity));
+                foreach (var pos in positions)
+                {
+                    LevelManager.instance.TryGetHex(pos, 0, out var hex);
+                    if (hex != null && hex.IsPassable())
+                    {
+                        Vector3 posit = hex.Instance.transform.position;
+                        posit.x -= 0.28f;
+                        posit.y -= 0.5f;
+                        posit.z -= 0.4f;
+                        if (nextposition.x == pos.x /*+ HelpManager.instance.Offset.x*/ &&
+                            nextposition.y == pos.y /*+ HelpManager.instance.Offset.y*/)
+                        {
+
+                            selectedCells.Add(Instantiate(gameObjectData.helpCell, posit, Quaternion.identity));
+                        }
+                        else
+                        {
+                            selectedCells.Add(Instantiate(gameObjectData.selectedCell, posit, Quaternion.identity));
+                        }
+                    }
+                }
             }
-        }        
+            else
+            {
+                pathNotFoundAction?.Invoke();
+            }
+        }
+        else
+        {
+            foreach (var pos in positions)
+            {
+                LevelManager.instance.TryGetHex(pos, 0, out var hex);
+                if (hex != null && hex.IsPassable())
+                {
+                    Vector3 posit = hex.Instance.transform.position;
+                    posit.x -= 0.28f;
+                    posit.y -= 0.5f;
+                    posit.z -= 0.4f;
+                    selectedCells.Add(Instantiate(gameObjectData.selectedCell, posit, Quaternion.identity));                   
+                }
+            }
+        }
     }
 
     public void DeselectCells()
@@ -682,8 +733,7 @@ public class LevelManager :Singleton<LevelManager>
            // Debug.Log("LOCK INPUT");
             ((MoveHero)MoveHero.instance).LockInput();
             yield return new WaitForSeconds(0.5f);
-            StartCoroutine(moveHero.WinMove());
-               
+            StartCoroutine(moveHero.WinMove());              
         }
     }
 }
