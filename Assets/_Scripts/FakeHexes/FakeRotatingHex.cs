@@ -41,13 +41,12 @@ namespace Assets._Scripts.FakeHexes
             }
 
         }
-
+#endif
         public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
-            throw new NotImplementedException();
         }
 
-#endif
+
 
         public override HexEnum GetHexEnum()
         {

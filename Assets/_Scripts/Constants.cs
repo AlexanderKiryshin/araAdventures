@@ -17,5 +17,6 @@
         public const string STRAWBERRY = "Strawberry";
         public const string START = "StartHex";
         public const string CAMERA_EXTENSION_HEX = "CameraExtensionHex";
+        public const string SNOW_HEX = "SnowHex";
     }
 }

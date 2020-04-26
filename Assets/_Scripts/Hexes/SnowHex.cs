@@ -34,7 +34,7 @@ namespace Assets.Scripts.Cells
 
         public override TileBase GetTile()
         {
-            return GameObject.FindObjectOfType<LevelManager>().GetHexType(Constants.DOUBLE_HEX) ;
+            return GameObject.FindObjectOfType<LevelManager>().GetHexType(Constants.SNOW_HEX) ;
         }
 
         public override bool isDestoyeble()
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Cells
 
         public override BaseFakeHexType GetFakeHex()
         {
-            return new FakeDoubleHex(Position, Layer);
+            return new FakeSnowHex(Position, Layer);
         }
        /* public override void OnEnterHex(Position previousCoordinate)
         {
