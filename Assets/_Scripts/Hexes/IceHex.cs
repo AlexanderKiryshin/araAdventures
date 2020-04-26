@@ -37,8 +37,9 @@ public class IceHex : BaseHexType
                 ((MoveHero)MoveHero.instance).UnlockInput();
             }
         }
+       //LevelManager.instance.SelectCells(Position);
         //((MoveHero)MoveHero.instance).UnlockInput();
-        }
+    }
 
 	public override void OnEnterHex(Position previousCoordinate)
 	{
@@ -52,7 +53,7 @@ public class IceHex : BaseHexType
 	public override void OnLeaveHex(Position nextHex)
     {
         LevelManager.instance.TryGetHex(nextHex, 0, out var hex);
-        if (hex != null)
+        if (hex != null&&!hex.IsService())
         {
             if (hex.IsPassable())
             {

@@ -20,7 +20,12 @@ namespace Assets._Scripts
             this.layer = layer;
             CountPasses = 1;
         }
-
+       /* public BaseFruit(Vector2Int position, int layer,int countPasses)
+        {
+            this.position = position;
+            this.layer = layer;
+            CountPasses = countPasses;
+        }*/
         public void Initialize()
         {
             CountPasses = 1;

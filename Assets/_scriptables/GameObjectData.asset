@@ -23,6 +23,7 @@ MonoBehaviour:
     type: 3}
   grass: {fileID: 8926682486404781895, guid: 3865be6b79d1a174d8c192cd64c47eb4, type: 3}
   ice: {fileID: 4694722868605917079, guid: d13547461b95b0b44b6867ff6588e17e, type: 3}
+  snow: {fileID: 4694722868605917079, guid: 73e58e43e4822a04aa56e55d27d68c04, type: 3}
   stone: {fileID: 3463114144495159336, guid: 2f1db96803a81bb459387ad56871c1b4, type: 3}
   turnerLeft: {fileID: 8236543969261440971, guid: 757c8659e27f9cb408ae062b984cbfb3,
     type: 3}

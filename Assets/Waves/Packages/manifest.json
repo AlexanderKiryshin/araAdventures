@@ -38,5 +38,9 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+	"com.devtodev:android:1.14.5"
+    "com.android.installreferrer:installreferrer:1.1.1"
+    "com.google.android.gms:play-services-base:17.1.0"
+    "com.google.firebase:firebase-core:17.2.3"
   }
 }

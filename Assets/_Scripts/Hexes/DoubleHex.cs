@@ -21,7 +21,7 @@ namespace Assets.Scripts.Cells
 
         public IEnumerator HideGrass()
         {
-            Debug.LogError("XXXX");
+           // Debug.LogError("XXXX");
             var renderer = Instance.transform.GetChild(0).GetComponent<MeshRenderer>();
             var material = renderer.materials[1];
             for (int i = 0; i < 100; i++)

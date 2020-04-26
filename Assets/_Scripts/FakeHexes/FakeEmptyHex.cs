@@ -8,7 +8,6 @@ using UnityEngine.Tilemaps;
 
 namespace Assets._Scripts.FakeHexes
 {
-#if (UNITY_EDITOR)
     public class FakeEmptyHex:BaseFakeHexType
     {
         public FakeEmptyHex(Position position, int layer) : base(position, layer)
@@ -29,10 +28,15 @@ namespace Assets._Scripts.FakeHexes
         {
             throw new System.NotImplementedException();
         }
+#if (UNITY_EDITOR)
         public override TileBase GetTile()
         {
             return null;
         }
-    }
 #endif
+        public override HexEnum GetHexEnum()
+        {
+            return HexEnum.EmptyHex;
+        }
+    }
 }

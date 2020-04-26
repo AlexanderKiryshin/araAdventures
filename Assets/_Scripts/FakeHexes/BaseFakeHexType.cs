@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets._Scripts.Additional;
 using Assets.Scripts;
 using Assets.Scripts.Cells;
+using Assets._Scripts.Model;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,8 +26,9 @@ namespace Assets._Scripts.FakeHexes
         }
         public BaseFakeHexType()
         { }
-
+#if (UNITY_EDITOR)
         public abstract TileBase GetTile();
+#endif
 
 
         public bool isDestoyeble()
@@ -33,7 +36,8 @@ namespace Assets._Scripts.FakeHexes
             throw new NotImplementedException();
         }
 
-        public abstract void OnEnterHex(Position previousCoordinate,ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
+        public virtual void OnEnterHex(Position previousCoordinate,ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        { }
 
         public void OnLaserHit(Position previousPosition, int rangeInAir, int range)
         {
@@ -45,11 +49,32 @@ namespace Assets._Scripts.FakeHexes
             return (BaseFakeHexType)this.MemberwiseClone();
         }
 
-        public abstract void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map);
+        public virtual void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        { }
 
         public virtual bool IsPassable()
         {
             return true;
+        }
+
+        public virtual void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref Dictionary<Position, HexWithPasses> map, ref Dictionary<Position, IAdditional> fruitMap)
+        {
+        }
+
+        public virtual void OnEnterHex(Position previousCoordinate, ref FakeMoveHero hero, ref Dictionary<Position, HexWithPasses> map, ref Dictionary<Position, IAdditional> fruitMap)
+        {
+        }
+
+        public virtual bool NeedMakeOnLeaveHex()
+        {
+            return true;
+        }
+
+        public abstract HexEnum GetHexEnum();
+
+        public virtual bool IsService()
+        {
+            return false;
         }
     }
 }

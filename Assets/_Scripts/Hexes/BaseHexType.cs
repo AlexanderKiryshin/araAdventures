@@ -108,5 +108,10 @@ namespace Assets.Scripts.Cells
         {
             return new FakeEmptyHex(Position, Layer);
         }
+
+        public virtual bool IsService()
+        {
+            return false;
+        }
     }
 }

@@ -37,5 +37,10 @@ namespace Assets.Scripts.Cells
             }          
         }
 
+        public override BaseFakeHexType GetFakeHex()
+        {
+            return new FakeCreatingAroundHex(Position, Layer);
+        }
+
     }
 }

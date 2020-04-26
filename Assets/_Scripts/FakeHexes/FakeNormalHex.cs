@@ -1,4 +1,6 @@
-﻿using Assets.Scripts;
+﻿using Assets._Scripts.Additional;
+using Assets._Scripts.Model;
+using Assets.Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,6 @@ using UnityEngine.Tilemaps;
 
 namespace Assets._Scripts.FakeHexes
 {
-#if (UNITY_EDITOR)
     public class FakeNormalHex:BaseFakeHexType
     {
         public FakeNormalHex(Position position, int layer) : base(position, layer)
@@ -24,11 +25,21 @@ namespace Assets._Scripts.FakeHexes
         {
             BaseOperationWithMap.DestroyHex(this.Position,this.Layer,map);
         }
+
+        public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref Dictionary<Position, HexWithPasses> map, ref Dictionary<Position, IAdditional> fruitMap)
+        {
+            BaseOperationWithMap.DestroyHex(this.Position,this.Layer,ref map);
+        }
+#if (UNITY_EDITOR)
         public override TileBase GetTile()
         {
             return LevelGenerator.instance.GetHexType(Constants.NORMAL_HEX);
         }
-
-    }
 #endif
+
+        public override HexEnum GetHexEnum()
+        {
+            return HexEnum.NormalHex;
+        }
+    }
 }

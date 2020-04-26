@@ -7,13 +7,13 @@ namespace Assets._Scripts.Model
 {
     public class PathVariant
     {
-        private FakeMoveHero hero;
-        private int fruitCount;
-        private List<Position> path;
-        private Dictionary<Position, BaseFakeHexType> hexMap;
-        private Dictionary<Position, IAdditional> fruitMaps;
+        public FakeMoveHero hero;
+        public int fruitCount;
+        public List<Position> path;
+        public Dictionary<Position, HexWithPasses> hexMap;
+        public Dictionary<Position, IAdditional> fruitMaps;
 
-        public PathVariant(FakeMoveHero hero, int fruitCount, List<Position> path, Dictionary<Position, BaseFakeHexType> hexMap, Dictionary<Position, IAdditional> fruitMaps)
+        public PathVariant(FakeMoveHero hero, int fruitCount, List<Position> path, Dictionary<Position, HexWithPasses> hexMap, Dictionary<Position, IAdditional> fruitMaps)
         {
             this.hero = hero;
             this.fruitCount = fruitCount;

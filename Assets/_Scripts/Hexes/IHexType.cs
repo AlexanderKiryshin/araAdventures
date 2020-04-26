@@ -17,8 +17,8 @@ namespace Assets.Scripts
         bool isDestoyeble();
         TileBase GetTile();
         void OnLaserHit(Position previousPosition,int rangeInAir,int range);
-
-
+        bool IsPassable();
+        bool IsService();
     }
 
     [Serializable]

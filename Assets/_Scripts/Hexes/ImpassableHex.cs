@@ -1,4 +1,5 @@
-﻿using Assets.Scripts;
+﻿using Assets._Scripts.FakeHexes;
+using Assets.Scripts;
 using Assets.Scripts.Cells;
 using System;
 using UnityEngine;
@@ -23,6 +24,11 @@ namespace Assets._Scripts.Hexes
         public override bool IsPassable()
         {
             return false;
+        }
+
+        public override BaseFakeHexType GetFakeHex()
+        {
+            return new FakeImpassableHex(Position, Layer);
         }
     }
     

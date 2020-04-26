@@ -1,22 +1,31 @@
 ﻿
+using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Assets._Scripts.Additional;
 using Assets._Scripts.Model;
 using Assets._Scripts.FakeHexes;
 using Assets.Scripts;
-using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.Profiling;
-using Assets.Scripts.Cells;
 
 namespace Assets._Scripts
 {
-#if (UNITY_EDITOR)
     public static class PathFinder
     {
-        public static PathFindData GetPath(List<BaseFruit> fruitMapList, List<BaseFakeHexType> hexMapList,
-            Position heroPosition)
+        public static Action ActionIcePassed;
+        private static bool iceIsPassed;
+        public const int MAX_PATH_LENGTH = 30;
+
+        static PathFinder()
+        {
+            ActionIcePassed = IceIsPassed;
+        }
+
+        static void IceIsPassed()
+        {
+            iceIsPassed = true;
+        }
+        public static List<Position> GetPath(List<BaseFruit> fruitMapList, List<BaseFakeHexType> hexMapList,
+            Position heroPosition, Dictionary<HexEnum, int> limitPasses)
         {
             Position bottomLeft = new Position(100, 100);
 
@@ -52,80 +61,153 @@ namespace Assets._Scripts
             offset.y = -bottomLeft.y;
             HelpManager.instance.Offset = offset;
             bottomLeft.y = 0;
+         
+            FakeMoveHero moveHero = new FakeMoveHero();
+            moveHero.HeroPosition = new Position(heroPosition.x, heroPosition.y);
+            // int[,] ispassedHexes = new int[fruitMap.GetLength(0), fruitMap.GetLength(1)];
 
-            BaseFakeHexType[,] hexMap = new BaseFakeHexType[upRight.x - bottomLeft.x + 1, upRight.y - bottomLeft.y + 1];
-            IAdditional[,] fruitMap = new IAdditional[upRight.x - bottomLeft.x + 1, upRight.y - bottomLeft.y + 1];
-            for (int x = 0; x < hexMap.GetLength(0) - 1; x++)
-            {
-                for (int y = 0; y < hexMap.GetLength(1) - 1; y++)
-                {
-                    hexMap[x, y] = new FakeEmptyHex(new Position(x - offset.x, y - offset.y), 0);
-                    fruitMap[x, y] = new EmptyAdditional();
-                }
-            }
-
+            TimeChecker.Clear();
+            TimeChecker.BeginMeasurement("PATH");
+            /* PathFindResult results = GetPath(moveHero, hexMap, fruitMap, ispassedHexes, 100, 0, fruitMapList.Count,
+                 path, 0, 6);*/
+            Dictionary<Position, HexWithPasses> hexDict = new Dictionary<Position, HexWithPasses>();
+            Dictionary<Position, IAdditional> fruitDict = new Dictionary<Position, IAdditional>();
             foreach (var hex in hexMapList)
             {
-                //hex.Position=new Position(hex.Position.x/*+offset.x*/,hex.Position.y/*+offset.y*/);
-                hexMap[hex.Position.x + offset.x, hex.Position.y + offset.y] = hex;
+                hexDict.Add(hex.Position,new HexWithPasses(hex));
             }
 
             foreach (var fruit in fruitMapList)
             {
-                fruitMap[((BaseFruit) fruit).position.x + offset.x, ((BaseFruit) fruit).position.y + offset.y] = fruit;
+                fruitDict.Add(new Position(fruit.position.x, fruit.position.y), fruit.ShallowCopy());
             }
 
-            fruitMap[heroPosition.x + offset.x, heroPosition.y + offset.y] = new StartPosition();
-            FakeMoveHero moveHero = new FakeMoveHero();
-            moveHero.HeroPosition = new Position(heroPosition.x /* + offset.x*/, heroPosition.y /* + offset.y*/);
-            int[,] ispassedHexes = new int[fruitMap.GetLength(0), fruitMap.GetLength(1)];
-            List<Position> path = null;
-            TimeChecker.Clear();
-            TimeChecker.BeginMeasurement("PATH");
-            PathFindResult results = GetPath(moveHero, hexMap, fruitMap, ispassedHexes, 100, 0, fruitMapList.Count,
-                path, 0, 6);
+            var path = GetPath(moveHero, hexDict, fruitDict,limitPasses);
             TimeChecker.EndMeasurement("PATH");
             TimeChecker.PrintResult();
-            PathFindData result = null;
-            foreach (var res in results.results)
-            {
-                if (res.lengthRightPath > -1)
-                {
-                    if (result != null)
-                    {
-                        if (res.lengthRightPath < result.lengthRightPath)
-                        {
-                            result = res;
-                        }
-                    }
-                    else
-                    {
-                        result = res;
-                    }
-                }
-            }
 
-            return result;
+            return path;
         }
 
-        public static PathVariant GetPath(FakeMoveHero hero, Dictionary<Position, BaseFakeHexType> hexMap,
-            Dictionary<Position, IAdditional> fruitMaps)
+        public static List<Position> GetPath(FakeMoveHero hero, Dictionary<Position, HexWithPasses> hexMap,
+            Dictionary<Position, IAdditional> fruitMap,Dictionary<HexEnum, int> limitPasses)
         {
-            int fruitCount = fruitMaps.Count;
-            List<Position> startHexes = GetAvailableHexes(hero, hexMap);
-            List<PathVariant> pathVariants=new List<PathVariant>();
-            if (startHexes.Count == 0)
-            {
-                return null;
-            }
-            else
-            {
-                foreach (var hexPosition in startHexes)
-                {
+            // int fruitCount = fruitMap.Count;
 
-                   pathVariants.Add(new PathVariant(hero, fruitCount, null, hexMap, fruitMaps));
+            List<PathVariant> pathVariants = new List<PathVariant>();
+            var path = new List<Position>();
+            path.Add(hero.HeroPosition);
+            pathVariants.Add(new PathVariant(hero, fruitMap.Count, path, hexMap, fruitMap));
+            for (int i = 0; i < pathVariants.Count; i++)
+            {
+                List<Position> startHexes = GetAvailableHexes(pathVariants[i].hero, pathVariants[i].hexMap);
+                if (startHexes.Count == 0)
+                {
+                    pathVariants.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+                else
+                {
+                    foreach (var hexPosition in startHexes)
+                    {
+                        if (pathVariants[i].hexMap.TryGetValue(hexPosition, out var promhex))
+                        {
+                            if (!promhex.hex.IsPassable())
+                            {
+                                continue;
+                            }
+                        }
+                        var hexMapCopy = new Dictionary<Position, HexWithPasses>();
+                        foreach (var hexCopy in pathVariants[i].hexMap.Values)
+                        {
+                            hexMapCopy.Add(hexCopy.hex.Position,new HexWithPasses(hexCopy.CountPasses,hexCopy.hex.ShallowCopy()));
+                        }
+                        var fruitMapCopy = new Dictionary<Position, IAdditional>();
+
+                        foreach (var fruitCopy in pathVariants[i].fruitMaps.Values)
+                        {
+                            fruitMapCopy.Add(new Position(((BaseFruit)fruitCopy).position.x, ((BaseFruit)fruitCopy).position.y), ((BaseFruit)fruitCopy).ShallowCopy());
+                        }
+
+                        var heroCopy = pathVariants[i].hero.ShallowCopy();
+
+                        hexMapCopy.TryGetValue(heroCopy.HeroPosition, out var previousHex);
+                        if (previousHex != null)
+                        {
+                            previousHex.hex.OnLeaveHex(hexPosition, ref heroCopy, ref hexMapCopy,ref fruitMapCopy);
+                        }
+
+                        if (heroCopy == null)
+                        {
+                            iceIsPassed = false;
+                            continue;
+                        }
+
+                        var lastPosition = heroCopy.HeroPosition;
+
+                        List<Position> pathCopy = new List<Position>(pathVariants[0].path);
+                        pathCopy.Add(hexPosition);
+                        if (pathCopy.Count >= MAX_PATH_LENGTH)
+                        {
+                            iceIsPassed = false;
+                            return null;
+                        }
+
+                        hexMapCopy.TryGetValue(hexPosition, out var hex);
+                        Position previousPosition = heroCopy.HeroPosition;
+                        //heroCopy.HeroPosition = hexPosition;
+                   
+                       
+                        if (hex != null&&!iceIsPassed)
+                        {
+                           
+                            if (limitPasses!=null&&limitPasses.TryGetValue(hex.hex.GetHexEnum(), out var limit))
+                            {
+                                if (hex.CountPasses+1 > limit)
+                                {
+                                    continue;
+                                }
+                            }
+                            hex.IncrementCountPasses();
+                          //  hexMapCopy.Remove(hexPosition);
+                           // hexMapCopy.Add(hexPosition,hex);
+                            heroCopy.HeroPosition = hexPosition;
+                            hex.hex.OnEnterHex(previousPosition, ref heroCopy, ref hexMapCopy,ref fruitMapCopy);
+                        }
+
+                        iceIsPassed = false;
+
+                        if (heroCopy == null)
+                        {
+                            continue;
+                        }
+
+                        int fruitCount = pathVariants[0].fruitCount;
+                        if (fruitMapCopy.TryGetValue(heroCopy.HeroPosition, out var fruit))
+                        {
+                            if (fruit.GetType() != typeof(EmptyAdditional) &&
+                                fruit.GetType() != typeof(StartPosition))
+                            {
+                                ((BaseFruit)fruit).OnFakeEat();
+                                if (((BaseFruit)fruit).CountPasses == 0)
+                                {
+                                    fruitMapCopy.Remove(heroCopy.HeroPosition);
+                                    fruitCount--;
+                                    if (fruitCount == 0)
+                                    {
+                                        return pathCopy;
+                                    }
+                                }
+                            }
+                        }
+                        pathVariants.Add(new PathVariant(heroCopy, fruitCount, pathCopy, hexMapCopy, fruitMapCopy));
+                    }
+                    pathVariants.RemoveAt(i);
+                    i--;
                 }
             }
+            return null;
         }
 
         public static int count = 0;
@@ -296,9 +378,9 @@ namespace Assets._Scripts
                         && copyFruitMaps[copyHero.HeroPosition.x + HelpManager.instance.Offset.x,
                             copyHero.HeroPosition.y + HelpManager.instance.Offset.y].GetType() != typeof(StartPosition))
                     {
-                        ((BaseFruit) copyFruitMaps[copyHero.HeroPosition.x + HelpManager.instance.Offset.x,
+                        ((BaseFruit)copyFruitMaps[copyHero.HeroPosition.x + HelpManager.instance.Offset.x,
                             copyHero.HeroPosition.y + HelpManager.instance.Offset.y]).OnFakeEat();
-                        if (((BaseFruit) copyFruitMaps[copyHero.HeroPosition.x + HelpManager.instance.Offset.x,
+                        if (((BaseFruit)copyFruitMaps[copyHero.HeroPosition.x + HelpManager.instance.Offset.x,
                                 copyHero.HeroPosition.y + HelpManager.instance.Offset.y]).CountPasses == 0)
                         {
                             copyFruitMaps[copyHero.HeroPosition.x + HelpManager.instance.Offset.x,
@@ -463,7 +545,7 @@ namespace Assets._Scripts
             }
 
             TimeChecker.EndMeasurement("PATH_HEX_MAP_COPY");
-            int[,] copyIsPassedHexes = (int[,]) ispassedHexes.Clone();
+            int[,] copyIsPassedHexes = (int[,])ispassedHexes.Clone();
             FakeMoveHero copyHero = hero.ShallowCopy();
             return new CopyResult(copyFruitMaps, copyHexMap, copyIsPassedHexes, copyHero);
         }
@@ -493,14 +575,14 @@ namespace Assets._Scripts
         }
 
         public static List<Position> GetAvailableHexes(FakeMoveHero moveHero,
-            Dictionary<Position, BaseFakeHexType> map)
+            Dictionary<Position, HexWithPasses> map)
         {
             List<Position> availableHexes = new List<Position>();
             Position[] potentialHexes = PositionCalculator.GetAroundSidePositions(moveHero.HeroPosition);
             foreach (var hex in potentialHexes)
             {
                 map.TryGetValue(hex, out var result);
-                if (result != null)
+                if (result != null && result.hex.IsPassable())
                 {
                     availableHexes.Add(hex);
                 }
@@ -508,5 +590,4 @@ namespace Assets._Scripts
             return availableHexes;
         }
     }
-#endif
 }

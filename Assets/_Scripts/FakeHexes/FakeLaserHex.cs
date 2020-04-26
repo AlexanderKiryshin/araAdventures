@@ -9,7 +9,6 @@ using UnityEngine.Tilemaps;
 
 namespace Assets._Scripts.FakeHexes
 {
-#if (UNITY_EDITOR)
     public class FakeLaserHex:BaseFakeHexType
     {
         public FakeLaserHex(Position position, int layer) : base(position, layer)
@@ -25,10 +24,15 @@ namespace Assets._Scripts.FakeHexes
         {
             throw new System.NotImplementedException();
         }
+#if (UNITY_EDITOR)
         public override TileBase GetTile()
         {
             return LevelGenerator.instance.GetHexType(Constants.LASER_HEX);
         }
-    }
 #endif
+        public override HexEnum GetHexEnum()
+        {
+            return HexEnum.LaserHex;
+        }
+    }
 }

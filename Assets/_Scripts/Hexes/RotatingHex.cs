@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets._Scripts.FakeHexes;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -70,7 +71,7 @@ namespace Assets.Scripts.Cells
         {
             ((MoveHero)MoveHero.instance).SetIdleAnimation();
             ((MoveHero)MoveHero.instance).SetNextPosition();
-            LevelManager.instance.RotateHexes(this);
+            LevelManager.instance.RotateHexes(this);            
         }
 
         public void EndRotate()
@@ -78,6 +79,9 @@ namespace Assets.Scripts.Cells
             ((MoveHero)MoveHero.instance).EndMove -= OnEnterHexEvent;
             ((MoveHero)MoveHero.instance).UnlockInput();
         }
-
+        public override BaseFakeHexType GetFakeHex()
+        {
+            return new FakeRotatingHex(Position, Layer, isClockwiseRotating);
+        }
     }
 }

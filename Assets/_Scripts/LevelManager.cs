@@ -174,6 +174,7 @@ public class LevelManager :Singleton<LevelManager>
 
     void LoadItemTiles()
     {
+        Position startPosition=new Position(0,0);
         for (int x = itemTilemap.cellBounds.xMin; x < itemTilemap.cellBounds.xMax; x++)
         {
             for (int y = itemTilemap.cellBounds.yMin; y < itemTilemap.cellBounds.yMax; y++)
@@ -189,7 +190,7 @@ public class LevelManager :Singleton<LevelManager>
                 {
                     case "StartHex":
                         moveHero.SetHeroPosition(new Position(x,y),true);
-                        SelectCells(new Position(x, y));
+                       startPosition= new Position(x, y);
                         break;
                     case "Strawberry":
                        fruits.Add(new Strawberry(new Vector2Int(x,y),0));
@@ -200,6 +201,8 @@ public class LevelManager :Singleton<LevelManager>
                 }            
             }
         }
+
+        SelectCells(startPosition);
         LoadFruits();
     }
     void LoadLevelTiles()
@@ -261,6 +264,10 @@ public class LevelManager :Singleton<LevelManager>
                     case "borderHex":
                         hextype = new CameraExtensionHex(new Position(x, y), 0);
                         hextype.Model = gameObjectData.cameraExtension;
+                        break;
+                    case "SnowHex":
+                        hextype = new SnowHex(new Position(x, y), 0);
+                        hextype.Model = gameObjectData.snow;
                         break;
                 }
 
@@ -414,16 +421,7 @@ public class LevelManager :Singleton<LevelManager>
         var fruits = new List<BaseFruit>();
         var hexesScales = new List<Vector3>();
         var fruitsScales = new List<Vector3>();
-       /* foreach (var position in positions)
-        {
-            if (levelManager.TryGetHex(position, rotatingHex.Layer, out var hex))
-            {
-                if (hex.GetType() == typeof(CameraExtensionHex))
-                {
-                    yield break;
-                }
-            }
-        }*/
+ 
         foreach (var position in positions)
         {
             levelManager.TryGetHex(position, rotatingHex.Layer, out var hex);
@@ -447,7 +445,6 @@ public class LevelManager :Singleton<LevelManager>
                        
                         if (promhex.GetType() == typeof(CameraExtensionHex))
                         {
-                            //var cameraExtensionList = new List<CameraExtensionHex>();
                             foreach (var findHex in hexes)
                             {
                                 if (findHex.GetType() == typeof(CameraExtensionHex))
@@ -455,37 +452,7 @@ public class LevelManager :Singleton<LevelManager>
                                     cameraExtensionList.Add((CameraExtensionHex)findHex);
                                 }
                             }
-                           /* List<CameraExtensionHex> borderList=new List<CameraExtensionHex>();
-                            borderList.Add(cameraExtensionList[0]);
-                            cameraExtensionList.RemoveAt(0);
-                            for (int i = 0; i < cameraExtensionList.Count; i++)
-                            {
-                                Position[] borderPositions = PositionCalculator.GetAroundSidePositions(borderList[borderList.Count-1].Position);
-                                if (cameraExtensionList.Count == 1)
-                                {
-                                    borderList.Add(cameraExtensionList[0]);
-                                    {
-                                        break;
-                                    }
-                                }
-                                for (int j = 0; j < cameraExtensionList.Count; j++)
-                                {
-                                    if (borderPositions.Contains(cameraExtensionList[j].Position))
-                                    {
-                                        borderList.Add(cameraExtensionList[j]);
-                                        cameraExtensionList.RemoveAt(j);
-                                        i--;
-                                        break;
-                                    }
-                                }
-                            }
-                            List<Vector3> vertices=new List<Vector3>();
-
-                            for (int i = 0; i < borderList.Count; i++)
-                            {
-                               vertices.Add(levelTilemap.GetCellCenterWorld(new Vector3Int(borderList[i].Position.x, borderList[i].Position.y,0)));
-                            }
-                            */
+                          
                             Vector3 leftUp=new Vector3(100,-100);
                             Vector3 rightUp = new Vector3(-100,-100);
                             Vector3 leftDown = new Vector3(100,100);
@@ -559,6 +526,7 @@ public class LevelManager :Singleton<LevelManager>
                     //levelManager.DestroyHex(position, layer, Destroy);
                 }
             }
+          
         }
         for (int i = 0; i < promhexes.Count; i++)
         {
@@ -595,7 +563,8 @@ public class LevelManager :Singleton<LevelManager>
         {
             fruits[i].instance.transform.DOScale(fruitsScales[i], 0.5f);
         }
-        
+        yield return new WaitForSeconds(0.5f);
+        SelectCells(rotatingHex.Position);
         rotatingHex.EndRotateAction.Invoke();
     }
 

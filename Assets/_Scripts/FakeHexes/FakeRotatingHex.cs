@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets._Scripts.Additional;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Assets._Scripts.Model;
 
 namespace Assets._Scripts.FakeHexes
 {
-#if (UNITY_EDITOR)
     public class FakeRotatingHex:BaseFakeHexType
     {
         public bool isClockwiseRotating;
@@ -20,14 +21,14 @@ namespace Assets._Scripts.FakeHexes
 
         public override void OnEnterHex(Position previousCoordinate, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
         {
-            throw new System.NotImplementedException();
+        
         }
-
-        public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        public override void OnEnterHex(Position previousCoordinate, ref FakeMoveHero hero, ref Dictionary<Position, HexWithPasses> map, ref Dictionary<Position, IAdditional> fruitMap)
         {
-            throw new System.NotImplementedException();
+            BaseOperationWithMap.RotateHex(hero.HeroPosition, ref map, ref fruitMap);
         }
 
+#if (UNITY_EDITOR)
         public override TileBase GetTile()
         {
             if (isClockwiseRotating)
@@ -40,6 +41,17 @@ namespace Assets._Scripts.FakeHexes
             }
 
         }
-    }
+
+        public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref BaseFakeHexType[,] map)
+        {
+            throw new NotImplementedException();
+        }
+
 #endif
+
+        public override HexEnum GetHexEnum()
+        {
+            return HexEnum.RotatingHex;
+        }
+    }
 }

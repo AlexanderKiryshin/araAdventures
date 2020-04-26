@@ -18,7 +18,7 @@ using Random = System.Random;
 
 namespace Assets._Scripts
 {
-#if(UNITY_EDITOR)
+#if (UNITY_EDITOR)
     public class LevelGenerator : Singleton<LevelGenerator>
     {
         public Vector3Int fieldSize;

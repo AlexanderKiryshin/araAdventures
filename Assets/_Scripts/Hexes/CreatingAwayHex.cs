@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.FakeHexes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +46,10 @@ namespace Assets.Scripts.Cells
                 }
                 else return;
             }
+        }
+        public override BaseFakeHexType GetFakeHex()
+        {
+            return new FakeCreatingAwayHex(Position, Layer);
         }
     }
 }

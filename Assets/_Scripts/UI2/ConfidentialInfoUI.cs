@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.DevtodevAnalytic;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,20 +14,26 @@ public class ConfidentialInfoUI : MonoBehaviour
     public static Action onAgeConfirm;
     public GameObject ageScreen;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (!PlayerPrefs.HasKey("Confidential"))
         {
             confidentialInfo.SetActive(true);
         }
+        Debug.LogError("RRR");
         confInfoButton1.onClick.AddListener(ShowConfidentialInfo);
+        confInfoButton1.onClick.AddListener(PlayerAnalytic.FirstButtonConfidentialClick);
+
         confInfoButton2.onClick.AddListener(ShowConfidentialInfo);
+        confInfoButton2.onClick.AddListener(PlayerAnalytic.SecondButtonConfidentialClick);
         onAgeConfirm += AgeConfirm;
         confirmConfInfo.onClick.AddListener(ConfirmConfidential);
     }
 
     public void ConfirmConfidential()
     {
+        Debug.LogError("Click");
+        PlayerAnalytic.FirstScreenConfidentialConfirm();
         confidentialInfo.SetActive(false);
         ageScreen.SetActive(true);
     }

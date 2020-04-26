@@ -20,6 +20,7 @@ namespace Assets
         public GameObject exploder;
         public GameObject grass;
         public GameObject ice;
+        public GameObject snow;
         public GameObject stone;
         public GameObject turnerLeft;
         public GameObject turnerRight;

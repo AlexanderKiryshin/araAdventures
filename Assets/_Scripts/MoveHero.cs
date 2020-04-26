@@ -18,6 +18,7 @@ namespace Assets.Scripts
         public Position nextPosition;
         public Action EndMove;
         public Action EndEat;
+       
         public IEnumerator SetHeroPositionWithEatAnimation(Position position, int layer)
         {
             isBlockInput = true;       
@@ -129,7 +130,7 @@ namespace Assets.Scripts
             
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.LogError("CLICK");
+               // Debug.LogError("CLICK");
            // animator.Play((AnimationClip.);)
                 Ray ray = FindObjectOfType<Camera>().ScreenPointToRay(Input.mousePosition);
                 var hits=Physics.RaycastAll(ray);
@@ -186,6 +187,7 @@ namespace Assets.Scripts
         public void SetNextPosition()
         {            
             HeroPosition = nextPosition;
+           // positionChanged?.Invoke(HeroPosition);
         }
         public void Move(Position backPosition, Position nextPosition, float percentMoveToPosition, bool isWalkAnimation = true)
         {
@@ -285,6 +287,7 @@ namespace Assets.Scripts
             levelManager.TryGetHex(HeroPosition, 0, out var leavedHex);
             levelManager.TryGetHex(hex.Position, 0, out var enteredHex);
             leavedHex.OnLeaveHex(enteredHex.Position);
+            positionChanged?.Invoke(enteredHex.Position);
             leavedHex.LeaveHexEvent += OnLeaveHexEvent;            
             yield return null;
         }
