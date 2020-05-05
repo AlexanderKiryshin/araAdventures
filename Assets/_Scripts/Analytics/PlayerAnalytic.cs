@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Analytics;
 
 namespace Assets._Scripts.Analytics
@@ -11,7 +12,7 @@ namespace Assets._Scripts.Analytics
 
             customParams.Add("isMan", isMan);
             customParams.Add("Age",age);
-            AnalyticsEvent.Custom("Player_info", customParams);
+            AnalyticsEvent.Custom("Player_info", customParams);         
         }
     }
 }

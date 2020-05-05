@@ -26,17 +26,17 @@ namespace Assets._Scripts.FakeHexes
         }
         public override void OnLeaveHex(Position nextHex, ref FakeMoveHero hero, ref Dictionary<Position,HexWithPasses> map, ref Dictionary<Position, IAdditional> fruitMap)
         {
-            BaseOperationWithMap.ChangeHex(this.Position, this.Layer,ref map, new FakeIceHex(Position, Layer));
+            BaseOperationWithMap.ChangeHex(this.Position, this.Layer,ref map, new FakeNormalHex(Position, Layer));
         }
 #if (UNITY_EDITOR)
         public override TileBase GetTile()
         {
-            return LevelGenerator.instance.GetHexType(Constants.SNOW_HEX);
+            return LevelGenerator.instance.GetHexType(Constants.DOUBLE_HEX);
         }
 #endif
         public override HexEnum GetHexEnum()
         {
-            return HexEnum.SnowHex;
+            return HexEnum.DoubleHex;
         }
     }
 }

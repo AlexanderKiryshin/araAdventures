@@ -15,8 +15,8 @@ using UnityEngine.SceneManagement;
 
 namespace DTDEditor {
     public class DTDEditorViewModel {
-        private static readonly string OldFileStoragePath = Path.Combine(Path.Combine(Path.Combine(Application.dataPath, "devtodev"), "Window"), ".devtodev");
-        private static readonly string NewFileStoragePath = Path.Combine(Path.Combine(Path.Combine(Application.dataPath, "devtodev"), "Window"), ".devtodev_services.xml");
+        private static readonly string OldFileStoragePath = Path.Combine(Directory.GetCurrentDirectory(), ".devtodev");
+        private static readonly string NewFileStoragePath = Path.Combine(Directory.GetCurrentDirectory(), ".devtodev_services.xml");
 
         public static readonly Type[] PushTokenMethodSignature = { typeof(string) };
         public static readonly Type[] PushReceivedMethodSignature = { typeof(IDictionary<string, string>) };

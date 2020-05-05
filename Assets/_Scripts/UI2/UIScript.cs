@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using Assets._Scripts;
 using Assets._Scripts.Analytics;
-using Assets._Scripts.Devtodev_analytic;
+//using Assets._Scripts.Devtodev_analytic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,7 +42,7 @@ namespace Assets.Scripts
 
         public void LevelComplete()
         {
-            FindObjectOfType<LevelAnalytics>().Completelevel();
+           // FindObjectOfType<LevelAnalytics>().Completelevel();
             gameCanvas.SetActive(false);
             levelCompleteCanvas.SetActive(true);      
         }
@@ -53,7 +53,7 @@ namespace Assets.Scripts
         }
         public void RestartLevel()
         {
-            FindObjectOfType<LevelAnalytics>().RestartLevel();
+           // FindObjectOfType<LevelAnalytics>().RestartLevel();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 

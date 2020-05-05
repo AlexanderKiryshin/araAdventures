@@ -1,4 +1,4 @@
-﻿using Assets._Scripts.DevtodevAnalytic;
+﻿//using Assets._Scripts.DevtodevAnalytic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,12 +20,11 @@ public class ConfidentialInfoUI : MonoBehaviour
         {
             confidentialInfo.SetActive(true);
         }
-        Debug.LogError("RRR");
         confInfoButton1.onClick.AddListener(ShowConfidentialInfo);
-        confInfoButton1.onClick.AddListener(PlayerAnalytic.FirstButtonConfidentialClick);
+    //    confInfoButton1.onClick.AddListener(PlayerAnalytic.FirstButtonConfidentialClick);
 
         confInfoButton2.onClick.AddListener(ShowConfidentialInfo);
-        confInfoButton2.onClick.AddListener(PlayerAnalytic.SecondButtonConfidentialClick);
+      //  confInfoButton2.onClick.AddListener(PlayerAnalytic.SecondButtonConfidentialClick);
         onAgeConfirm += AgeConfirm;
         confirmConfInfo.onClick.AddListener(ConfirmConfidential);
     }
@@ -33,7 +32,7 @@ public class ConfidentialInfoUI : MonoBehaviour
     public void ConfirmConfidential()
     {
         Debug.LogError("Click");
-        PlayerAnalytic.FirstScreenConfidentialConfirm();
+       // PlayerAnalytic.FirstScreenConfidentialConfirm();
         confidentialInfo.SetActive(false);
         ageScreen.SetActive(true);
     }

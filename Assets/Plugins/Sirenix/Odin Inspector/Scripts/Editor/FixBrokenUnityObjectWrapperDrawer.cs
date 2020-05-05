@@ -1,10 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="FixBrokenUnityObjectWrapperDrawer.cs" company="Sirenix IVS">
-// Copyright (c) Sirenix IVS. All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
-
-#if UNITY_EDITOR && UNITY_2018_3_OR_NEWER
+﻿#if UNITY_EDITOR && UNITY_2018_3_OR_NEWER
 #pragma warning disable
 
 namespace Sirenix.OdinInspector.Editor.Drawers
@@ -184,10 +178,7 @@ namespace Sirenix.OdinInspector.Editor.Drawers
                     }
                 }
 
-                if (GUIHelper.CurrentWindow) 
-                {
-                    EditorApplication.delayCall += GUIHelper.CurrentWindow.Close;
-                }
+                EditorApplication.delayCall += GUIHelper.CurrentWindow.Close;
             }
 
             [HorizontalGroup, Button(ButtonSizes.Large)]
@@ -195,11 +186,7 @@ namespace Sirenix.OdinInspector.Editor.Drawers
             {
                 EditorPrefs.SetBool(AUTO_FIX_PREFS_KEY, true);
                 autoFix = true;
-
-                if (GUIHelper.CurrentWindow) 
-                {
-                    EditorApplication.delayCall += GUIHelper.CurrentWindow.Close;
-                }
+                EditorApplication.delayCall += GUIHelper.CurrentWindow.Close;
             }
         }
     }
