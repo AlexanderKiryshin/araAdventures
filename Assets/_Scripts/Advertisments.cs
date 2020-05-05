@@ -59,8 +59,24 @@ public class Advertisments : MonoBehaviour, IPermissionGrantedListener, IInterst
         }
     }
 
+    public static void SetGenderAndAge(bool isMale,int age)
+    {
+        Appodeal.setUserAge(age);
+        if (isMale)
+        {
+            Appodeal.setUserGender(UserSettings.Gender.MALE);
+        }
+        else
+        {
+            Appodeal.setUserGender(UserSettings.Gender.FEMALE);
+        }
+    }
     public void Init()
     {
+        if (PlayerPrefs.HasKey("Gender") && PlayerPrefs.HasKey("Age"))
+        {
+               SetGenderAndAge((PlayerPrefs.GetInt("Gender")==1?true:false),PlayerPrefs.GetInt("Age"));
+        }
         Appodeal.setInterstitialCallbacks(this);
         Debug.LogError("Initializing");
         Appodeal.setLogLevel(Appodeal.LogLevel.Verbose);
