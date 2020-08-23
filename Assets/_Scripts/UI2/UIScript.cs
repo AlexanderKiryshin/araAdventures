@@ -49,6 +49,7 @@ namespace Assets.Scripts
 
         public void LoadNextLevel()
         {
+            Advertisments.instance.OnlevelEnd();
             FindObjectOfType<LevelLoader>().LoadNextLevel();
         }
         public void RestartLevel()

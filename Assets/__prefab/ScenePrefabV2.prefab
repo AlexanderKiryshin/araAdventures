@@ -39,6 +39,18 @@ MonoBehaviour:
   sounds:
   - audioClip: {fileID: 8300000, guid: ddb4dce42070aaf448096a648496f65c, type: 3}
     name: splash
+--- !u!114 &1540020930360230528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923463552539271603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6598f37210fa85a4aad04a0aa2ca824c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &1745397236
 Rigidbody:
   m_ObjectHideFlags: 0

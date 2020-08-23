@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ConfidentialInfoUI : MonoBehaviour
@@ -39,12 +40,14 @@ public class ConfidentialInfoUI : MonoBehaviour
 
     public void AgeConfirm()
     {
-        ageScreen.SetActive(false);
+       // ageScreen.SetActive(false);
         PlayerPrefs.SetInt("Confidential",1);
+        SceneManager.LoadScene("level_1");
+        SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
 
     public void ShowConfidentialInfo()
     {
-        Application.OpenURL("https://docs.google.com/document/d/1-NChTrwqa5_XFBGc8TQsuEG8dRtp52_-7akpwz-BM6o/edit?usp=sharing");
+        Application.OpenURL("https://docs.google.com/document/d/1-NChTrwqa5_XFBGc8TQsuEG8dRtp52_-7akpwz-BM6o/export?format=pdf");
     }
 }

@@ -44,8 +44,8 @@ namespace Assets._Scripts.Devtodev_analytic
         {
             CustomEventParams customParams = new DevToDev.CustomEventParams();
             customParams.AddParam("isPrecache", isPrecache.ToString());
-            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>interstitial_closed");
-            DevToDev.Analytics.CustomEvent("interstitial_closed",customParams);
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>interstitial_loaded");
+            DevToDev.Analytics.CustomEvent("interstitial_loaded",customParams);
         }
 
         public static void OnInterstitialShowFailed()
@@ -58,6 +58,40 @@ namespace Assets._Scripts.Devtodev_analytic
         {
             Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>interstitial_show");
             DevToDev.Analytics.CustomEvent("interstitial_show");
+        }
+
+        public static void OnBannerClicked()
+        {
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>on_banner_clicked");
+            DevToDev.Analytics.CustomEvent("on_banner_clicked");
+        }
+        public static void OnBannerExpired()
+        {
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>on_banner_expired");
+            DevToDev.Analytics.CustomEvent("on_banner_expired");
+        }
+        public static void OnBannerFailedToLoad()
+        {
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>on_banner_failed");
+            DevToDev.Analytics.CustomEvent("on_banner_failed");
+        }
+        public static void OnBannerShown()
+        {
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>on_banner_show");
+            DevToDev.Analytics.CustomEvent("on_banner_show");
+        }
+        public static void OnBannerLoaded(bool isPrecache)
+        {
+            CustomEventParams customParams = new DevToDev.CustomEventParams();
+            customParams.AddParam("isPrecache", isPrecache.ToString());
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>banner_loaded");
+            DevToDev.Analytics.CustomEvent("banner_loaded", customParams);
+        }
+
+        public static void OnBannerRequest()
+        {
+            Debug.LogError("<color=yellow>[AdvertismentAnalytic]</color>banner_show_request");
+            DevToDev.Analytics.CustomEvent("banner_show_request");
         }
     }
 }

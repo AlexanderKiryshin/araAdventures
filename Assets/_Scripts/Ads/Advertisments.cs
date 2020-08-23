@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using Assets.Scripts;
 using Assets._Scripts.Devtodev_analytic;
 using UnityEngine;
 
-public class Advertisments : MonoBehaviour, IPermissionGrantedListener, IInterstitialAdListener, IBannerAdListener,
+public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListener, IInterstitialAdListener,
     IMrecAdListener, INonSkippableVideoAdListener, IRewardedVideoAdListener
 {
     public bool consentValue;
@@ -82,6 +83,8 @@ public class Advertisments : MonoBehaviour, IPermissionGrantedListener, IInterst
         Appodeal.setLogLevel(Appodeal.LogLevel.Verbose);
         Appodeal.setTesting(isTest);
         Appodeal.setAutoCache(Appodeal.INTERSTITIAL, true);
+        Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, true);
+        Appodeal.setAutoCache(Appodeal.BANNER_BOTTOM, true);
         // Appodeal.setUserId("1");
         // Appodeal.setUserAge(25);
         // Appodeal.setUserGender(UserSettings.Gender.FEMALE);
@@ -109,33 +112,30 @@ public class Advertisments : MonoBehaviour, IPermissionGrantedListener, IInterst
          Appodeal.setSegmentFilter("newDouble", 123.123456789);
          Appodeal.setSegmentFilter("newString", "newStringFromSDK");*/
     }
+
+    public void OnlevelEnd()
+    {
+        if (PlayerPrefs.HasKey("ads"))
+        {
+            int count_views = PlayerPrefs.GetInt("ads");
+            if (count_views > 0)
+            {
+                ShowInterstitial();
+                PlayerPrefs.SetInt("ads",0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("ads",1);
+            }           
+        }
+        else
+        {
+            PlayerPrefs.SetInt("ads", 1);
+        }
+    }
+
 #region interfaces
     public void accessCoarseLocationResponse(int result)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void onBannerClicked()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void onBannerExpired()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void onBannerFailedToLoad()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void onBannerLoaded(int height, bool isPrecache)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void onBannerShown()
     {
         throw new System.NotImplementedException();
     }
