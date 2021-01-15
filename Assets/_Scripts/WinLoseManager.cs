@@ -1,17 +1,22 @@
-﻿using Assets.Scripts;
+﻿using System;
+using Assets.Scripts;
+using Assets._Scripts;
+using Assets._Scripts.HP;
 using UnityEngine.Events;
 
 public class WinLoseManager : Singleton<WinLoseManager>
 {
 	public LevelRestarter restart;
-	public UnityEvent loseEvent;
-	public void Start()
-	{
-		loseEvent = new UnityEvent();
-		loseEvent.AddListener(OnLose);
-	}
+	public Action loseEvent;
+    public HPControllerInGame hpController;
+
+    public void Awake()
+    {
+        loseEvent += OnLose;
+    }
 	public void OnLose()
 	{
-		restart.RestartLevel();
+        hpController.LoseHearth();
 	}
+
 }

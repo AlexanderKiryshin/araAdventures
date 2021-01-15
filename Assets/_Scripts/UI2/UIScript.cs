@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets._Scripts;
 using Assets._Scripts.Analytics;
+using Assets._Scripts.HP;
 //using Assets._Scripts.Devtodev_analytic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,10 +14,16 @@ namespace Assets.Scripts
         public GameObject gameCanvas;
         public GameObject hintAlreadyActivated;
         public GameObject pathNotFound;
+        public GameObject notEnoughMoney;
         public GameObject levelCompleteCanvas;
+        public GameObject loseCanvas;
+        public HPControllerInGame hpController;
+        public GameObject hintCanvas;
+        public MoneyTaker moneyTaker;
 
         public void Awake()
         {
+            WinLoseManager.instance.loseEvent += LoseLevel;
             LevelManager.WinEvent = null;
             LevelManager.WinEvent += LevelComplete;
             HelpManager.helpAlreadyActivated += ShowHelpActivatedMessage;
@@ -44,25 +51,67 @@ namespace Assets.Scripts
         {
            // FindObjectOfType<LevelAnalytics>().Completelevel();
             gameCanvas.SetActive(false);
-            levelCompleteCanvas.SetActive(true);      
+            levelCompleteCanvas.SetActive(true);
+            levelCompleteCanvas.GetComponentInChildren<Animator>().Play("win");
         }
 
+        public void LoseLevel()
+        {
+            gameCanvas.SetActive(false);
+            loseCanvas.SetActive(true);
+            loseCanvas.GetComponentInChildren<Animator>().Play("defeat");
+        }
         public void LoadNextLevel()
         {
             Advertisments.instance.OnlevelEnd();
             FindObjectOfType<LevelLoader>().LoadNextLevel();
         }
+
+        public void RestartLevelFree()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         public void RestartLevel()
         {
+            if (hpController.LoseHearth())
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else
+            {
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+                LoseLevel();
+            }
            // FindObjectOfType<LevelAnalytics>().RestartLevel();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
         }
 
         public void GetHelp()
         {
-           HelpManager.helpUse.Invoke();
+            hintCanvas.SetActive(true);
         }
 
+        public void ShowHelp()
+        {
+            hintCanvas.SetActive(false);
+            if (HelpManager.numberAvailibleTips > 0)
+            {
+                HelpManager.helpAlreadyActivated?.Invoke();
+            }
+            else
+            {
+                if (moneyTaker.TrySpendMoney(20))
+                {
+                    HelpManager.helpUse.Invoke();
+                }
+            }
+        }
+
+        public void CloseHelp()
+        {
+            hintCanvas.SetActive(false);
+        }
         public void ShowHelpActivatedMessage()
         {
             StartCoroutine(ShowActivatedMessageCoroutine(hintAlreadyActivated));

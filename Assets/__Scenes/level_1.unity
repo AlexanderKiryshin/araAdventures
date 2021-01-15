@@ -3510,12 +3510,12 @@ PrefabInstance:
     - target: {fileID: 6923463552051924813, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: m_ChunkCullingBounds.x
-      value: 0.97
+      value: 0.13999999
       objectReference: {fileID: 0}
     - target: {fileID: 6923463552051924813, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
       propertyPath: m_ChunkCullingBounds.y
-      value: 0.865
+      value: 0.13999999
       objectReference: {fileID: 0}
     - target: {fileID: 4487534841692952402, guid: dafdceb0834d36c4590cb552143f02ed,
         type: 3}
@@ -3524,6 +3524,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafdceb0834d36c4590cb552143f02ed, type: 3}
+--- !u!20 &160849966 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6923463553346618377, guid: dafdceb0834d36c4590cb552143f02ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 160849965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!108 &400444079 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 286032069074270842, guid: dafdceb0834d36c4590cb552143f02ed,
@@ -3598,7 +3604,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 160849966}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

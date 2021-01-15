@@ -9,8 +9,11 @@ namespace Assets._Scripts.Ads
     {
         public void Start()
         {
-            Appodeal.show(Appodeal.BANNER_BOTTOM);
-            AdvertismentAnalytic.OnBannerRequest();
+            if (!PlayerPrefs.HasKey("noads"))
+            {
+                Appodeal.show(Appodeal.BANNER_BOTTOM);
+                AdvertismentAnalytic.OnBannerRequest();
+            }
         }
 
         public void onBannerClicked()

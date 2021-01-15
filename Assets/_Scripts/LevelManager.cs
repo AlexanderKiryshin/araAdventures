@@ -288,7 +288,11 @@ public class LevelManager :Singleton<LevelManager>
         {
            hex.Instance= Instantiate(hex.Model,
                 levelTilemap.GetCellCenterWorld(new Vector3Int(hex.Position.x, hex.Position.y, hex.Layer)),hex.Model.transform.rotation);
-           if (hex.Instance.transform.position.x > max.x)
+#if UNITY_EDITOR
+            var tilemapMarker=hex.Instance.AddComponent<TilemapMarker>();
+            tilemapMarker.position = new Vector2Int(hex.Position.x, hex.Position.y);
+#endif
+            if (hex.Instance.transform.position.x > max.x)
            {
                max.x = hex.Instance.transform.position.x;
            }
@@ -701,8 +705,10 @@ public class LevelManager :Singleton<LevelManager>
         {
            // Debug.Log("LOCK INPUT");
             ((MoveHero)MoveHero.instance).LockInput();
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(moveHero.WinMove());              
+            // LevelManager.WinEvent?.Invoke();
+            PlayerPrefs.SetString("current_level", SceneManager.GetActiveScene().name);       
+             yield return new WaitForSeconds(0.5f);
+             StartCoroutine(moveHero.WinMove());  
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Assets.Scripts
                         audioStructure.soundIndexes.Remove(i);
                     }
                     sounds.Remove(sounds[i]);
-                    SoundsChangePlayingCountEvent();
+                    SoundsChangePlayingCountEvent?.Invoke();
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace Assets.Scripts
             }             
             soundSource.Play();
             sounds.Add(new Sound(soundName, soundSource));
-            SoundsChangePlayingCountEvent();
+            SoundsChangePlayingCountEvent?.Invoke();
         }
     
        public void PlaySound(string soundName, float volume = 1f, bool isLooped = false)
@@ -119,7 +119,7 @@ namespace Assets.Scripts
                audioStructure.soundIndexes.Remove(index);
            }
            sounds.RemoveAt(index);
-           SoundsChangePlayingCountEvent();
+           SoundsChangePlayingCountEvent?.Invoke();
         }
 
        public IEnumerable<string> GetPlayableSounds()

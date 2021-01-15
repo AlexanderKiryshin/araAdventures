@@ -100,7 +100,8 @@ namespace Assets.Scripts
         {
             if (nextPosition.x == position.x&& nextPosition.y == position.y && layer == this.layer)
             {
-                WinLoseManager.instance.OnLose();
+                WinLoseManager.instance.loseEvent?.Invoke();
+               // WinLoseManager.instance.OnLose();
             }
         }
 
@@ -321,8 +322,8 @@ namespace Assets.Scripts
             }*/
             gameObject.transform.DOLocalRotate(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, -180), 1f);
             yield return new WaitForSeconds(1f);
-            animator.Play("win");
-            yield return new WaitForSeconds(2f);
+           /* animator.Play("win");
+            yield return new WaitForSeconds(2f);*/
             LevelManager.WinEvent?.Invoke();
         }
     }

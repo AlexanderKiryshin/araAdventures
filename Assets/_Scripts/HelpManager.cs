@@ -12,7 +12,7 @@ namespace Assets._Scripts
     {
         public Dictionary<HexEnum, int> limitPasses;
         public const int NUMBER_TIPS = 5;
-        private int numberAvailibleTips;
+        public static int numberAvailibleTips;
         private List<Position> path;
         public static Action helpUse;
         public static Action helpAlreadyActivated;
@@ -38,9 +38,16 @@ namespace Assets._Scripts
 
             if(PathFindAssistant.instance.TryGetNextPointPath(out var newPointPath))
             {
-                path=new List<Position>();
-                path.Add(MoveHero.instance.HeroPosition);
-                path.Add(newPointPath);
+                if (newPointPath.x != 999)
+                {
+                    path = new List<Position>();
+                    path.Add(MoveHero.instance.HeroPosition);
+                    path.Add(newPointPath);
+                }
+                else
+                {
+                    LevelManager.instance.pathNotFoundAction?.Invoke();
+                }
             }
             else
             {

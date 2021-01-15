@@ -1,7 +1,10 @@
-﻿using UnityEditor;
+﻿using Assets._Scripts;
+using Assets._Scripts.HP;
+using Assets._Scripts.UI2;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace Assets.Scripts
 {
@@ -20,14 +23,31 @@ namespace Assets.Scripts
 
         public void OnClick()
         {
-            if (loadByIndex)
+            Debug.LogError("load "+loadByIndex+" "+indexScene+" "+nameScene);
+            if (nameScene != "LevelSelection")
             {
-                LevelLoad(indexScene);
+                if (HPManager.instance.hpBarOnLevelSelect.CountHeartes() <= 0)
+                {
+                    HPUI.instance.OpenWindow();
+                    return;
+                }
             }
+
+           /* if (HPManager.instance.hpBarOnLevelSelect.CountHeartes() > 0)
+            {*/
+                if (loadByIndex)
+                {
+                    LevelLoad(indexScene);
+                }
+                else
+                {
+                    LevelLoad(nameScene);
+                }
+          /*  }
             else
             {
-                LevelLoad(nameScene);
-            }
+                HPUI.instance.OpenWindow();
+            }*/
         }
         public void LevelLoad(int numberScene)
         {

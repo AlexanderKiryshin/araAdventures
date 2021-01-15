@@ -88,7 +88,8 @@ public class IceHex : BaseHexType
     public void OnEndFall()
     {
         ((MoveHero)MoveHero.instance).fallEndedAction -= OnEndFall;
-        WinLoseManager.instance.OnLose();
+        WinLoseManager.instance.loseEvent?.Invoke();
+       // WinLoseManager.instance.OnLose();
     }
 
     public override void OnLeaveHexEvent()
@@ -100,7 +101,8 @@ public class IceHex : BaseHexType
         levelManager.TryGetHex(((MoveHero)MoveHero.instance).nextPosition, 0, out var hex);
         if (hex == null)
         {
-            WinLoseManager.instance.OnLose();
+            WinLoseManager.instance.loseEvent?.Invoke();
+           // WinLoseManager.instance.OnLose();
             return;
         }
         ((MoveHero)MoveHero.instance).SetHeroPosition(((MoveHero)MoveHero.instance).nextPosition, false);

@@ -21,7 +21,7 @@ public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListene
 
 #if UNITY_ANDROID&&!UNITY_EDITOR
         Init();
-        if (PlayerPrefs.HasKey("first_launch"))
+        if (PlayerPrefs.HasKey("first_launch")&&(!PlayerPrefs.HasKey("noads")))
         {
            ShowInterstitialOnLoad();
         }
@@ -43,6 +43,10 @@ public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListene
             AdvertismentAnalytic.InterstitialShowRequest();
     }
 
+    public void ShowRewardedVideo()
+    {
+        Appodeal.show(Appodeal.REWARDED_VIDEO);
+    }
     IEnumerator ShowInterstitialCoroutine()
     {
         for (int i = 0; i < 30; i++)
@@ -252,47 +256,49 @@ public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListene
 
     public void onRewardedVideoClicked()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void onRewardedVideoClosed(bool finished)
     {
-        throw new System.NotImplementedException();
+        if (finished)
+        {
+
+        }
     }
 
     public void onRewardedVideoExpired()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void onRewardedVideoFailedToLoad()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void onRewardedVideoFinished(double amount, string name)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void onRewardedVideoLoaded(bool precache)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void onRewardedVideoShowFailed()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void onRewardedVideoShown()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void writeExternalStorageResponse(int result)
     {
-        throw new System.NotImplementedException();
     }
 #endregion
 
