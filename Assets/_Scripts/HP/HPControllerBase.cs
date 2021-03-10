@@ -9,6 +9,7 @@ namespace Assets._Scripts.HP
         public const int SECOND_TO_RESTORE = 30;
         public Action onHearthEnded;
         public List<GameObject> hearths;
+        public List<GameObject> backhearthes;
         protected bool isCounter;
       
         public string GetTime()
@@ -18,14 +19,20 @@ namespace Assets._Scripts.HP
             seconds = seconds - minutes * 60;
             return minutes + ":" + seconds;
         }
-      /*  public void AddHearth()
+        public void Start()
         {
-            if (PlayerPrefs.HasKey("timeRestoreHealth"))
+            if (Test.instance.isDisabled)
             {
-                int seconds = PlayerPrefs.GetInt("timeRestoreHealth");
-                DateTime tsInterval = Convert.ToDateTime(seconds);
+                foreach (var hearth in hearths)
+                {
+                    hearth.gameObject.SetActive(false);
+                }
+                foreach (var hearth in backhearthes)
+                {
+                    hearth.gameObject.SetActive(false);
+                }
             }
-        }*/
+        }
 
         public void Update()
         {

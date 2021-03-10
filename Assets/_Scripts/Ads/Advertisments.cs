@@ -34,18 +34,27 @@ public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListene
 
     public void ShowInterstitialOnLoad()
     {
-        StartCoroutine(ShowInterstitialCoroutine());
+        if (AdsIsEnabled())
+        {
+            StartCoroutine(ShowInterstitialCoroutine());
+        }
     }
     public void ShowInterstitial()
     {
+        if (AdsIsEnabled())
+        {
             Appodeal.show(Appodeal.INTERSTITIAL);
             //Appodeal.setInterstitialCallbacks(this);
             AdvertismentAnalytic.InterstitialShowRequest();
+        }
     }
 
     public void ShowRewardedVideo()
     {
-        Appodeal.show(Appodeal.REWARDED_VIDEO);
+        if (AdsIsEnabled())
+        {
+            Appodeal.show(Appodeal.REWARDED_VIDEO);
+        }
     }
     IEnumerator ShowInterstitialCoroutine()
     {
@@ -124,7 +133,10 @@ public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListene
             int count_views = PlayerPrefs.GetInt("ads");
             if (count_views > 0)
             {
-                ShowInterstitial();
+                if (AdsIsEnabled())
+                {
+                    ShowInterstitial();
+                }
                 PlayerPrefs.SetInt("ads",0);
             }
             else
@@ -135,6 +147,23 @@ public class Advertisments : Singleton<Advertisments>, IPermissionGrantedListene
         else
         {
             PlayerPrefs.SetInt("ads", 1);
+        }
+    }
+
+    public void DisableAds()
+    {
+        PlayerPrefs.SetInt("no_ads", 0);
+    }
+
+    public bool AdsIsEnabled()
+    {
+        if (PlayerPrefs.HasKey("no_ads"))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 

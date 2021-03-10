@@ -1,8 +1,6 @@
-﻿using UnityEngine.Purchasing;
-
-namespace Assets._Scripts.Market
+﻿namespace Assets._Scripts.Market
 {
-    public class Purchase
+  /*  public class Purchase
     {
         public string productId;
         public ProductType productType;
@@ -12,5 +10,5 @@ namespace Assets._Scripts.Market
             this.productId = productId;
             this.productType = productType;
         }
-    }
+    }*/
 }

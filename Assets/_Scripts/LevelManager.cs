@@ -706,7 +706,7 @@ public class LevelManager :Singleton<LevelManager>
            // Debug.Log("LOCK INPUT");
             ((MoveHero)MoveHero.instance).LockInput();
             // LevelManager.WinEvent?.Invoke();
-            PlayerPrefs.SetString("current_level", SceneManager.GetActiveScene().name);       
+            PlayerPrefs.SetString("current_level", SceneManager.GetActiveScene().name);           
              yield return new WaitForSeconds(0.5f);
              StartCoroutine(moveHero.WinMove());  
         }

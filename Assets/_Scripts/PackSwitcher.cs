@@ -22,8 +22,11 @@ namespace Assets._Scripts
 
             foreach (var button in buttons)
             {
-                button.GetComponent<Image>().sprite = inactiveButton;
-                button.GetComponent<RectTransform>().sizeDelta= new Vector2(sizeInactiveButton,sizeInactiveButton);
+                if (button.GetComponent<UnityEngine.UI.Button>().interactable)
+                {
+                    button.GetComponent<Image>().sprite = inactiveButton;
+                    button.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeInactiveButton, sizeInactiveButton);
+                }
             }
 
             buttons[index].GetComponent<Image>().sprite = activeButton;

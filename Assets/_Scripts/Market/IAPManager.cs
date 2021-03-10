@@ -4,9 +4,8 @@ using Assets._Scripts.Devtodev_analytic;
 using Assets._Scripts.Market;
 using Assets.Scripts;
 using UnityEngine;
-using UnityEngine.Purchasing;
 
-public class IAPManager : Singleton<IAPManager>, IStoreListener
+/*public class IAPManager : Singleton<IAPManager>, IStoreListener
 {
     private static IStoreController m_StoreController;          // The Unity Purchasing system.
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
@@ -141,5 +140,5 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
        // purchaseFailed.Invoke(LocalizationManager.Localize("_OopsPanel/" + failureReason));
         Debug.Log(string.Format("<color=yellow>[IAP]</color> OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
     }
- }
+ }*/
 

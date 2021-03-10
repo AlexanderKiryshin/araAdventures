@@ -3870,7 +3870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &414150328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9374,10 +9374,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 988546039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a236ce1cc970424a9dca55e7c548e8f, type: 3}
+  m_Script: {fileID: 11500000, guid: db07796afce89994f9095973156ab3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 909990672}
+  winText: {fileID: 4338976915101043517}
+  moneyVisualizer:
+  - {fileID: 1602007777}
+  getMoneyOnAwake: 1
 --- !u!114 &988546042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9443,7 +9446,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e797e29d83de4a64092bab0ef13125fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3d93948e51b71c640acdb8490062119f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9734,7 +9737,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045384619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -14260,12 +14263,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1602007772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe68aabc217f8d43ac79a92405fa8b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8605e407091a37c42ab0aea844ec145b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winText: {fileID: 4338976915101043517}
-  moneyVisualizer: {fileID: 988546041}
-  getMoneyOnAwake: 1
+  moneyText: {fileID: 909990672}
 --- !u!1 &1602413228
 GameObject:
   m_ObjectHideFlags: 0
@@ -15613,7 +15614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1793516177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17991,7 +17992,9 @@ MonoBehaviour:
   loseCanvas: {fileID: 87906185}
   hpController: {fileID: 2070586477}
   hintCanvas: {fileID: 1113189236}
-  moneyTaker: {fileID: 0}
+  moneyTaker: {fileID: 783740837530649186}
+  moneyVisualizer: {fileID: 783740837530649185}
+  moveHero: {fileID: 0}
 --- !u!1 &2038937885
 GameObject:
   m_ObjectHideFlags: 0
@@ -18078,6 +18081,7 @@ MonoBehaviour:
   - {fileID: 156960899}
   - {fileID: 1615369716}
   - {fileID: 1858401043}
+  backhearthes: []
   hp1Button: {fileID: 12121214}
   unlimitedHp1Button: {fileID: 401942497}
   skipLevelButton: {fileID: 431670417}
@@ -18300,6 +18304,10 @@ MonoBehaviour:
   - {fileID: 1177002459}
   - {fileID: 521053972}
   - {fileID: 529504724}
+  backhearthes:
+  - {fileID: 648812297}
+  - {fileID: 919473362}
+  - {fileID: 355192994}
 --- !u!1 &2071606536
 GameObject:
   m_ObjectHideFlags: 0
@@ -19317,7 +19325,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7741104758226433588, guid: aef1cbbde12eae142b32f531eaebba32,
         type: 3}
+      propertyPath: moneyVisualizer.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741104758226433588, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
       propertyPath: moneyVisualizer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741104758226433588, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: moneyVisualizer.Array.data[0]
+      value: 
+      objectReference: {fileID: 5700746751117377795}
+    - target: {fileID: 7741104758226433588, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: moneyVisualizer.Array.data[1]
       value: 
       objectReference: {fileID: 1113189241}
     - target: {fileID: 783740836937787145, guid: aef1cbbde12eae142b32f531eaebba32,
@@ -19350,6 +19373,31 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 783740836937787145, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783740836937787145, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 783740836937787145, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 783740836937787145, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 783740836937787145, guid: aef1cbbde12eae142b32f531eaebba32,
+        type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef1cbbde12eae142b32f531eaebba32, type: 3}
 --- !u!114 &783740837530649183 stripped
@@ -19362,6 +19410,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &783740837530649184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 783740836937787147, guid: aef1cbbde12eae142b32f531eaebba32,
+    type: 3}
+  m_PrefabInstance: {fileID: 783740837530649182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &783740837530649185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783740837530649184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8605e407091a37c42ab0aea844ec145b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyText: {fileID: 783740837530649183}
+--- !u!114 &783740837530649186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7741104758226433588, guid: aef1cbbde12eae142b32f531eaebba32,
+    type: 3}
+  m_PrefabInstance: {fileID: 783740837530649182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783740837530649184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db07796afce89994f9095973156ab3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4338976915101043516
@@ -19485,7 +19564,7 @@ PrefabInstance:
         type: 3}
       propertyPath: moneyVisualizer
       value: 
-      objectReference: {fileID: 988546041}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5731952836623335131, guid: 819ff226991630e4a9668e66a98b4866, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 819ff226991630e4a9668e66a98b4866, type: 3}
@@ -19618,17 +19697,37 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 657401554794868547, guid: cce58eb74a140eb4ca78a816b6814bdb,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6457811846640282160, guid: cce58eb74a140eb4ca78a816b6814bdb,
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 6457811846640282160, guid: cce58eb74a140eb4ca78a816b6814bdb,
         type: 3}
+    - target: {fileID: 4303879709259475388, guid: cce58eb74a140eb4ca78a816b6814bdb,
+        type: 3}
+      propertyPath: moneyVisualizer.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303879709259475388, guid: cce58eb74a140eb4ca78a816b6814bdb,
+        type: 3}
+      propertyPath: moneyVisualizer.Array.data[0]
+      value: 
+      objectReference: {fileID: 5700746751117377795}
+    - target: {fileID: 4303879709259475388, guid: cce58eb74a140eb4ca78a816b6814bdb,
+        type: 3}
+      propertyPath: moneyVisualizer.Array.data[1]
+      value: 
+      objectReference: {fileID: 1113189241}
+    - target: {fileID: 4311208536848485426, guid: cce58eb74a140eb4ca78a816b6814bdb,
+        type: 3}
+      propertyPath: moneyVisualizer
+      value: 
+      objectReference: {fileID: 783740837530649185}
+    - target: {fileID: 657401554794868547, guid: cce58eb74a140eb4ca78a816b6814bdb,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cce58eb74a140eb4ca78a816b6814bdb, type: 3}
 --- !u!114 &5700746751117377794 stripped
@@ -19641,6 +19740,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c733b0821f35b89448799e820b070e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5700746751117377795 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1436917954680761745, guid: cce58eb74a140eb4ca78a816b6814bdb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5700746751117377793}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8605e407091a37c42ab0aea844ec145b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7011634357617785608

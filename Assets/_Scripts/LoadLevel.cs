@@ -23,7 +23,6 @@ namespace Assets.Scripts
 
         public void OnClick()
         {
-            Debug.LogError("load "+loadByIndex+" "+indexScene+" "+nameScene);
             if (nameScene != "LevelSelection")
             {
                 if (HPManager.instance.hpBarOnLevelSelect.CountHeartes() <= 0)
@@ -37,7 +36,7 @@ namespace Assets.Scripts
             {*/
                 if (loadByIndex)
                 {
-                    LevelLoad(indexScene);
+                    LevelLoad(indexScene+1);
                 }
                 else
                 {

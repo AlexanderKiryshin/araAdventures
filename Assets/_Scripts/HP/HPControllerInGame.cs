@@ -74,6 +74,10 @@ namespace Assets._Scripts.HP
 
         public bool LoseHearth()
         {
+            if (Test.instance.isDisabled)
+            {
+                return true;
+            }
             if (PlayerPrefs.HasKey("CountHearth"))
             {
                 int countHearth = PlayerPrefs.GetInt("CountHearth");

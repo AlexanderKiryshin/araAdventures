@@ -16,6 +16,7 @@ namespace Assets._Scripts
         private List<Position> path;
         public static Action helpUse;
         public static Action helpAlreadyActivated;
+        public static Action notEnoughMoney;
         public Vector2Int Offset { set; get; }
         public void Awake()
         {

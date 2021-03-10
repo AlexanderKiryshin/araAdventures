@@ -20,6 +20,8 @@ namespace Assets.Scripts
         public HPControllerInGame hpController;
         public GameObject hintCanvas;
         public MoneyTaker moneyTaker;
+        public MoneyVisualizer moneyVisualizer;
+        public MoveHero moveHero;
 
         public void Awake()
         {
@@ -27,22 +29,27 @@ namespace Assets.Scripts
             LevelManager.WinEvent = null;
             LevelManager.WinEvent += LevelComplete;
             HelpManager.helpAlreadyActivated += ShowHelpActivatedMessage;
+            HelpManager.notEnoughMoney += ShowNotEnoughMoneyMessage;
             LevelManager.instance.pathNotFoundAction += PathNotFoundMessage;
+            moveHero = FindObjectOfType<MoveHero>();
         }
 
         public void OpenPauseScreen()
         {
             pauseCanvas.SetActive(true);
             gameCanvas.SetActive(false);
+            moveHero.LockInput();
         }
         public void ClosePauseScreen()
         {
             pauseCanvas.SetActive(false);
             gameCanvas.SetActive(true);
+            moveHero.UnlockInput();
         }
 
         public void OpenLevelSelectionScreen()
         {
+            moveHero.LockInput();
             SceneManager.LoadScene("LevelSelection");
             SceneManager.UnloadSceneAsync("UI");
         }
@@ -53,6 +60,7 @@ namespace Assets.Scripts
             gameCanvas.SetActive(false);
             levelCompleteCanvas.SetActive(true);
             levelCompleteCanvas.GetComponentInChildren<Animator>().Play("win");
+            moveHero.LockInput();
         }
 
         public void LoseLevel()
@@ -60,20 +68,24 @@ namespace Assets.Scripts
             gameCanvas.SetActive(false);
             loseCanvas.SetActive(true);
             loseCanvas.GetComponentInChildren<Animator>().Play("defeat");
+            moveHero.LockInput();
         }
         public void LoadNextLevel()
         {
+            HelpManager.numberAvailibleTips = 0;
             Advertisments.instance.OnlevelEnd();
             FindObjectOfType<LevelLoader>().LoadNextLevel();
         }
 
         public void RestartLevelFree()
         {
+            HelpManager.numberAvailibleTips = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void RestartLevel()
         {
+            HelpManager.numberAvailibleTips = 0;
             if (hpController.LoseHearth())
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -90,10 +102,12 @@ namespace Assets.Scripts
         public void GetHelp()
         {
             hintCanvas.SetActive(true);
+            moveHero.LockInput();
         }
 
         public void ShowHelp()
         {
+            moveHero.UnlockInput();
             hintCanvas.SetActive(false);
             if (HelpManager.numberAvailibleTips > 0)
             {
@@ -103,18 +117,29 @@ namespace Assets.Scripts
             {
                 if (moneyTaker.TrySpendMoney(20))
                 {
+                    moneyVisualizer.UpdateMoney();
                     HelpManager.helpUse.Invoke();
+                }
+                else
+                {
+                    HelpManager.notEnoughMoney?.Invoke();
                 }
             }
         }
 
         public void CloseHelp()
         {
+            moveHero.UnlockInput();
             hintCanvas.SetActive(false);
         }
         public void ShowHelpActivatedMessage()
         {
             StartCoroutine(ShowActivatedMessageCoroutine(hintAlreadyActivated));
+        }
+
+        public void ShowNotEnoughMoneyMessage()
+        {
+            StartCoroutine(ShowActivatedMessageCoroutine(notEnoughMoney));
         }
 
         private bool lockCor = false;
@@ -150,6 +175,16 @@ namespace Assets.Scripts
         public void PathNotFoundMessage()
         {
             StartCoroutine(ShowActivatedMessageCoroutine(pathNotFound));
+        }
+
+        private void OnDestroy()
+        {
+            HelpManager.helpAlreadyActivated -= ShowHelpActivatedMessage;
+            HelpManager.notEnoughMoney -= ShowNotEnoughMoneyMessage;
+            if (LevelManager.instance != null)
+            {
+                LevelManager.instance.pathNotFoundAction -= PathNotFoundMessage;
+            }
         }
     }
 }
